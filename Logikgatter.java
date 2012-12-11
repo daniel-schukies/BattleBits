@@ -20,10 +20,10 @@ public class Logikgatter {
 		
 		eingang[index] = eingangszustand;
 		return true;
-		} 
-		else 
+		} else 
 		{
 			return false;
 		}
 	}
 }
+
