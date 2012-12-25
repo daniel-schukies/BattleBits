@@ -1,16 +1,24 @@
+import java.util.Random;
 
 public class Or extends Logikgatter
 {
-
-	public Or(int index1, boolean eingangszustand1, int index2,boolean eingangszustand2) 
-	{
-		super(index1, eingangszustand1, index2, eingangszustand2);
-		// TODO Auto-generated constructor stub
+	Random r = new Random();
+	public Or(){
+		this.genAusgang();
 	}
-	
-	public boolean getAusgang()
-	{
-		return super.eingang[0] | super.eingang[1];
+	//generiert einen Defaultausgang fuer das Gatter
+	private boolean genAusgang(){
+		return true;
+		}
+		
+	//gibt true zurueck, wenn der vorgegebene Ausgang erreicht wurde
+	public boolean pruefeAusgang(boolean eingangszustand1, boolean eingangszustand2){
+		if ( eingangszustand1 & eingangszustand2 != super.getAusgang() ){
+			return false;
+		} else
+		{
+			return true;
+		}
 	}
 	
 }
