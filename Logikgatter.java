@@ -1,4 +1,4 @@
-
+import java.util.Random;
 public class Logikgatter {
 	
 	private boolean ausgang; 
@@ -6,6 +6,14 @@ public class Logikgatter {
 	private boolean isGueltig;
 	
 	public Logikgatter(){
+		Random r = new Random();
+		int zufall=r.nextInt(2); //Zufallswert: 0 oder 1
+		switch (zufall){
+			case 0: ausgang=false;
+			break;
+			case 1: ausgang=true;
+			break;
+		}
 		
 	}
 	public boolean getAusgang(){
