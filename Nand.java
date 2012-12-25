@@ -20,5 +20,8 @@ public class Nand extends Logikgatter
 			return true;
 		}
 	}
+		public String toString(){
+		return "Nand";
+	}
 	
 }

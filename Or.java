@@ -20,5 +20,7 @@ public class Or extends Logikgatter
 			return true;
 		}
 	}
-	
+	public String toString(){
+		return "Or";
+	}
 }

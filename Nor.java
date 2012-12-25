@@ -20,5 +20,7 @@ public class Nor extends Logikgatter
 			return true;
 		}
 	}
-	
+		public String toString(){
+		return "Nor";
+	}
 }

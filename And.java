@@ -20,5 +20,7 @@ public class And extends Logikgatter
 			return true;
 		}
 	}
-	
+	public String toString(){
+		return "And";
+	}
 }
