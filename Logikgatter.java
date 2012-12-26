@@ -5,6 +5,7 @@ public class Logikgatter {
 	private boolean isAktiv;
 	private boolean isGueltig;
 	
+	//Im Konstruktor wird ein zu erreichender Ausgangswert festgelegt
 	public Logikgatter(){
 		Random r = new Random();
 		int zufall=r.nextInt(2); //Zufallswert: 0 oder 1
