@@ -6,7 +6,7 @@ public class Universum {
 	 */
 	public static void main(String[] args) 
 	{
-		Nand a = new Nand(0, true, 1, true);
+		Nand a = new Nand( true,  true);
 		
 		boolean ausgangA = a.getAusgang();
 		
