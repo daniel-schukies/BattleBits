@@ -2,26 +2,28 @@ import java.util.ArrayList;
 
 public class Spielfeld 
 {
-	private ArrayList logikgatter;
+	private ArrayList<Logikgatter> logikgatter;
 	
 	public Spielfeld()
 	{
-		
+		this.logikgatter = new ArrayList<Logikgatter>();
 	}
 	
-	public void setLogikgatter(int reihe, int index, Logikgatter logikgatter)
+	
+	public boolean setLogikgatter(int reihe, int index, Logikgatter logikgatter)
 	{
 		if(this.pruefeReiheIndex( reihe, index))
 		{
 			this.logikgatter.set((reihe+index), logikgatter);
+			return true; // Wurde gesetzt
 		}
 		else
 		{
-			// needs error report
+			return false; // Wurde nicht gesetzt
 		}
 	}
 	
-	public Object getLogikgatter(int reihe, int index)
+	public Logikgatter getLogikgatter(int reihe, int index)
 	{
 		if(this.pruefeReiheIndex( reihe, index))
 		{
@@ -29,16 +31,9 @@ public class Spielfeld
 			{
 				return this.logikgatter.get((reihe+index));
 			}
-			else
-			{
-				//needs error report
-			}
 		}
-		else
-		{
-			// needs error report
-		}
-		return this.logikgatter.get((reihe+index)); // Sollte weg.
+
+		return null; // Konnte Logikgatter nicht finden.
 	}
 	
 	
