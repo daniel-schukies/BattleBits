@@ -6,7 +6,10 @@ public class Not extends Logikgatter{
 	public boolean invertieren(boolean bit){
 		return !bit;
 	}
-		public String toString(){
+	
+	
+	public String toString()
+	{
 		return "Not";
 	}
 
