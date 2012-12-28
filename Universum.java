@@ -6,12 +6,9 @@ public class Universum {
 	 */
 	public static void main(String[] args) 
 	{
-		Nand a = new Nand();
+		Spiel battlebits = new Spiel();
+		battlebits.starten();
 		
-		boolean ausgangA = a.getAusgang();
-		
-		System.out.println("Bla: " +ausgangA);
-
 	}
 
 }
