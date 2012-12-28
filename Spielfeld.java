@@ -5,7 +5,7 @@ public class Spielfeld
 	private ArrayList<Logikgatter> logikgatter;
 	
 	/**
-	 * Legt die ArrayList an für die Logikgatter an.
+	 * Legt die ArrayList an fuer die Logikgatter an.
 	 */
 	public Spielfeld()
 	{
@@ -18,7 +18,7 @@ public class Spielfeld
 	 * @param reihe
 	 * @param index
 	 * @param logikgatter
-	 * @return Wenn false zurückgegeben wird wurde kein Logikgatter gesetzt.
+	 * @return Wenn false zurueckgegeben wird wurde kein Logikgatter gesetzt.
 	 */
 	
 	public boolean setLogikgatter(int reihe, int index, Logikgatter logikgatter)
@@ -36,7 +36,7 @@ public class Spielfeld
 	
 	
 	/**
-	 * Gibt ein Logikgatter an einem bestimmten Platz und Index zurück.
+	 * Gibt ein Logikgatter an einem bestimmten Platz und Index zurueck.
 	 * @param reihe
 	 * @param index
 	 * @return Ein Logikgatter
@@ -57,7 +57,7 @@ public class Spielfeld
 	
 	
 	/**
-	 * prüft ob Reihe und Index im Normalbereich sind.
+	 * prueft ob Reihe und Index im Normalbereich sind.
 	 * Wenn dies der Fall ist wird true returned.
 	 */
 	
