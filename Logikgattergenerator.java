@@ -17,7 +17,7 @@ public class Logikgattergenerator
 	public void generate()
 	{
 		Random r = new Random();
-		int zufall=r.nextInt(4); //generiert eine Zufallszahl zwischen 0 und 4
+		int zufall=r.nextInt(5); //generiert eine Zufallszahl zwischen 0 und 5
 		System.out.println (zufall);
 		switch (zufall){
 			case 0: this.generiertesLogikgatter = new And();
@@ -28,6 +28,8 @@ public class Logikgattergenerator
 			break;
 			case 3: this.generiertesLogikgatter = new Nor();
 			break;
+			case 4: this.generiertesLogikgatter = new Not();
+			break; 
 		}
 	}
 	
