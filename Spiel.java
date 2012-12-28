@@ -117,12 +117,12 @@ public class Spiel
 		
 		/** Konsolenausgabe der Logikgatter */
 		
-		for(int i = 0; i < 3; i++)
+		for(int i = 0; i < 4; i++)
 		{
 			System.out.println(s.getLogikgatter(i));
 		}
 		
-		
+		System.out.println("---------------------");
 		
 	}
 	
