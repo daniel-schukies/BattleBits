@@ -1,17 +1,16 @@
-import java.util.ArrayList;
-
 
 public class Spieler 
 {
 	private String name;
 	private boolean isDran;
 	private boolean isKI;
-	private ArrayList<Logikgatter> logikgatter;
+	private Logikgatter[] logikgatter;
 	
 	public Spieler(String name, boolean isKI)
 	{
 		this.setName(name);
 		this.setIsKI(isKI);
+		logikgatter = new Logikgatter[4];
 	}
 	
 	public void setName(String name)
@@ -46,20 +45,21 @@ public class Spieler
 	
 	public boolean gebeLogikgatter(Logikgatter logikgatter)
 	{
-		if(this.logikgatter.size() < 4)
+		
+		for(int i = 0; i < this.logikgatter.length; i++)
 		{
-			this.logikgatter.add(logikgatter);
-			return true;
+			if(this.logikgatter[i] == null)
+			{
+				this.logikgatter[i] = logikgatter;
+				return true;
+			}
 		}
-		else
-		{
-			return false;
-		}
+		return false;
 	}
 	
 	public Logikgatter getLogikgatter(int index)
 	{
-		return this.logikgatter.get(index);
+		return this.logikgatter[index]; // ACHTUNG NULLPOINTER ;)
 	}
 	
 	
