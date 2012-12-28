@@ -13,31 +13,37 @@ public class Logikgatter {
 	{
 		Random r = new Random();
 		
-		this.ausgang = r.nextBoolean(); // übersichtlicher ;)
-		
-		/**
-		int zufall=r.nextInt(2); //Zufallswert: 0 oder 1
-		switch (zufall){
-			case 0: ausgang=false;
-			break;
-			case 1: ausgang=true;
-			break;
-		}
-		*/
+		this.ausgang = r.nextBoolean(); // uebersichtlicher ;)
+		this.aktivieren();
+
+	}
 	
-		
+	public boolean getIsAktiv()
+	{
+		return this.isAktiv;
 	}
+	
+	public boolean getIsGueltig()
+	{
+		return this.isGueltig;
+	}
+	
 	public boolean getAusgang(){
-		return ausgang;
+		return this.ausgang;
 	}
+	
 	public void aktivieren(){
-		isAktiv=true;
+		this.isAktiv = true;
+		this.isGueltig = true;
 	}
+	
 	public void deaktivieren(){
-		isAktiv=false;
+		this.isAktiv = false;
 	}
+	
 	public void loesche(){
-		isGueltig=false;
+		this.isGueltig = false;
+		this.isAktiv  = false;
 	}
 	
 }
