@@ -18,7 +18,8 @@ public class Logikgattergenerator
 	{
 		Random r = new Random();
 		int zufall=r.nextInt(5); //generiert eine Zufallszahl zwischen 0 und 5
-		System.out.println (zufall);
+		
+		
 		switch (zufall){
 			case 0: this.generiertesLogikgatter = new And();
 			break;
