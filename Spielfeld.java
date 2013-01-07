@@ -1,15 +1,13 @@
-import java.util.ArrayList;
-
 public class Spielfeld 
 {
-	private ArrayList<Logikgatter> logikgatter;
+	private Logikgatter logikgatter[][];
 	
 	/**
 	 * Legt die ArrayList an fuer die Logikgatter an.
 	 */
 	public Spielfeld()
 	{
-		this.logikgatter = new ArrayList<Logikgatter>();
+		this.logikgatter = new Logikgatter[4][5];
 	}
 	
 	
@@ -25,7 +23,7 @@ public class Spielfeld
 	{
 		if(this.pruefeReiheIndex( reihe, index))
 		{
-			this.logikgatter.set((reihe+index), logikgatter);
+			this.logikgatter[reihe][index] = logikgatter;
 			return true; // Wurde gesetzt
 		}
 		else
@@ -46,9 +44,9 @@ public class Spielfeld
 	{
 		if(this.pruefeReiheIndex( reihe, index))
 		{
-			if(this.logikgatter.get(reihe+index) != null)
+			if(this.logikgatter[reihe][index] != null)
 			{
-				return this.logikgatter.get((reihe+index));
+				return this.logikgatter[reihe][index];
 			}
 		}
 
@@ -63,7 +61,7 @@ public class Spielfeld
 	
 	public boolean pruefeReiheIndex(int reihe, int index)
 	{
-		if((reihe == 3 && index == 1) || (reihe == 2 && (index <= 2 && index > 0)) || (reihe == 1 && (index <= 4 && index > 0)) )
+		if((reihe == 4 && index == 1) || (reihe == 3 && (index <= 2 && index > 0)) || (reihe == 2 && (index <= 3 && index > 0)) || (reihe == 1 && (index <= 4 && index > 0)) )
 		{
 			return true;
 		}
