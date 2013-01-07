@@ -43,6 +43,19 @@ public class Spieler
 		return this.isKI;
 	}
 	
+	public boolean loescheLogikgatter(int index)
+	{
+		if(this.logikgatter[index] == null)
+		{
+			return false;
+		}
+		else
+		{
+			this.logikgatter[index] = null;
+			return true;
+		}
+	}
+	
 	public boolean gebeLogikgatter(Logikgatter logikgatter)
 	{
 		
