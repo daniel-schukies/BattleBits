@@ -28,6 +28,11 @@ public class Logikgatter {
 		return this.isGueltig;
 	}
 	
+	public boolean pruefeAusgang(boolean eingangszustand1, boolean eingangszustand2)
+	{
+		return false;
+	}
+	
 	public boolean getAusgang(){
 		return this.ausgang;
 	}
