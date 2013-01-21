@@ -1,5 +1,5 @@
 import java.util.Random;
-public class Logikgatter {
+abstract public class Logikgatter {
 	
 	private boolean ausgang; 
 	private boolean isAktiv;
