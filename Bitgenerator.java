@@ -23,7 +23,7 @@ public class Bitgenerator
 	// Gibt ein Bit zurück
 	public boolean getBit(int index)
 	{
-		if(index >= 0 && index < bitfolge.length)
+		if( pruefeIndex(index) )
 		{
 			return this.bitfolge[index];
 		}
@@ -35,9 +35,28 @@ public class Bitgenerator
 	// Man kann ein Bit setzen
 	public boolean setBit(int index, boolean bit)
 	{
-		if(index >= 0 && index < bitfolge.length)
+		if( pruefeIndex(index) )
 		{
 			this.bitfolge[index] = bit;
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean invertBit(int index)
+	{
+		if( pruefeIndex(index) )
+		{
+			this.bitfolge[index] = !this.bitfolge[index];
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean pruefeIndex(int index)
+	{
+		if(index >= 0 && index < this.bitfolge.length)
+		{
 			return true;
 		}
 		return false;
