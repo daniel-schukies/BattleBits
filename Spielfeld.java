@@ -1,6 +1,6 @@
 public class Spielfeld 
 {
-	public Bitgenerator bitfolge; // Speicher der Bitfolge
+	
 	private Logikgatter logikgatter[][];
 	
 	/**
@@ -9,8 +9,6 @@ public class Spielfeld
 	public Spielfeld()
 	{
 		this.logikgatter = new Logikgatter[4][5];
-		this.bitfolge = new Bitgenerator(5);
-		bitfolge.generate();
 	}
 	
 	
@@ -22,15 +20,15 @@ public class Spielfeld
 	 * @return Wenn false zurueckgegeben wird wurde kein Logikgatter gesetzt.
 	 */
 	
-	public boolean setLogikgatter(int reihe, int index, Logikgatter logikgatter)
+	public boolean setLogikgatter(int reihe, int index, Logikgatter logikgatter, Bitgenerator bitfolge)
 	{
 		if(this.pruefeReiheIndex( reihe, index))
 		{
 			/** Bei Reihe 1 wird die Bitfolge als Eingang geprueft */
-			if(reihe == 1)
+			if(reihe == 0)
 			{
 				/** pruefe Gatterlogik */
-				if(logikgatter.pruefeAusgang(this.bitfolge.getBit(index), this.bitfolge.getBit(index+1)) )
+				if(logikgatter.pruefeAusgang(bitfolge.getBit(index), bitfolge.getBit(index+1)) && !(logikgatter.equals(null)) ) //pruefe Logik und auf null (ref getLogikgatter() )
 				{
 					this.logikgatter[reihe][index] = logikgatter;
 					return true; // Wurde gesetzt.
@@ -87,6 +85,7 @@ public class Spielfeld
 		}
 
 		return null; // Konnte Logikgatter nicht finden.
+		
 	}
 	
 	
@@ -98,7 +97,7 @@ public class Spielfeld
 	
 	public boolean pruefeReiheIndex(int reihe, int index)
 	{
-		if((reihe == 4 && index == 0) || (reihe == 3 && (index < 2 && index >= 0)) || (reihe == 2 && (index < 3 && index >= 0)) || (reihe == 1 && (index < 4 && index >= 0)) )
+		if((reihe == 3 && index == 0) || (reihe == 2 && (index < 2 && index >= 0)) || (reihe == 1 && (index < 3 && index >= 0)) || (reihe == 0 && (index < 4 && index >= 0)) )
 		{
 			return true;
 		}
