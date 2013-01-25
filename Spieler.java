@@ -72,7 +72,12 @@ public class Spieler
 	
 	public Logikgatter getLogikgatter(int index)
 	{
-		return this.logikgatter[index]; // ACHTUNG NULLPOINTER ;)
+		if(index >= 0 && index < this.logikgatter.length)
+		{
+			return this.logikgatter[index]; // ACHTUNG NULLPOINTER ;)
+		}
+		
+		return null; // Existiert nicht
 	}
 	
 	
