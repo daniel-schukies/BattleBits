@@ -88,6 +88,56 @@ public class Spielfeld
 		
 	}
 	
+	public boolean pruefeGueltigkeit(Bitgenerator bitfolge)
+	{
+		for(int reihe = 0; reihe < logikgatter.length; reihe++)
+		{
+			for(int index = 0; index < logikgatter[0].length; index++)
+			{
+				if( this.logikgatter[reihe][index] != null ) // pruefe ob ein Logikgatter vorhanden ist. 
+				{
+					if(reihe == 0) // Wenn Bitfolge als Eingang genutzt werden muss.
+					{
+						if( (this.logikgatter[reihe][index].pruefeAusgang(bitfolge.getBit(index), bitfolge.getBit(index+1))) ) // Gatter aktivieren, wenn Logik stimmt.
+						{
+							this.logikgatter[reihe][index].aktivieren();
+						}
+						else
+						{
+							this.logikgatter[reihe][index].loesche();
+						}
+					}
+					else
+					{
+						/** Wenn einer der beiden Eingaenge nicht vorhanden ist, wird das Logikgatter deaktiviert */
+						if( this.logikgatter[reihe-1][index] == null ^ this.logikgatter[reihe-1][index+1] == null )
+						{
+							this.logikgatter[reihe][index].deaktivieren();
+						} /** Wenn beide Eingaenge nicht vorhanden sind, wird das Logikgatter geloescht */
+						else if(this.logikgatter[reihe-1][index] == null && this.logikgatter[reihe-1][index+1] == null)
+						{
+							this.logikgatter[reihe][index].loesche();
+						}
+						else /** Beide Eingaenge sind vorhanden */
+						{
+							/** pruefe ob Logik stimmt */
+							if(  this.logikgatter[reihe][index].pruefeAusgang( this.logikgatter[reihe-1][index].getAusgang() , this.logikgatter[reihe-1][index+1].getAusgang()  ) ) // Gatter aktivieren, wenn Logik stimmt.
+							{
+								this.logikgatter[reihe][index].aktivieren();
+							}
+							else
+							{
+								this.logikgatter[reihe][index].loesche();
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return (Boolean) null;
+	}
+	
 	
 	/**
 	 * prueft ob Reihe und Index im Normalbereich sind.
