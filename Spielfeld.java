@@ -1,4 +1,4 @@
-public class Spielfeld 
+public class Spielfeld implements Cloneable
 {
 	
 	private Logikgatter logikgatter[][];
@@ -10,6 +10,20 @@ public class Spielfeld
 	{
 		this.logikgatter = new Logikgatter[4][5];
 	}
+	
+    public Object clone() 
+    {
+        Object theClone = null;
+        try 
+        {
+          theClone = super.clone();
+        }
+        catch(CloneNotSupportedException e) 
+        {
+        
+        }
+        return theClone;
+      }
 	
 	
 	/**
