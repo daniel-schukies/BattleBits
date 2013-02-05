@@ -80,6 +80,55 @@ public class Spieler
 		return null; // Existiert nicht
 	}
 	
+	/**
+	 * Teilt an den Spieler seine ersten Gatter aus.
+	 * @param spieler
+	 */
+	public void generiereLogikgatter()
+	{
+		/** Gebe Spieler die Logikgatter */
+		Logikgattergenerator lg = new Logikgattergenerator();
+		
+		while(this.getLogikgatter(3) == null)
+		{
+			lg.generate();
+			this.gebeLogikgatter(lg.getLogikgatter());
+		}
+	}
+	
+	/**
+	 * Dem Spieler wird ein altes Logikgatter gegen ein Neues getauscht.
+	 * @param gatterIndex Welches Logikgatter getauscht werden soll.
+	 */
+	public void zieheNeuesLogikgatter(int gatterIndex)
+	{
+		Logikgattergenerator lg = new Logikgattergenerator();
+		
+		this.loescheLogikgatter(gatterIndex);
+		lg.generate();
+		this.gebeLogikgatter(lg.getLogikgatter());
+	}
+	
+	public void spieleAlsKI(Spielfeld eigenesSpielfeld, Spielfeld gegnerSpielfeld, Bitgenerator bitfolge)
+	{
+		boolean nutzeNot;
+		
+		int notSchadenBeimGegner[] = new int[5];
+		int notSchadenBeimSpieler[] = new int[5];
+
+		Spielfeld kopieGegnerSpielfeld = (Spielfeld)gegnerSpielfeld.clone();
+
+		/** pruefe, ob Spieler ein NOT besitzt */
+		for(int i = 0; i < this.logikgatter.length; i++)
+		{
+			if(this.logikgatter[i] instanceof Not )
+			{
+				nutzeNot = true;
+				break;
+			}
+		}
+	}
+	
 	
 
 }
