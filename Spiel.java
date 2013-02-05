@@ -72,88 +72,64 @@ public class Spiel
 	 */
 	private void nextSpielzug(Spieler spieler, Spielfeld spielfeld)
 	{
-		this.conAusgabeRundenzahl();
+		spieler.generiereLogikgatter();
 		
-		this.conAusgabeSpielerInfo(spieler);
-		
-		this.gebeSpielerGatter(spieler);
-		
-		this.conAusgabeSpielerlogikgatter(spieler);
-		
-		this.conSpielfeldAusgabe(spielfeld);
-
-		/** Frage Logikgatter ab */
-		int[] logikgatterVerwendung = this.conFrageLogikgatterAb(); // Options Abfrage
-		
-		if(logikgatterVerwendung[1] == 1) // 1 == Option: Neues Logikgatter ziehen.
+		if(spieler.getIsKI())
 		{
-			this.zieheNeuesLogikgatter(spieler, logikgatterVerwendung[0] );
-			this.conAusgabeSpielerlogikgatter(spieler); // Gebe Logikgatter des Spielers aus
+			
 		}
-		else // Option: Logikgatter auf Spielfeld legen.
+		else
 		{
+			this.conAusgabeRundenzahl();
 			
+			this.conAusgabeSpielerInfo(spieler);
 			
-			boolean isGatterSet;
+			this.conAusgabeSpielerlogikgatter(spieler);
 			
-			do
+			this.conSpielfeldAusgabe(spielfeld);
+	
+			/** Frage Logikgatter ab */
+			int[] logikgatterVerwendung = this.conFrageLogikgatterAb(); // Options Abfrage
+			
+			if(logikgatterVerwendung[1] == 1) // 1 == Option: Neues Logikgatter ziehen.
 			{
-				if( this.legeLogikgatterAufSpielfeld(spielfeld, spieler, logikgatterVerwendung[0]) )
+				spieler.zieheNeuesLogikgatter(logikgatterVerwendung[0] );
+				this.conAusgabeSpielerlogikgatter(spieler); // Gebe Logikgatter des Spielers aus
+			}
+			else // Option: Logikgatter auf Spielfeld legen.
+			{
+				boolean isGatterSet;
+				
+				do
 				{
-					isGatterSet  = true;
-				}
-				else
-				{
-					isGatterSet = false;
-					
-					logikgatterVerwendung = this.conFrageLogikgatterAb();  // Options Abfrage
-					
-					if(logikgatterVerwendung[1] == 1) // 1 == Option: Neues Logikgatter ziehen.
+					if( this.conLegeLogikgatterAufSpielfeld(spielfeld, spieler, logikgatterVerwendung[0]) )
 					{
-						this.zieheNeuesLogikgatter(spieler, logikgatterVerwendung[0] );
-						this.conAusgabeSpielerlogikgatter(spieler); // Gebe Logikgatter des Spielers aus
+						isGatterSet  = true;
 					}
-				}
-			}while( !(isGatterSet) );
+					else
+					{
+						isGatterSet = false;
+						
+						logikgatterVerwendung = this.conFrageLogikgatterAb();  // Options Abfrage
+						
+						if(logikgatterVerwendung[1] == 1) // 1 == Option: Neues Logikgatter ziehen.
+						{
+							spieler.zieheNeuesLogikgatter(logikgatterVerwendung[0] );
+							this.conAusgabeSpielerlogikgatter(spieler); // Gebe Logikgatter des Spielers aus
+						}
+					}
+				}while( !(isGatterSet) );
+			}
+			
+			this.conSpielfeldAusgabe(spielfeld);
+			
+			System.out.println("----------------Ende des Spielzugs!-----------------");
+		
 		}
 		
-		this.conSpielfeldAusgabe(spielfeld);
-		
-		System.out.println("----------------Ende des Spielzugs!-----------------");
-		
 	}
-	
+		
 
-	/**
-	 * Teilt an den uebergebenen Spieler seine ersten Gatter aus.
-	 * @param spieler
-	 */
-	private void gebeSpielerGatter(Spieler spieler)
-	{
-		/** Gebe Spieler die Logikgatter */
-		Logikgattergenerator lg = new Logikgattergenerator();
-		
-		while(spieler.getLogikgatter(3) == null)
-		{
-			lg.generate();
-			spieler.gebeLogikgatter(lg.getLogikgatter());
-		}
-	}
-	
-	
-	/**
-	 * Dem uebergebenen Spieler wird ein altes Logikgatter gegen ein Neues getauscht.
-	 * @param spieler Spieler
-	 * @param gatterIndex Welches Logikgatter getauscht werden soll.
-	 */
-	private void zieheNeuesLogikgatter(Spieler spieler, int gatterIndex)
-	{
-		Logikgattergenerator lg = new Logikgattergenerator();
-		
-		spieler.loescheLogikgatter(gatterIndex);
-		lg.generate();
-		spieler.gebeLogikgatter(lg.getLogikgatter());
-	}
 	
 	
 	/**
@@ -164,7 +140,7 @@ public class Spiel
 	 * @param logikgatterIndex ist der Index des Logikgatters des Spielers
 	 * @return boolean (Ob Legen des Logikgatters erfolgreich war)
 	 */
-	private boolean legeLogikgatterAufSpielfeld(Spielfeld spielfeld, Spieler s, int logikgatterIndex)
+	private boolean conLegeLogikgatterAufSpielfeld(Spielfeld spielfeld, Spieler s, int logikgatterIndex)
 	{
 		if(s.getLogikgatter(logikgatterIndex) instanceof Not) // pruefe auf NOT Gatter
 		{
@@ -172,7 +148,7 @@ public class Spiel
 
 			do
 			{
-				zuInvertierendesBit = conAblegeplatzAbfrage("NOT");// Abfrage des zu invertierenden Bits	
+				zuInvertierendesBit = conAblegeplatzAbfrageNOT();// Abfrage des zu invertierenden Bits	
 			}while(zuInvertierendesBit < 0 && zuInvertierendesBit > 5 ); // Wiederhole bei falschem Index
 			
 			this.bitfolge.invertBit(zuInvertierendesBit); // invertiere das Bit	
@@ -184,7 +160,7 @@ public class Spiel
 					/** Pruefe und setze Logikgatter auf Spielfeld  */
 					if((spielfeld.setLogikgatter(ablegeplatz[0], ablegeplatz[1], s.getLogikgatter(logikgatterIndex), this.bitfolge)))
 					{
-						this.zieheNeuesLogikgatter(s, logikgatterIndex); // Loesche und ziehe neues Logikgatter des Spielers
+						s.zieheNeuesLogikgatter(logikgatterIndex); // Loesche und ziehe neues Logikgatter des Spielers
 						return true; // Logikgatter wurde auf Spielfeld gelegt
 					}
 		}	
@@ -220,7 +196,7 @@ public class Spiel
 	 * @param s String mit "NOT" für ein NOT
 	 * @return ablegeplatz auf Bitfolge
 	 */
-	private int conAblegeplatzAbfrage(String s)
+	private int conAblegeplatzAbfrageNOT()
 	{
 		int ablegeplatz; // 0-5 Ablegeplatz des NOT auf Bit
 		
@@ -333,7 +309,7 @@ public class Spiel
 			
 			for(int z = y; z >= 0; z--)
 			{
-				System.out.print("   ");
+				System.out.print("    ");
 			}
 			
 			for(i = 0; i < x; i++)
