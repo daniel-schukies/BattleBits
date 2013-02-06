@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Bitgenerator 
+public class Bitgenerator implements Cloneable
 {
 	private boolean[] bitfolge;
 	
@@ -8,6 +8,20 @@ public class Bitgenerator
 	{
 		this.bitfolge = new boolean[bitanzahl];
 	}
+	
+    public Object clone() 
+    {
+        Object theClone = null;
+        try 
+        {
+          theClone = super.clone();
+        }
+        catch(CloneNotSupportedException e) 
+        {
+        
+        }
+        return theClone;
+      }
 	
 	// Erstellt die Bitfolge
 	public void generate()
