@@ -108,25 +108,90 @@ public class Spieler
 		lg.generate();
 		this.gebeLogikgatter(lg.getLogikgatter());
 	}
-	
+	/**
+	 * 
+	 * @param eigenesSpielfeld
+	 * @param gegnerSpielfeld
+	 * @param bitfolge
+	 */
 	public void spieleAlsKI(Spielfeld eigenesSpielfeld, Spielfeld gegnerSpielfeld, Bitgenerator bitfolge)
 	{
-		boolean nutzeNot;
+		int indexVerwendetesGatter = 404; // Error: 404 Gatter not found ;)
 		
 		int notSchadenBeimGegner[] = new int[5];
 		int notSchadenBeimSpieler[] = new int[5];
 
+		/** Lege Kopien der Spielfelder und des Bitgenerators an */
+		Spielfeld kopieEigenesSpielfeld = (Spielfeld)eigenesSpielfeld.clone();
 		Spielfeld kopieGegnerSpielfeld = (Spielfeld)gegnerSpielfeld.clone();
-
-		/** pruefe, ob Spieler ein NOT besitzt */
+		Bitgenerator kopieBitfolge = (Bitgenerator)bitfolge.clone();
+		
+		
+		boolean nutzeNot = false; // Ob Not gesetzt wird.
+		int bitMitMeistemSchaden = 0; // Das Bit, welches wenn es invertiert wird, den meisten Schaden anrichtet.
+		
 		for(int i = 0; i < this.logikgatter.length; i++)
 		{
+			/** pruefe, ob Spieler ein NOT besitzt */
 			if(this.logikgatter[i] instanceof Not )
 			{
-				nutzeNot = true;
-				break;
+				
+				/**  Durchlaufe alle Bits und schreibe den Schaden derer in das Array  */
+				for(int bitCnt = 0; bitCnt < 4; bitCnt++)
+				{
+					kopieBitfolge.invertBit(bitCnt);
+					
+					/** Schreibt die Anzahl der ungueltigen Logikgatter in das Array an den Index des invertierten Bits */
+					notSchadenBeimSpieler[bitCnt] = kopieEigenesSpielfeld.pruefeGueltigkeit(kopieBitfolge);
+					notSchadenBeimGegner[bitCnt] = kopieGegnerSpielfeld.pruefeGueltigkeit(kopieBitfolge);
+					
+					/** Setze Kopien der Spielfelder durch erneutes invertieren des Bits auf den Ursprungszustand zurueck */
+					kopieBitfolge.invertBit(bitCnt);
+					kopieEigenesSpielfeld.pruefeGueltigkeit(kopieBitfolge);
+					kopieGegnerSpielfeld.pruefeGueltigkeit(kopieBitfolge);
+				}
+				
+				/**  Bestimmt das Bit mit dem meisten Schaden */
+				for(int bitCnt = 0; bitCnt < 4; bitCnt++)
+				{
+					if( notSchadenBeimSpieler[bitCnt] < notSchadenBeimGegner[bitCnt] )
+					{
+						if(notSchadenBeimGegner[bitMitMeistemSchaden] < notSchadenBeimGegner[bitCnt])
+						{
+							bitMitMeistemSchaden = bitCnt;
+						}
+					}
+				}
+				
+				/** Entscheide ob NOT zu nutzen ist */
+				if( notSchadenBeimSpieler[bitMitMeistemSchaden] > notSchadenBeimGegner[bitMitMeistemSchaden] )
+				{
+					nutzeNot = false;
+				}
+				else
+				{
+					nutzeNot = true; 
+					indexVerwendetesGatter = i;
+				}
+				
+				break; // The End ;)
 			}
+			
+			nutzeNot = false; // Spieler besitzt kein NOT
 		}
+		
+		if(nutzeNot)
+		{
+			bitfolge.invertBit(bitMitMeistemSchaden);
+			this.zieheNeuesLogikgatter(indexVerwendetesGatter);
+		}
+		else // Anderes Gatter muss gespielt werden.
+		{
+			
+		}
+
+		
+		//if(indexVerwendetesGatter != 404) // pruefe, ob ein Gatter gespielt werden soll
 	}
 	
 	
