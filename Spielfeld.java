@@ -102,8 +102,16 @@ public class Spielfeld implements Cloneable
 		
 	}
 	
-	public boolean pruefeGueltigkeit(Bitgenerator bitfolge)
+	
+	/**
+	 * Prueft alle Logikgatter auf dem Spielfeld auf Gueltigkeit der Logik
+	 * @param bitfolge aktuelle Bitfolge
+	 * @return Anzahl der ungueltigen Logikgatter auf dem Spielfeld
+	 */
+	public int pruefeGueltigkeit(Bitgenerator bitfolge)
 	{
+		int anzahlUngueltigeLogikgatter = 0;
+		
 		for(int reihe = 0; reihe < logikgatter.length; reihe++)
 		{
 			for(int index = 0; index < logikgatter[0].length; index++)
@@ -118,7 +126,8 @@ public class Spielfeld implements Cloneable
 						}
 						else
 						{
-							this.logikgatter[reihe][index].loesche();
+							this.logikgatter[reihe][index].loesche(); // Macht Logikgatter ungueltig.
+							anzahlUngueltigeLogikgatter++;
 						}
 					}
 					else
@@ -131,6 +140,7 @@ public class Spielfeld implements Cloneable
 						else if(this.logikgatter[reihe-1][index] == null && this.logikgatter[reihe-1][index+1] == null)
 						{
 							this.logikgatter[reihe][index].loesche();
+							anzahlUngueltigeLogikgatter++;
 						}
 						else /** Beide Eingaenge sind vorhanden */
 						{
@@ -142,6 +152,7 @@ public class Spielfeld implements Cloneable
 							else
 							{
 								this.logikgatter[reihe][index].loesche();
+								anzahlUngueltigeLogikgatter++;
 							}
 						}
 					}
@@ -149,7 +160,7 @@ public class Spielfeld implements Cloneable
 			}
 		}
 		
-		return (Boolean) null;
+		return anzahlUngueltigeLogikgatter;
 	}
 	
 	
