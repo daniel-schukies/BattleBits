@@ -11,17 +11,18 @@ public class Spielfeld implements Cloneable
 		this.logikgatter = new Logikgatter[4][5];
 	}
 	
-    public Object clone() 
+    public Spielfeld clone() 
     {
-        Object theClone = null;
-        try 
-        {
-          theClone = super.clone();
-        }
-        catch(CloneNotSupportedException e) 
-        {
+        Spielfeld theClone = new Spielfeld();
         
-        }
+        /** Schreibt Inhalt von dem einen Spielfeld in eine Kopie */
+		for(int reihe = 0; reihe < logikgatter.length; reihe++)
+		{
+			for(int index = 0; index < logikgatter[0].length; index++)
+			{
+				theClone.setLogikgatter(reihe, index, this.getLogikgatter(reihe, index));
+			}
+		}
         return theClone;
       }
 	
@@ -77,7 +78,18 @@ public class Spielfeld implements Cloneable
 		}
 
 		return false; // Wurde nicht gesetzt
-
+	}
+	
+	public void setLogikgatter(int reihe, int index, Logikgatter logikgatter)
+	{
+		try
+		{
+			this.logikgatter[reihe][index] = logikgatter; 
+		}
+		catch(Exception e)
+		{
+			
+		}
 	}
 	
 	
