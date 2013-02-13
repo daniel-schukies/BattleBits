@@ -76,7 +76,16 @@ public class Spiel
 		
 		if(spieler.getIsKI())
 		{
+			this.conAusgabeSpielerlogikgatter(spieler);
 			
+			spieler.spieleAlsKI(spielfeld2, spielfeld1, bitfolge);
+			this.conAusgabeRundenzahl();
+			
+			this.conAusgabeSpielerInfo(spieler);
+			
+			this.conAusgabeSpielerlogikgatter(spieler);
+			
+			this.conSpielfeldAusgabe(spielfeld);
 		}
 		else
 		{
@@ -123,10 +132,10 @@ public class Spiel
 			
 			this.conSpielfeldAusgabe(spielfeld);
 			
-			System.out.println("----------------Ende des Spielzugs!-----------------");
+			
 		
 		}
-		
+		System.out.println("----------------Ende des Spielzugs!-----------------");
 	}
 		
 
