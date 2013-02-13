@@ -109,6 +109,7 @@ public class Spieler
 		this.loescheLogikgatter(gatterIndex);
 		lg.generate();
 		this.gebeLogikgatter(lg.getLogikgatter());
+		System.out.println("Es wurde folgendes Gatter gezogen: " + lg.getLogikgatter());
 	}
 	/**
 	 * 
@@ -190,10 +191,10 @@ public class Spieler
 		else // Anderes Gatter muss gespielt werden.
 		{
 			/** 
-			 * Indizes der ersten Dimension des Arrays stehen fuer die Gatter und der Inhalt dieser Indizes steht fuer die Prioritaet
+			 * Indizes der ersten Dimension des Arrays stehen fuer die Gatter.
 			 * In der zweiten Dimsension wird Reihe,Index und Prioritaet des Ablegeplatzes gespeichert.
 			 *   0       1        2
-			 * [reihe][index][prioritaet] x4
+			 * [reihe][index][prioritaet] x4 --> gatterPrioritaet[][steht hier]
 			 *  */
 			int[][] gatterPrioritaet = new int[4][3];
 			
@@ -201,45 +202,53 @@ public class Spieler
 			 * 	Durchlaeuft das Spielfeld und schreibt in das Array Reihe, Index und die Anzahl der moeglichen nachfolgenden Logikgatter, 
 			 *  welche legbar sind. 
 			 *  */
-			for(int reihe = 0; reihe < 4; reihe++ )
+			
+			for(int spielergatterCounter = 0; spielergatterCounter < 4; spielergatterCounter++ )
 			{
-				gatterPrioritaet[reihe][2] = 0 ; // Setze Prioritaet auf 0
+				gatterPrioritaet[spielergatterCounter][2] = 0 ; // Setze Prioritaet auf 0
 				
-				for(int index = 0; index < 4; index++) // ungueltige Indizes werden abgefangen.
+				for(int reihe = 0; reihe < 4; reihe++ )
 				{
-					if( !(this.logikgatter[reihe] instanceof Not) ) // pruefe, ob Spielergatter kein Not ist.
+					for(int index = 0; index < 4; index++) // ungueltige Indizes werden abgefangen.
 					{
-						/** Lege Logikgatter auf Spielfeld, wenn es gesetzt werden kann und pruefe, ob weitere Gatter gelegt werden koennen */
-						if( kopieEigenesSpielfeld.setLogikgatter(reihe, index, this.getLogikgatter(reihe), kopieBitfolge) )
+						if( !(this.logikgatter[spielergatterCounter] instanceof Not) ) // pruefe, ob Spielergatter kein Not ist.
 						{
-							gatterPrioritaet[reihe][2]++; // erhoehe Prioritaet.
-							
-							for(int i = 0; i < 4; i++)
+							/** Lege Logikgatter auf Spielfeld, wenn es gesetzt werden kann und pruefe, ob weitere Gatter gelegt werden koennen */
+							if( kopieEigenesSpielfeld.setLogikgatter(reihe, index, this.getLogikgatter(spielergatterCounter), kopieBitfolge) )
 							{
-								/** Versucht weitere Gatter zu legen, um die Prioritaet des gelegten Gatters zu bestimmen */
-								for(int probeReihe = 0; probeReihe < 4; probeReihe++ )
+								gatterPrioritaet[spielergatterCounter][0] = reihe; //speichere Reihe
+								gatterPrioritaet[spielergatterCounter][1] = index; //Speichere Index
+								gatterPrioritaet[spielergatterCounter][2]++; // erhoehe Prioritaet.
+								
+								/** Versuche die verbliebenen Gatter zu legen */
+								for(int probeSpielergatterCounter = 0; probeSpielergatterCounter < 4; probeSpielergatterCounter++)
 								{
-									for(int probeIndex = 0; probeIndex < 4; probeIndex++) // ungueltige Indizes werden abgefangen.
+									/** Versucht weitere Gatter zu legen, um die Prioritaet des gelegten Gatters zu bestimmen */
+									for(int probeReihe = 0; probeReihe < 4; probeReihe++ )
 									{
-										/** pruefe, ob das Probegatter nicht Not ist und nicht mit dem testweise gelegtem Gatter uebereinstimmt */
-										if( !(this.logikgatter[probeReihe] instanceof Not && probeReihe == reihe) )
+										for(int probeIndex = 0; probeIndex < 4; probeIndex++) // ungueltige Indizes werden abgefangen.
 										{
-											if( kopieEigenesSpielfeld.setLogikgatter(probeReihe, probeIndex, this.getLogikgatter(probeReihe), kopieBitfolge) )
+											/** pruefe, ob das Probegatter nicht Not ist und nicht mit dem testweise gelegtem Gatter uebereinstimmt */
+											if( !(this.logikgatter[probeSpielergatterCounter] instanceof Not) && probeSpielergatterCounter == spielergatterCounter)
 											{
-												gatterPrioritaet[reihe][0] = reihe;
-												gatterPrioritaet[reihe][1] = index;
-												gatterPrioritaet[reihe][2] += 1 ;
+												if( kopieEigenesSpielfeld.setLogikgatter(probeReihe, probeIndex, this.getLogikgatter(probeSpielergatterCounter), kopieBitfolge) )
+												{
+													gatterPrioritaet[spielergatterCounter][0] = reihe;
+													gatterPrioritaet[spielergatterCounter][1] = index;
+													gatterPrioritaet[spielergatterCounter][2]++;
+												}
 											}
 										}
 									}
 								}
+								
+								kopieEigenesSpielfeld = eigenesSpielfeld.clone(); // Setze kopie des Spielfelds zurueck.
 							}
-							
-							kopieEigenesSpielfeld = (Spielfeld)eigenesSpielfeld.clone(); // Setze kopie des Spielfelds zurueck.
 						}
 					}
 				}
 			}
+
 			
 			
 			/** Sucht Gatter mit hoechster prioritaet */
@@ -256,8 +265,16 @@ public class Spieler
 			/** Entscheide, ob Logikgatter auf Spielfeld gelegt werden soll oder ein Neues gezogen werden soll */
 			if(gatterPrioritaet[priorisiertesGatter][2] > 0)
 			{
-				eigenesSpielfeld.setLogikgatter(gatterPrioritaet[priorisiertesGatter][0], gatterPrioritaet[priorisiertesGatter][1], this.logikgatter[priorisiertesGatter], bitfolge);
+				if( !(eigenesSpielfeld.setLogikgatter(gatterPrioritaet[priorisiertesGatter][0], gatterPrioritaet[priorisiertesGatter][1], this.logikgatter[priorisiertesGatter], bitfolge)) )
+				{
+					System.out.println("--------- KI Entscheidungsfehler !!! ---------");
+					System.out.println("Gatter welches gespielt werden sollte: " + priorisiertesGatter);
+					System.out.println("Gatter Prioritaet: " + gatterPrioritaet[priorisiertesGatter][2] );
+					System.out.println("Gatter Reihe: " + gatterPrioritaet[priorisiertesGatter][0] );
+					System.out.println("Gatter Index: " + gatterPrioritaet[priorisiertesGatter][1] );
+				}
 				this.zieheNeuesLogikgatter(priorisiertesGatter);
+				System.out.println("KI hat gelegt!");
 			}
 			else // Ziehe Neues
 			{
