@@ -124,8 +124,8 @@ public class Spieler
 		int notSchadenBeimSpieler[] = new int[5];
 
 		/** Lege Kopien der Spielfelder und des Bitgenerators an */
-		Spielfeld kopieEigenesSpielfeld = (Spielfeld)eigenesSpielfeld.clone();
-		Spielfeld kopieGegnerSpielfeld = (Spielfeld)gegnerSpielfeld.clone();
+		Spielfeld kopieEigenesSpielfeld = eigenesSpielfeld.clone();
+		Spielfeld kopieGegnerSpielfeld = gegnerSpielfeld.clone();
 		Bitgenerator kopieBitfolge = (Bitgenerator)bitfolge.clone();
 		
 		
@@ -137,7 +137,6 @@ public class Spieler
 			/** pruefe, ob Spieler ein NOT besitzt */
 			if(this.logikgatter[i] instanceof Not )
 			{
-				
 				/**  Durchlaufe alle Bits und schreibe den Schaden derer in das Array  */
 				for(int bitCnt = 0; bitCnt < 4; bitCnt++)
 				{
@@ -146,6 +145,7 @@ public class Spieler
 					/** Schreibt die Anzahl der ungueltigen Logikgatter in das Array an den Index des invertierten Bits */
 					notSchadenBeimSpieler[bitCnt] = kopieEigenesSpielfeld.pruefeGueltigkeit(kopieBitfolge);
 					notSchadenBeimGegner[bitCnt] = kopieGegnerSpielfeld.pruefeGueltigkeit(kopieBitfolge);
+					
 					
 					/** Setze Kopien der Spielfelder durch erneutes invertieren des Bits auf den Ursprungszustand zurueck */
 					kopieBitfolge.invertBit(bitCnt);
@@ -166,7 +166,7 @@ public class Spieler
 				}
 				
 				/** Entscheide ob NOT zu nutzen ist */
-				if( notSchadenBeimSpieler[bitMitMeistemSchaden] > notSchadenBeimGegner[bitMitMeistemSchaden] )
+				if( notSchadenBeimSpieler[bitMitMeistemSchaden] >= notSchadenBeimGegner[bitMitMeistemSchaden] )
 				{
 					nutzeNot = false;
 				}
