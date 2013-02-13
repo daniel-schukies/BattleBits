@@ -42,8 +42,8 @@ public class Spielfeld implements Cloneable
 			/** Bei Reihe 1 wird die Bitfolge als Eingang geprueft */
 			if(reihe == 0)
 			{
-				/** pruefe Gatterlogik */
-				if(logikgatter.pruefeAusgang(bitfolge.getBit(index), bitfolge.getBit(index+1)) && !(logikgatter.equals(null)) ) //pruefe Logik und auf null (ref getLogikgatter() )
+				/** pruefe Gatterlogik auf Gueltigkeit und pruefe ob Ablegeplatz leer ist (null) */
+				if(logikgatter.pruefeAusgang(bitfolge.getBit(index), bitfolge.getBit(index+1)) && ( (!logikgatter.equals(null)) && ( this.logikgatter[reihe][index] == null )) ) //pruefe Logik und auf null (ref getLogikgatter() )
 				{
 					this.logikgatter[reihe][index] = logikgatter;
 					return true; // Wurde gesetzt.
@@ -60,7 +60,7 @@ public class Spielfeld implements Cloneable
 				 * pruefe, ob Platz vorhanden ist und Anschlussgatter vorhanden sind.
 				 * */
 				
-				if( (this.logikgatter[reihe][index] == null) && (this.logikgatter[reihe-1][index] != null && this.logikgatter[reihe-1][index+1] != null) )
+				if( (this.logikgatter[reihe][index] == null) && ( ( (this.logikgatter[reihe-1][index] != null) && (this.logikgatter[reihe-1][index+1] != null) ) ))
 				{
 					/** pruefe, ob Anschluessgatter aktiv sind. */
 					if( this.logikgatter[reihe-1][index].getIsAktiv() && this.logikgatter[reihe-1][index+1].getIsAktiv() )
@@ -173,6 +173,26 @@ public class Spielfeld implements Cloneable
 		}
 		
 		return anzahlUngueltigeLogikgatter;
+	}
+	
+	public void entferneUngueltigeLogikgatter(Bitgenerator bitfolge)
+	{
+		this.pruefeGueltigkeit(bitfolge);
+		
+		for(int reihe = 0; reihe < logikgatter.length; reihe++)
+		{
+			for(int index = 0; index < logikgatter[0].length; index++)
+			{
+				if( this.logikgatter[reihe][index] != null ) // pruefe ob ein Logikgatter vorhanden ist. 
+				{
+					if( !(this.logikgatter[reihe][index].getIsGueltig()) ) // pruefe, ob Gatter ungueltig ist.
+					{
+						this.logikgatter[reihe][index] = null; // loesche Logikgatter
+						System.out.println("Es wurde ein Gatter gelöscht");
+					}
+				}
+			}
+		}
 	}
 	
 	
