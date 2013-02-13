@@ -52,14 +52,14 @@ public class Spiel
 				this.spieler2.setIsDran(true);
 				this.spieler1.setIsDran(false);
 				
-				this.nextSpielzug(spieler2, this.spielfeld2);
+				isSpielende = this.nextSpielzug(spieler2, this.spielfeld2);
 			}
 			else
 			{
 				this.spieler2.setIsDran(false);
 				this.spieler1.setIsDran(true);
 				
-				this.nextSpielzug(spieler1, this.spielfeld1);
+				isSpielende = this.nextSpielzug(spieler1, this.spielfeld1);
 			}
 		}
 	}
@@ -70,15 +70,17 @@ public class Spiel
 	 * @param spieler ist der Spieler, welcher gerade am Zug ist.
 	 * @param spielfeld des uebergebenen Spielers
 	 */
-	private void nextSpielzug(Spieler spieler, Spielfeld spielfeld)
+	private boolean nextSpielzug(Spieler spieler, Spielfeld spielfeld)
 	{
+		spielfeld.entferneUngueltigeLogikgatter(this.bitfolge);
+		
 		spieler.generiereLogikgatter();
 		
 		if(spieler.getIsKI())
 		{
 			this.conAusgabeSpielerlogikgatter(spieler);
 			
-			spieler.spieleAlsKI(spielfeld2, spielfeld1, bitfolge);
+			spieler.spieleAlsKI(this.spielfeld2, this.spielfeld1, this.bitfolge);
 			this.conAusgabeRundenzahl();
 			
 			this.conAusgabeSpielerInfo(spieler);
@@ -130,12 +132,20 @@ public class Spiel
 				}while( !(isGatterSet) );
 			}
 			
-			this.conSpielfeldAusgabe(spielfeld);
-			
-			
-		
+			this.conSpielfeldAusgabe(spielfeld);		
 		}
+		
 		System.out.println("----------------Ende des Spielzugs!-----------------");
+		
+		if(spielfeld.getLogikgatter(3, 0) != null)
+		{
+			return true; //Spiel ist zu Ende.
+		}
+		else
+		{
+			return false;
+		}
+
 	}
 		
 
@@ -161,6 +171,8 @@ public class Spiel
 			}while(zuInvertierendesBit < 0 && zuInvertierendesBit > 5 ); // Wiederhole bei falschem Index
 			
 			this.bitfolge.invertBit(zuInvertierendesBit); // invertiere das Bit	
+			s.zieheNeuesLogikgatter(logikgatterIndex); // Loesche und ziehe neues Logikgatter des Spielers
+			return true; // Bit wurde invertiert (Not gelegt)
 		}
 		else // Wenn kein NOT vorhanden.
 		{
