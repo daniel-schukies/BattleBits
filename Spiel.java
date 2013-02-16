@@ -39,6 +39,9 @@ public class Spiel
 		
 		boolean isSpielende = false;
 		
+		this.spieler1.setIsKI(true);
+		this.spieler2.setIsKI(true);
+		
 		/** Spielschleife */
 		while( !(isSpielende) )
 		{
@@ -52,14 +55,14 @@ public class Spiel
 				this.spieler2.setIsDran(true);
 				this.spieler1.setIsDran(false);
 				
-				isSpielende = this.nextSpielzug(spieler2, this.spielfeld2);
+				isSpielende = this.nextSpielzug(spieler2, this.spielfeld2, this.spielfeld1);
 			}
 			else
 			{
 				this.spieler2.setIsDran(false);
 				this.spieler1.setIsDran(true);
 				
-				isSpielende = this.nextSpielzug(spieler1, this.spielfeld1);
+				isSpielende = this.nextSpielzug(spieler1, this.spielfeld1, this.spielfeld2);
 			}
 		}
 	}
@@ -68,11 +71,11 @@ public class Spiel
 	/**
 	 * fuehrt einen Spielzug des uebergebenen Spielers durch.
 	 * @param spieler ist der Spieler, welcher gerade am Zug ist.
-	 * @param spielfeld des uebergebenen Spielers
+	 * @param eigenesSpielfeld des uebergebenen Spielers
 	 */
-	private boolean nextSpielzug(Spieler spieler, Spielfeld spielfeld)
+	private boolean nextSpielzug(Spieler spieler, Spielfeld eigenesSpielfeld, Spielfeld gegnerSpielfeld)
 	{
-		spielfeld.entferneUngueltigeLogikgatter(this.bitfolge);
+		eigenesSpielfeld.entferneUngueltigeLogikgatter(this.bitfolge);
 		
 		spieler.generiereLogikgatter();
 		
@@ -80,14 +83,15 @@ public class Spiel
 		{
 			this.conAusgabeSpielerlogikgatter(spieler);
 			
-			spieler.spieleAlsKI(this.spielfeld2, this.spielfeld1, this.bitfolge);
+			spieler.spieleAlsKI(eigenesSpielfeld, gegnerSpielfeld, this.bitfolge);
+			
 			this.conAusgabeRundenzahl();
 			
 			this.conAusgabeSpielerInfo(spieler);
 			
 			this.conAusgabeSpielerlogikgatter(spieler);
 			
-			this.conSpielfeldAusgabe(spielfeld);
+			this.conSpielfeldAusgabe(eigenesSpielfeld);
 		}
 		else
 		{
@@ -97,7 +101,7 @@ public class Spiel
 			
 			this.conAusgabeSpielerlogikgatter(spieler);
 			
-			this.conSpielfeldAusgabe(spielfeld);
+			this.conSpielfeldAusgabe(eigenesSpielfeld);
 	
 			/** Frage Logikgatter ab */
 			int[] logikgatterVerwendung = this.conFrageLogikgatterAb(); // Options Abfrage
@@ -113,7 +117,7 @@ public class Spiel
 				
 				do
 				{
-					if( this.conLegeLogikgatterAufSpielfeld(spielfeld, spieler, logikgatterVerwendung[0]) )
+					if( this.conLegeLogikgatterAufSpielfeld(eigenesSpielfeld, spieler, logikgatterVerwendung[0]) )
 					{
 						isGatterSet  = true;
 					}
@@ -132,12 +136,12 @@ public class Spiel
 				}while( !(isGatterSet) );
 			}
 			
-			this.conSpielfeldAusgabe(spielfeld);		
+			this.conSpielfeldAusgabe(eigenesSpielfeld);		
 		}
 		
 		System.out.println("----------------Ende des Spielzugs!-----------------");
 		
-		if(spielfeld.getLogikgatter(3, 0) != null)
+		if(eigenesSpielfeld.getLogikgatter(3, 0) != null)
 		{
 			return true; //Spiel ist zu Ende.
 		}
