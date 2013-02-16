@@ -39,9 +39,6 @@ public class Spiel
 		
 		boolean isSpielende = false;
 		
-		this.spieler1.setIsKI(true);
-		this.spieler2.setIsKI(true);
-		
 		/** Spielschleife */
 		while( !(isSpielende) )
 		{
