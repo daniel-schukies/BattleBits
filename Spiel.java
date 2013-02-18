@@ -68,7 +68,8 @@ public class Spiel
 	/**
 	 * fuehrt einen Spielzug des uebergebenen Spielers durch.
 	 * @param spieler ist der Spieler, welcher gerade am Zug ist.
-	 * @param eigenesSpielfeld des uebergebenen Spielers
+	 * @param eigenesSpielfeld Spielfeld vom Spieler, welcher am Zug ist.
+	 * @param gegnerSpielfeld Spielfeld des Gegners
 	 */
 	private boolean nextSpielzug(Spieler spieler, Spielfeld eigenesSpielfeld, Spielfeld gegnerSpielfeld)
 	{
