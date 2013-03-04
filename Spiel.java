@@ -1,5 +1,10 @@
 import java.util.Scanner;
 
+import Logik.Bitgenerator;
+import Logik.Not;
+import Logik.Spieler;
+import Logik.Spielfeld;
+
 public class Spiel 
 {
 	private int rundenzahl;
