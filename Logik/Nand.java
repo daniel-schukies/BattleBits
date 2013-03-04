@@ -22,5 +22,12 @@ public class Nand extends Logikgatter
 		public String toString(){
 		return "Nand";
 	}
+
+
+		@Override
+		public int getID() 
+		{
+			return 1;
+		}
 	
 }

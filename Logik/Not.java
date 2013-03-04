@@ -12,5 +12,9 @@ public class Not extends Logikgatter{
 	}
 
 
-
+	@Override
+	public int getID() 
+	{
+		return 4;
+	}
 }

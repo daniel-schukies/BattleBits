@@ -1,9 +1,9 @@
 package Logik;
 
-public class Or extends Logikgatter
+public class Xor extends Logikgatter
 {
 
-	public Or()
+	public Xor()
 	{
 		super();
 	}
@@ -12,7 +12,7 @@ public class Or extends Logikgatter
 	/** @return boolean gibt true zurueck, wenn der vorgegebene Ausgang erreicht wurde */
 	public boolean pruefeAusgang(boolean eingangszustand1, boolean eingangszustand2)
 	{
-		if ( (eingangszustand1 | eingangszustand2) != this.getAusgang() )
+		if ( (eingangszustand1 ^ eingangszustand2) != this.getAusgang() )
 		{
 			return false;
 		} else
@@ -22,13 +22,13 @@ public class Or extends Logikgatter
 	}
 	public String toString()
 	{
-		return "Or";
+		return "Xor";
 	}
 
 
 	@Override
 	public int getID() 
 	{
-		return 2;
+		return 5;
 	}
 }

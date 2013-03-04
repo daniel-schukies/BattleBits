@@ -5,6 +5,7 @@ abstract public class Logikgatter {
 	private boolean ausgang; 
 	private boolean isAktiv;
 	private boolean isGueltig;
+	public final static int ANZAHL_LOGIKGATTER = 6;
 	
 	/**
 	 * Im Konstruktor wird ein zu erreichender Ausgangswert festgelegt
@@ -18,6 +19,8 @@ abstract public class Logikgatter {
 		this.aktivieren();
 
 	}
+	
+	public abstract int getID();
 	
 	public boolean getIsAktiv()
 	{
