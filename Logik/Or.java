@@ -2,12 +2,12 @@ package Logik;
 
 public class Or extends Logikgatter
 {
-
+	private final static int ID = 2;
+	
 	public Or()
 	{
 		super();
 	}
-
 		
 	/** @return boolean gibt true zurueck, wenn der vorgegebene Ausgang erreicht wurde */
 	public boolean pruefeAusgang(boolean eingangszustand1, boolean eingangszustand2)
@@ -20,15 +20,15 @@ public class Or extends Logikgatter
 			return true;
 		}
 	}
+	
 	public String toString()
 	{
 		return "Or";
 	}
 
-
 	@Override
 	public int getID() 
 	{
-		return 2;
+		return Or.ID;
 	}
 }

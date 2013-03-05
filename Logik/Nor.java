@@ -2,6 +2,7 @@ package Logik;
 
 public class Nor extends Logikgatter
 {
+	private final static int ID = 3;
 
 	public Nor()	
 	{
@@ -30,6 +31,6 @@ public class Nor extends Logikgatter
 	@Override
 	public int getID() 
 	{
-		return 3;
+		return Nor.ID;
 	}
 }

@@ -2,6 +2,7 @@ package Logik;
 
 public class Nand extends Logikgatter
 {
+	private final static int ID = 1;
 
 	public Nand()
 	{
@@ -27,7 +28,7 @@ public class Nand extends Logikgatter
 		@Override
 		public int getID() 
 		{
-			return 1;
+			return Nand.ID;
 		}
 	
 }

@@ -1,6 +1,7 @@
 package Logik;
 import java.util.Random;
-abstract public class Logikgatter {
+abstract public class Logikgatter 
+{
 	
 	private boolean ausgang; 
 	private boolean isAktiv;
@@ -17,7 +18,6 @@ abstract public class Logikgatter {
 		
 		this.ausgang = r.nextBoolean(); // uebersichtlicher ;)
 		this.aktivieren();
-
 	}
 	
 	public abstract int getID();

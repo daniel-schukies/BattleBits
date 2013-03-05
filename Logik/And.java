@@ -2,7 +2,8 @@ package Logik;
 
 public class And extends Logikgatter implements Legbar
 {
-
+	private final static int ID = 0;
+	
 	public And()
 	{
 		super();
@@ -29,6 +30,6 @@ public class And extends Logikgatter implements Legbar
 	@Override
 	public int getID() 
 	{
-		return 0;
+		return And.ID;
 	}
 }

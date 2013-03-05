@@ -1,7 +1,9 @@
 package Logik;
 
-public class Not extends Logikgatter{
-
+public class Not extends Logikgatter
+{
+	private final static int ID = 4;
+	
 	public Not(){
 	}
 	
@@ -15,6 +17,6 @@ public class Not extends Logikgatter{
 	@Override
 	public int getID() 
 	{
-		return 4;
+		return Not.ID;
 	}
 }
