@@ -1,5 +1,7 @@
 package GUI;
 
+import java.awt.Dimension;
+
 import javax.swing.JLabel;
 
 import Logik.Logikgatter;
@@ -9,15 +11,15 @@ public class Grafikspeicher
 	private JLabel[][] grafiken;//
 	private ImageCreator imageCreator;
 	
-	public Grafikspeicher(int hoehe, int breite, int anzahlVersionen)
+	public Grafikspeicher(Dimension size, int anzahlVersionen)
 	{
-		this.imageCreator = new ImageCreator(hoehe, breite, anzahlVersionen);
+		this.imageCreator = new ImageCreator(size, anzahlVersionen);
 		this.grafiken = new JLabel[Logikgatter.ANZAHL_LOGIKGATTER+2][anzahlVersionen];
 	}
 	
-	public Grafikspeicher(int hoehe, int breite)
+	public Grafikspeicher(Dimension size)
 	{
-		imageCreator = new ImageCreator(hoehe, breite);
+		imageCreator = new ImageCreator(size);
 		this.grafiken = new JLabel[Logikgatter.ANZAHL_LOGIKGATTER+2][6];
 	}
 	

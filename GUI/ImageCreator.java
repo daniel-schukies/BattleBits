@@ -1,4 +1,5 @@
 package GUI;
+import java.awt.Dimension;
 import java.awt.Image;
 
 import Logik.Logikgatter;
@@ -11,18 +12,17 @@ public class ImageCreator
 	private static String verzeichnis = "./grafiken/";
 	private static String dateiendung = ".jpg";
 	private int anzahlVersionen;
-	private int hoehe;
-	private int breite;
+	private Dimension size;
 	
-	public ImageCreator(int hoehe, int breite, int anzahlVersionen)
+	public ImageCreator(Dimension size, int anzahlVersionen)
 	{
-		this.setAufloesung(hoehe, breite);	
+		this.setAufloesung(size);	
 		this.anzahlVersionen = anzahlVersionen;
 	}
 	
-	public ImageCreator(int hoehe, int breite)
+	public ImageCreator(Dimension size)
 	{
-		this.setAufloesung(hoehe, breite);	
+		this.setAufloesung(size);	
 		this.anzahlVersionen = 6;
 	}
 	/**
@@ -39,7 +39,7 @@ public class ImageCreator
 			try
 			{
 				grafiken[i] = new ImageIcon( ImageCreator.verzeichnis + logikgatter.toString() + i.toString() + ImageCreator.dateiendung ); // Grafik erstellen
-				grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance(this.hoehe, this.breite, Image.SCALE_DEFAULT)); //Skallieren
+				grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
 			}
 			catch(InstantiationError e)// Grafik nicht vorhanden
 			{
@@ -68,7 +68,7 @@ public class ImageCreator
 			try
 			{
 				grafiken[i] = new ImageIcon( ImageCreator.verzeichnis + castBit.toString() + i.toString() + ImageCreator.dateiendung ); // Grafik erstellen
-				grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance(this.hoehe, this.breite, Image.SCALE_DEFAULT)); //Skallieren
+				grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
 			}
 			catch(InstantiationError e)// Grafik nicht vorhanden
 			{
@@ -79,10 +79,9 @@ public class ImageCreator
 		return grafiken;
 	}
 	
-	public void setAufloesung(int hoehe, int breite)
+	public void setAufloesung(Dimension size)
 	{
-		this.hoehe = hoehe;
-		this.breite = breite;
+		this.size = size;
 	}
 	
 	
