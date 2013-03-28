@@ -6,8 +6,8 @@ public class Universum {
 	 */
 	public static void main(String[] args) 
 	{
-		Spiel battlebits = new Spiel();
-		battlebits.starten();
+		Spiel battlebits = new Spiel(false);
+		//battlebits.starteKonsolenModus();
 		
 	}
 
