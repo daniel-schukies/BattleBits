@@ -12,11 +12,21 @@ public class Spieler
 	private boolean isDran;
 	private boolean isKI;
 	private Logikgatter[] logikgatter;
+	private Spielfeld spielfeld;
 	
 	public Spieler(String name, boolean isKI)
 	{
+		this.spielfeld = new Spielfeld();
 		this.setName(name);
 		this.setIsKI(isKI);
+		logikgatter = new Logikgatter[4];
+	}
+	
+	public Spieler()
+	{
+		this.spielfeld = new Spielfeld();
+		this.setName("");
+		this.setIsKI(false);
 		logikgatter = new Logikgatter[4];
 	}
 	
@@ -291,6 +301,8 @@ public class Spieler
 		//if(indexVerwendetesGatter != 404) // pruefe, ob ein Gatter gespielt werden soll
 	}
 	
-	
-
+	public Spielfeld getSpielfeld()
+	{
+		return this.spielfeld;
+	}
 }
