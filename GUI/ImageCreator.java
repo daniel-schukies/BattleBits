@@ -13,17 +13,20 @@ public class ImageCreator
 	private static String dateiendung = ".jpg";
 	private int anzahlVersionen;
 	private Dimension size;
+	private boolean spiegeln;
 	
-	public ImageCreator(Dimension size, int anzahlVersionen)
+	public ImageCreator(Dimension size, int anzahlVersionen,boolean spiegeln)
 	{
 		this.setAufloesung(size);	
 		this.anzahlVersionen = anzahlVersionen;
+		this.spiegeln = spiegeln;
 	}
 	
 	public ImageCreator(Dimension size)
 	{
 		this.setAufloesung(size);	
 		this.anzahlVersionen = 6;
+		this.spiegeln = false;
 	}
 	/**
 	 * Generiert ein Array mit allen Versionen(Grafiken) des uebergebenen Logikgatters
@@ -38,8 +41,17 @@ public class ImageCreator
 		{
 			try
 			{
-				grafiken[i] = new ImageIcon( ImageCreator.verzeichnis + logikgatter.toString() + i.toString() + ImageCreator.dateiendung ); // Grafik erstellen
-				grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
+				if(this.spiegeln)
+				{
+					grafiken[i] = new MirrorImageIcon( ImageCreator.verzeichnis + logikgatter.toString() + i.toString() + ImageCreator.dateiendung ); // Grafik erstellen
+					grafiken[i] = new MirrorImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
+				}
+				else
+				{
+					grafiken[i] = new ImageIcon( ImageCreator.verzeichnis + logikgatter.toString() + i.toString() + ImageCreator.dateiendung ); // Grafik erstellen
+					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
+				}
+				
 			}
 			catch(InstantiationError e)// Grafik nicht vorhanden
 			{
@@ -67,8 +79,18 @@ public class ImageCreator
 			// Bild muss noch mit richtiger Aufloesung zurueckgegeben werden
 			try
 			{
-				grafiken[i] = new ImageIcon( ImageCreator.verzeichnis + castBit.toString() + i.toString() + ImageCreator.dateiendung ); // Grafik erstellen
-				grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
+				if(this.spiegeln)
+				{
+					grafiken[i] = new MirrorImageIcon( ImageCreator.verzeichnis + castBit.toString() + i.toString() + ImageCreator.dateiendung ); // Grafik erstellen
+					grafiken[i] = new MirrorImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
+
+				}
+				else
+				{
+					grafiken[i] = new ImageIcon( ImageCreator.verzeichnis + castBit.toString() + i.toString() + ImageCreator.dateiendung ); // Grafik erstellen
+					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
+
+				}		
 			}
 			catch(InstantiationError e)// Grafik nicht vorhanden
 			{

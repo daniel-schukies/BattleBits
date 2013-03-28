@@ -2,64 +2,90 @@ package GUI;
 
 import java.awt.Dimension;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import Logik.Logikgatter;
 
 public class Grafikspeicher 
 {
-	private JLabel[][] grafiken;//
+	private JLabel button;
+	private ImageIcon[] grafiken;
 	private ImageCreator imageCreator;
 	
-	public Grafikspeicher(Dimension size, int anzahlVersionen)
+	
+	/**
+	 * 
+	 * @param size
+	 * @param anzahlVersionen
+	 * @param bit
+	 */
+	public Grafikspeicher(Dimension size, int anzahlVersionen, boolean bit,boolean spiegeln)
 	{
-		this.imageCreator = new ImageCreator(size, anzahlVersionen);
-		this.grafiken = new JLabel[Logikgatter.ANZAHL_LOGIKGATTER+2][anzahlVersionen];
+		this.setImage(bit);
+		this.imageCreator = new ImageCreator(size, anzahlVersionen, spiegeln);
+		this.grafiken = new ImageIcon[anzahlVersionen];
+		this.button = new JLabel();
 	}
 	
-	public Grafikspeicher(Dimension size)
+	/**
+	 * 
+	 * @param size
+	 * @param anzahlVersionen
+	 * @param logikgatter
+	 */
+	public Grafikspeicher(Dimension size, int anzahlVersionen, Logikgatter logikgatter, boolean spiegeln)
 	{
-		imageCreator = new ImageCreator(size);
-		this.grafiken = new JLabel[Logikgatter.ANZAHL_LOGIKGATTER+2][6];
+		this.setImage(logikgatter);
+		this.imageCreator = new ImageCreator(size, anzahlVersionen, spiegeln);
+		this.grafiken = new ImageIcon[anzahlVersionen];
+		this.button = new JLabel();
 	}
 	
-	
+	/**
+	 * 
+	 * @param logikgatter
+	 */
 	public void setImage(Logikgatter logikgatter)
 	{	
-		/** Die verschiedenen Versionen der Logikgattergrafiken werden in einem Array in Form von JLabels gespeichert */
-		for(int versionsCounter = 0; versionsCounter < this.grafiken[0].length; versionsCounter++)
-		{
-			this.grafiken[logikgatter.getID()][versionsCounter] = new JLabel(this.imageCreator.getImage(logikgatter)[versionsCounter]);
-		}
+		/** Die verschiedenen Versionen der Logikgattergrafiken werden in einem Array in Form von ImageIcons gespeichert */
+
+		this.grafiken = this.imageCreator.getImage(logikgatter);
+		this.button.setIcon(grafiken[0]);
 	}
 	
+	/**
+	 * 
+	 * @param bit
+	 */
 	public void setImage(boolean bit)
 	{
-		/** Die verschiedenen Versionen der Bitgrafiken werden in einem Array in Form von JLabels gespeichert */
-		for(int versionsCounter = 0; versionsCounter < this.grafiken[0].length; versionsCounter++)
-		{
-			if(bit)
-			{
-				this.grafiken[Logikgatter.ANZAHL_LOGIKGATTER][versionsCounter] = new JLabel(this.imageCreator.getImage(bit)[versionsCounter]);
-			}else
-			{
-				this.grafiken[Logikgatter.ANZAHL_LOGIKGATTER+1][versionsCounter] = new JLabel(this.imageCreator.getImage(bit)[versionsCounter]);
-			}
-		}
+		/** Die verschiedenen Versionen der Bitgrafiken wwerden in einem Array in Form von ImageIcons gespeichert */
+
+		this.grafiken = this.imageCreator.getImage(bit);
+		this.button.setIcon(grafiken[0]);
 	}
 	
-	public JLabel getImage(int bildID, int version )
+	/**
+	 * 
+	 * @param versionID
+	 * @return
+	 */
+	public boolean setVersion(int versionID)
 	{
 		try
 		{
-			return this.grafiken[bildID][version];
-		}catch(IndexOutOfBoundsException e)
+			this.button.setIcon(this.grafiken[versionID]);
+			return true;
+			
+		}catch(Exception e)
 		{
-			return null;
+			return false;
 		}
 	}
 	
-
-	
-
+	public JLabel getImage()
+	{
+		return button;
+	}
 }
