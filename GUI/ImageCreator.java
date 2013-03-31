@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 public class ImageCreator 
 {
 	private static String verzeichnis = "./grafiken/";
-	private static String dateiendung = ".jpg";
+	private static String dateiendung = ".png";
 	private int anzahlVersionen;
 	private Dimension size;
 	private boolean spiegeln;
@@ -48,8 +48,9 @@ public class ImageCreator
 				}
 				else
 				{
-					grafiken[i] = new ImageIcon( ImageCreator.verzeichnis + logikgatter.toString() + i.toString() + ImageCreator.dateiendung ); // Grafik erstellen
-					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
+					grafiken[i] = new ImageIcon("C:\\Users\\DANI\\workspace\\Projektarbeit\\bin\\GUI\\grafiken\\gatter2.png");
+					//grafiken[i] = new ImageIcon( ImageCreator.verzeichnis + logikgatter.toString() + i.toString() + ImageCreator.dateiendung ); // Grafik erstellen
+					//grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
 				}
 				
 			}
