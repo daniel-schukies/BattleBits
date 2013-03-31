@@ -1,3 +1,4 @@
+import GUI.GameFrame;
 
 public class Universum {
 
@@ -6,7 +7,7 @@ public class Universum {
 	 */
 	public static void main(String[] args) 
 	{
-		Spiel battlebits = new Spiel(false);
+		new GameFrame();
 		//battlebits.starteKonsolenModus();
 		
 	}
