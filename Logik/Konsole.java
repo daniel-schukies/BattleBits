@@ -7,15 +7,11 @@ public class Konsole
 	private Scanner sc;
 	
 	private Bitgenerator bitfolge;
-	private Spieler spieler1;
-	private Spieler spieler2;
 	
-	public Konsole(Bitgenerator bitfolge, Spieler spieler1, Spieler spieler2)
+	public Konsole(Bitgenerator bitfolge)
 	{
 		this.sc = new Scanner(System.in);
 		this.bitfolge = bitfolge;
-		this.spieler1 = spieler1;
-		this.spieler2 = spieler2;
 	}
 		
 	/**
