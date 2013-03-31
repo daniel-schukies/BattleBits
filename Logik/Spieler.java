@@ -35,14 +35,42 @@ public class Spieler
 		this.name = name;
 	}
 	
+
+	
+	public void setIsDran(boolean isDran)
+	{
+		this.isDran = isDran;
+	}
+	
+	
+	public void setIsKI(boolean ki)
+	{
+		this.isKI = ki;
+	}
+	
 	public String getName()
 	{
 		return this.name;
 	}
 	
-	public void setIsDran(boolean isDran)
+	public Spielfeld getSpielfeld()
 	{
-		this.isDran = isDran;
+		return this.spielfeld;
+	}
+	
+	public Logikgatter getLogikgatter(int index)
+	{
+		if(index >= 0 && index < this.logikgatter.length)
+		{
+			return this.logikgatter[index]; // ACHTUNG NULLPOINTER ;)
+		}
+		
+		return null; // Existiert nicht
+	}
+	
+	public boolean getIsKI()
+	{
+		return this.isKI;
 	}
 	
 	public boolean getIsDran()
@@ -50,15 +78,7 @@ public class Spieler
 		return this.isDran;
 	}
 	
-	public void setIsKI(boolean ki)
-	{
-		this.isKI = ki;
-	}
-	
-	public boolean getIsKI()
-	{
-		return this.isKI;
-	}
+
 	
 	public boolean loescheLogikgatter(int index)
 	{
@@ -87,15 +107,7 @@ public class Spieler
 		return false;
 	}
 	
-	public Logikgatter getLogikgatter(int index)
-	{
-		if(index >= 0 && index < this.logikgatter.length)
-		{
-			return this.logikgatter[index]; // ACHTUNG NULLPOINTER ;)
-		}
-		
-		return null; // Existiert nicht
-	}
+
 	
 	/**
 	 * Teilt an den Spieler seine ersten Gatter aus.
@@ -124,7 +136,6 @@ public class Spieler
 		this.loescheLogikgatter(gatterIndex);
 		lg.generate();
 		this.gebeLogikgatter(lg.getLogikgatter());
-		System.out.println("Es wurde folgendes Gatter gezogen: " + lg.getLogikgatter());
 	}
 	/**
 	 * 
@@ -289,7 +300,6 @@ public class Spieler
 					System.out.println("Gatter Index: " + gatterPrioritaet[priorisiertesGatter][1] );
 				}
 				this.zieheNeuesLogikgatter(priorisiertesGatter);
-				System.out.println("KI hat gelegt!");
 			}
 			else // Ziehe Neues
 			{
@@ -301,8 +311,5 @@ public class Spieler
 		//if(indexVerwendetesGatter != 404) // pruefe, ob ein Gatter gespielt werden soll
 	}
 	
-	public Spielfeld getSpielfeld()
-	{
-		return this.spielfeld;
-	}
+
 }
