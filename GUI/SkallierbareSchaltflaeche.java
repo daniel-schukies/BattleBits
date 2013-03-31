@@ -1,25 +1,47 @@
 package GUI;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.text.Position;
+
+import Logik.Logikgatter;
 
 @SuppressWarnings("serial")
 public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseListener
 {
 	private Dimension size;
-	private Position position;
-	
+	private Dimension buttonSize;
+
 	
 	private Grafikspeicher[] grafikSpeicher;
 	
-	public SkallierbareSchaltflaeche(Dimension size, int anzahlGrafiken)
+	public SkallierbareSchaltflaeche(int xPos,int yPos, int  size, int anzahlGrafiken, boolean isVertikal)
 	{
-		this.size = size;
+		this.grafikSpeicher = new Grafikspeicher[anzahlGrafiken];
+		
+		
+		if(isVertikal)
+		{
+			this.size = new Dimension(size, size*anzahlGrafiken);
+			this.buttonSize = new Dimension((int)this.size.getWidth(), (int)this.size.getHeight()/anzahlGrafiken);
+		}else
+		{
+			this.size = new Dimension( size*anzahlGrafiken, size );
+			this.buttonSize = new Dimension( (int)this.size.getWidth()/anzahlGrafiken, (int)this.size.getHeight());
+		}
+		
+		for(int i = 0; i < anzahlGrafiken; i++)
+		{
+			this.grafikSpeicher[i] = new Grafikspeicher(this.buttonSize, 6, false);
+		}
+		
+		this.setPreferredSize(this.size);
+		this.setBounds(xPos, yPos, (int)this.size.getWidth(), (int)this.size.getHeight());
+		this.setLayout(new FlowLayout());
 	}
 	
 	private boolean changeVersion(int verionID, JLabel button)
@@ -33,6 +55,23 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 		}
 		
 		return false;
+	}
+		
+	public void setImage(int index, Logikgatter logikgatter)
+	{
+		this.grafikSpeicher[index].setImage(logikgatter);
+	}
+	
+	public void setImage(int index, boolean bit)
+	{
+		System.out.println("blaaaa:" + this.grafikSpeicher.length);
+		this.grafikSpeicher[index].setImage(bit);
+	}
+	
+	public JLabel getImage(int index)
+	{
+		
+		return this.grafikSpeicher[index].getImage();
 	}
 	
 
