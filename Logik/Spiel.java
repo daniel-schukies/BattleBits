@@ -1,11 +1,12 @@
+package Logik;
+
 import java.util.Scanner;
 
 import Logik.Bitgenerator;
 import Logik.Konsole;
-import Logik.Logikgatter;
 import Logik.Not;
 import Logik.Spieler;
-import Logik.Spielfeld;
+
 
 public class Spiel 
 {
@@ -23,6 +24,8 @@ public class Spiel
 		
 		this.bitfolge = new Bitgenerator(5);
 		this.bitfolge.generate();
+		
+		this.gui = gui;
 		
 		if(this.gui)
 		{
@@ -154,6 +157,9 @@ public class Spiel
 		this.spieler2 = new Spieler();
 		this.spieler1.setIsKI(true);
 		this.spieler2.setIsKI(true);
+		
+		this.spieler1.generiereLogikgatter();
+		this.spieler2.generiereLogikgatter();
 	}
 	
 	
@@ -212,7 +218,7 @@ public class Spiel
 
 		}while( !(isEingabeOK) );
 		
-		Konsole con = new Konsole(this.bitfolge, this.spieler1, this.spieler1);
+		Konsole con = new Konsole(this.bitfolge);
 
 		/** Starten der Spielschleife nur mit P vs. P */
 		
