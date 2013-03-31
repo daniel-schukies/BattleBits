@@ -20,27 +20,13 @@ public class Grafikspeicher
 	 * @param anzahlVersionen
 	 * @param bit
 	 */
-	public Grafikspeicher(Dimension size, int anzahlVersionen, boolean bit,boolean spiegeln)
+	public Grafikspeicher(Dimension size, int anzahlVersionen,boolean spiegeln)
 	{
-		this.setImage(bit);
 		this.imageCreator = new ImageCreator(size, anzahlVersionen, spiegeln);
 		this.grafiken = new ImageIcon[anzahlVersionen];
 		this.button = new JLabel();
 	}
-	
-	/**
-	 * 
-	 * @param size
-	 * @param anzahlVersionen
-	 * @param logikgatter
-	 */
-	public Grafikspeicher(Dimension size, int anzahlVersionen, Logikgatter logikgatter, boolean spiegeln)
-	{
-		this.setImage(logikgatter);
-		this.imageCreator = new ImageCreator(size, anzahlVersionen, spiegeln);
-		this.grafiken = new ImageIcon[anzahlVersionen];
-		this.button = new JLabel();
-	}
+
 	
 	/**
 	 * 
