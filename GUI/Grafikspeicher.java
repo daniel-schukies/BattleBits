@@ -37,7 +37,7 @@ public class Grafikspeicher
 		/** Die verschiedenen Versionen der Logikgattergrafiken werden in einem Array in Form von ImageIcons gespeichert */
 
 		this.grafiken = this.imageCreator.getImage(logikgatter);
-		this.button.setIcon(grafiken[0]);
+		this.button.setIcon(this.grafiken[0]);
 	}
 	
 	/**
@@ -49,7 +49,13 @@ public class Grafikspeicher
 		/** Die verschiedenen Versionen der Bitgrafiken wwerden in einem Array in Form von ImageIcons gespeichert */
 
 		this.grafiken = this.imageCreator.getImage(bit);
-		this.button.setIcon(grafiken[0]);
+		this.button.setIcon(this.grafiken[0]);
+	}
+	
+	public void setImage()
+	{
+		this.grafiken = this.imageCreator.getImage();
+		this.button.setIcon(this.grafiken[0]);
 	}
 	
 	/**

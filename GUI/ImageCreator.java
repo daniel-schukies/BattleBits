@@ -9,8 +9,9 @@ import javax.swing.ImageIcon;
 
 public class ImageCreator 
 {
-	private static String verzeichnis = "./grafiken/";
-	private static String dateiendung = ".png";
+	private static final String VERZEICHNIS = "bin/GUI/grafiken/";
+	private static final String DATEIENDUNG = ".png";
+	private static final String PLATZHALTER = "platzhalter";
 	private int anzahlVersionen;
 	private Dimension size;
 	private boolean spiegeln;
@@ -43,14 +44,13 @@ public class ImageCreator
 			{
 				if(this.spiegeln)
 				{
-					grafiken[i] = new MirrorImageIcon( ImageCreator.verzeichnis + logikgatter.toString() + i.toString() + ImageCreator.dateiendung ); // Grafik erstellen
+					grafiken[i] = new MirrorImageIcon( ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
 					grafiken[i] = new MirrorImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
 				}
 				else
 				{
-					grafiken[i] = new ImageIcon("C:\\Users\\DANI\\workspace\\Projektarbeit\\bin\\GUI\\grafiken\\gatter2.png");
-					//grafiken[i] = new ImageIcon( ImageCreator.verzeichnis + logikgatter.toString() + i.toString() + ImageCreator.dateiendung ); // Grafik erstellen
-					//grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
+					grafiken[i] = new ImageIcon( ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
+					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
 				}
 				
 			}
@@ -82,15 +82,37 @@ public class ImageCreator
 			{
 				if(this.spiegeln)
 				{
-					grafiken[i] = new MirrorImageIcon( ImageCreator.verzeichnis + castBit.toString() + i.toString() + ImageCreator.dateiendung ); // Grafik erstellen
+					grafiken[i] = new MirrorImageIcon( ImageCreator.VERZEICHNIS + castBit.toString() + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
 					grafiken[i] = new MirrorImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
 
 				}
 				else
 				{
-					grafiken[i] = new ImageIcon( ImageCreator.verzeichnis + castBit.toString() + i.toString() + ImageCreator.dateiendung ); // Grafik erstellen
+					grafiken[i] = new ImageIcon( ImageCreator.VERZEICHNIS + castBit.toString() + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
 					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
+				}		
+			}
+			catch(InstantiationError e)// Grafik nicht vorhanden
+			{
+				grafiken[i] = null; 
+			}
+		}
 
+		return grafiken;
+	}
+	
+	public ImageIcon[] getImage()
+	{
+		ImageIcon[] grafiken = new ImageIcon[this.anzahlVersionen];
+		
+		for(Integer i = 0; i < anzahlVersionen;i++  )
+		{
+			// Bild muss noch mit richtiger Aufloesung zurueckgegeben werden
+			try
+			{
+				{
+					grafiken[i] = new ImageIcon( ImageCreator.VERZEICHNIS + ImageCreator.PLATZHALTER + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
+					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
 				}		
 			}
 			catch(InstantiationError e)// Grafik nicht vorhanden
