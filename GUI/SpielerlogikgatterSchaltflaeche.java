@@ -1,6 +1,9 @@
 package GUI;
 
 import java.awt.event.MouseEvent;
+
+import javax.swing.JLabel;
+
 import Logik.Spieler;
 
 public class SpielerlogikgatterSchaltflaeche extends SkallierbareSchaltflaeche
@@ -8,6 +11,7 @@ public class SpielerlogikgatterSchaltflaeche extends SkallierbareSchaltflaeche
 	
 	private Spieler spieler;
 	private int anzahlGrafiken;
+	private IDInfo pressedID;
 	
 	/**
 	 * 
@@ -26,6 +30,7 @@ public class SpielerlogikgatterSchaltflaeche extends SkallierbareSchaltflaeche
 		
 		for(int i = 0; i < anzahlGrafiken; i++)
 		{
+			super.getImage(i).addMouseListener(this);
 			this.add(super.getImage(i));
 		}
 	}
@@ -33,39 +38,41 @@ public class SpielerlogikgatterSchaltflaeche extends SkallierbareSchaltflaeche
 	
 	public void refresh()
 	{
-		for(int i = 0; i < this.anzahlGrafiken; i++ )
+		for(int i = 0; i < 4; i++ )
 		{
-			super.setImage(i, this.spieler.getLogikgatter(0));
+			super.setImage(i, this.spieler.getLogikgatter(i));
 		}
 	}
-	/*
+	
+
 	@Override
 	public void mouseEntered(MouseEvent e) 
 	{
-		this.changeVersion(2, (JLabel)e.getSource());
+		//this.changeVersion(2, (JLabel)e.getSource());
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) 
 	{
-		this.changeVersion(0, (JLabel)e.getSource());
+		//this.changeVersion(0, (JLabel)e.getSource());
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) 
 	{
-		this.changeVersion(1, (JLabel)e.getSource());
+		//this.changeVersion(1, (JLabel)e.getSource());
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) 
 	{
-		this.changeVersion(0, (JLabel)e.getSource());
-	}*/
+		//this.changeVersion(0, (JLabel)e.getSource());
+	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void mouseClicked(MouseEvent e) 
+	{
+		this.pressedID = super.checkPressed( (JLabel)e.getSource() );
+		System.out.println("" + this.pressedID.getID());
 	}
 }
