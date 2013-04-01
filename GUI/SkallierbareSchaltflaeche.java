@@ -23,6 +23,9 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 	{
 		this.grafikSpeicher = new Grafikspeicher[anzahlGrafiken];
 		
+		FlowLayout layout = new FlowLayout();
+		layout.setHgap(0);
+		layout.setVgap(0);
 		
 		if(isVertikal)
 		{
@@ -39,9 +42,10 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 			this.grafikSpeicher[i] = new Grafikspeicher(this.buttonSize, 6, false);
 		}
 		
+		
 		this.setPreferredSize(this.size);
 		this.setBounds(xPos, yPos, (int)this.size.getWidth(), (int)this.size.getHeight());
-		this.setLayout(new FlowLayout());
+		this.setLayout(layout);
 	}
 	
 	private boolean changeVersion(int verionID, JLabel button)
@@ -56,6 +60,19 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 		
 		return false;
 	}
+	
+	public IDInfo checkPressed(JLabel button) 
+	{
+		for(int i = 0; i < this.grafikSpeicher.length; i++)
+		{
+			if(button == this.grafikSpeicher[i].getImage())
+			{
+				return new IDInfo(i);
+			}
+		}
+		
+		return new IDInfo();
+	}
 		
 	public void setImage(int index, Logikgatter logikgatter)
 	{
@@ -64,17 +81,20 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 	
 	public void setImage(int index, boolean bit)
 	{
-		System.out.println("blaaaa:" + this.grafikSpeicher.length);
 		this.grafikSpeicher[index].setImage(bit);
+	}
+	
+	public void setImage(int index)
+	{
+		this.grafikSpeicher[index].setImage();
 	}
 	
 	public JLabel getImage(int index)
 	{
-		
 		return this.grafikSpeicher[index].getImage();
 	}
 	
-
+	
 	@Override
 	public void mouseEntered(MouseEvent e) 
 	{
