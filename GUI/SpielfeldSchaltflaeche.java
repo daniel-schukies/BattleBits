@@ -66,7 +66,7 @@ public class SpielfeldSchaltflaeche extends JPanel
 		{
 			if(this.logikgatterSchaltflaechenArray[j].getPressedID().getIsPressed())
 			{
-				this.logikgatterSchaltflaechenArray[j].setAllImagesToVersion(0);
+				this.logikgatterSchaltflaechenArray[j].setAllImagesToLogikgatterStatus();
 				this.logikgatterSchaltflaechenArray[j].setPressedID(new IDInfo());
 			}
 		}
