@@ -1,7 +1,7 @@
 package GUI;
 
-import java.awt.Dimension;
 
+import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -67,7 +67,9 @@ public class Grafikspeicher
 	{
 		try
 		{
+			//this.button.setIcon(null);
 			this.button.setIcon(this.grafiken[versionID]);
+			//this.button.revalidate();
 			return true;
 			
 		}catch(Exception e)

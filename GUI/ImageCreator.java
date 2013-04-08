@@ -105,7 +105,7 @@ public class ImageCreator
 	{
 		ImageIcon[] grafiken = new ImageIcon[this.anzahlVersionen];
 		
-		for(Integer i = 0; i < anzahlVersionen;i++  )
+		for(Integer i = 0; i < 3;i++  )
 		{
 			// Bild muss noch mit richtiger Aufloesung zurueckgegeben werden
 			try
