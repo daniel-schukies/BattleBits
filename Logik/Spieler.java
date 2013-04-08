@@ -68,6 +68,11 @@ public class Spieler
 		return null; // Existiert nicht
 	}
 	
+	public Logikgatter[] getLogikgatter()
+	{
+		return this.logikgatter;
+	}
+	
 	public boolean getIsKI()
 	{
 		return this.isKI;

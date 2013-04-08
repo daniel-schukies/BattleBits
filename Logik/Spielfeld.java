@@ -113,7 +113,15 @@ public class Spielfeld implements Cloneable
 		}
 
 		return null; // Konnte Logikgatter nicht finden.
-		
+	}
+	
+	public Logikgatter[] getLogikgatter(int reihe)
+	{
+		if(this.pruefeReiheIndex(reihe, 0))
+		{
+			return this.logikgatter[reihe];
+		}
+		return null;
 	}
 	
 	
