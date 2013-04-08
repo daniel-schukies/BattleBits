@@ -1,9 +1,11 @@
 package GUI;
 
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import Logik.Spiel;
+
 
 
 public class GameFrame extends JFrame 
@@ -25,6 +27,8 @@ public class GameFrame extends JFrame
 		this.setTitle("Battlebits");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(800, 400);
+		this.getContentPane().setBackground(Color.BLACK);
+		
 		/*
 		Grafikspeicher gr = new Grafikspeicher(new Dimension(80,80), 6, false);
 		
@@ -53,12 +57,15 @@ public class GameFrame extends JFrame
 		
 		
 		//wichtig: Skallierung der Bilder nochmal anschauen!
-		SpielerlogikgatterSchaltflaeche logikgatter = new SpielerlogikgatterSchaltflaeche(0, 0,  200, 4,  false, this.spiel.getSpieler()[0] );
+		//LogikgatterSchaltflaeche logikgatter = new LogikgatterSchaltflaeche(0, 0,  190, 4, this.spiel.getSpieler()[0].getLogikgatter(),null, true, false );
 		
+		SpielfeldSchaltflaeche ss = new SpielfeldSchaltflaeche(this.spiel.getSpieler()[0].getSpielfeld(), 700,false );
+		
+		this.add(ss);
 		
 		//this.add(logikgatter.getDebugJLabel());
 		
-		this.add(logikgatter);
+		//this.add(logikgatter);
 		
 		
 		
