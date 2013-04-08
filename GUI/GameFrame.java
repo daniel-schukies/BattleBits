@@ -59,6 +59,8 @@ public class GameFrame extends JFrame
 		//wichtig: Skallierung der Bilder nochmal anschauen!
 		LogikgatterSchaltflaeche logikgatter = new LogikgatterSchaltflaeche(0, 0,  190, 4, this.spiel.getSpieler()[0].getLogikgatter(),null, true, false );
 		
+		this.spiel.getSpieler()[0].spieleAlsKI(this.spiel.getSpieler()[0].getSpielfeld(), this.spiel.getSpieler()[1].getSpielfeld(), this.spiel.getBitfolge());
+		
 		SpielfeldSchaltflaeche ss = new SpielfeldSchaltflaeche(this.spiel.getSpieler()[0].getSpielfeld(), 700,false );
 		
 		this.add(ss);
