@@ -1,5 +1,7 @@
 package GUI;
 
+import java.awt.Color;
+
 import javax.swing.JPanel;
 import Logik.Spielfeld;
 
@@ -20,7 +22,7 @@ public class SpielfeldSchaltflaeche extends JPanel
 		
 		this.gatterPosition = new int[2];
 		
-		//this.setBackground(new Color(0,0, 0,255) );
+		this.setBackground(new Color(0,0, 0,255) );
 		
 		int yPosSchaltflaechen = 0;
 		

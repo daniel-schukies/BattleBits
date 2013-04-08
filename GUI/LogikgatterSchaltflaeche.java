@@ -51,9 +51,13 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche
 			else
 			{
 				this.setImage(i,this.logikgatter[i]);
+				if(this.logikgatter[i].getIsAktiv())
+				this.changeVersion(3, this.getImage(i));
 			}
 		}
 	}
+	
+	public void setImageToLogikgatterStatus
 	
 	public IDInfo getPressedID()
 	{
