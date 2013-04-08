@@ -26,4 +26,14 @@ public class IDInfo
 	{
 		return this.isPressed;
 	}
+	
+	public void setID(int ID)
+	{
+		this.ID = ID;
+	}
+	
+	public void setIsPressed(boolean isPressed)
+	{
+		this.isPressed = isPressed;
+	}
 }

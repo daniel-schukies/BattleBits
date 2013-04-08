@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseEvent;
@@ -19,13 +20,17 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 	
 	private Grafikspeicher[] grafikSpeicher;
 	
-	public SkallierbareSchaltflaeche(int xPos,int yPos, int  size, int anzahlGrafiken, boolean isVertikal)
+	public SkallierbareSchaltflaeche(int xPos,int yPos, int  size, int anzahlGrafiken,MouseListener externerMouseListener,boolean spiegeln, boolean isVertikal)
 	{
 		this.grafikSpeicher = new Grafikspeicher[anzahlGrafiken];
+		
+		this.addMouseListener(externerMouseListener);
 		
 		FlowLayout layout = new FlowLayout();
 		layout.setHgap(0);
 		layout.setVgap(0);
+		
+		this.setBackground(new Color(0,0, 0,255) ); // Alpha-Channal nachlesen!
 		
 		if(isVertikal)
 		{
@@ -39,7 +44,7 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 		
 		for(int i = 0; i < anzahlGrafiken; i++)
 		{
-			this.grafikSpeicher[i] = new Grafikspeicher(this.buttonSize, 6, false);
+			this.grafikSpeicher[i] = new Grafikspeicher(this.buttonSize, 6, spiegeln);
 		}
 		
 		
@@ -48,31 +53,20 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 		this.setLayout(layout);
 	}
 	
-	private boolean changeVersion(int verionID, JLabel button)
+	protected boolean changeVersion(int versionID, JLabel button)
 	{		
 		for(int i = 0;i < this.grafikSpeicher.length;i++)
 		{
 			if(button == this.grafikSpeicher[i].getImage())
 			{
-				return this.grafikSpeicher[i].setVersion(1);
+				return this.grafikSpeicher[i].setVersion(versionID);
 			}
 		}
-		
 		return false;
 	}
 	
-	public IDInfo checkPressed(JLabel button) 
-	{
-		for(int i = 0; i < this.grafikSpeicher.length; i++)
-		{
-			if(button == this.grafikSpeicher[i].getImage())
-			{
-				return new IDInfo(i);
-			}
-		}
-		
-		return new IDInfo();
-	}
+	
+
 		
 	public void setImage(int index, Logikgatter logikgatter)
 	{
@@ -89,9 +83,32 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 		this.grafikSpeicher[index].setImage();
 	}
 	
+	public void setAllImagesToVersion(int versionID)
+	{
+		for(int i = 0;i < this.grafikSpeicher.length;i++)
+		{
+			{
+				this.grafikSpeicher[i].setVersion(versionID);
+			}
+		}
+	}
+	
 	public JLabel getImage(int index)
 	{
 		return this.grafikSpeicher[index].getImage();
+	}
+	
+	public IDInfo getImageIDInfo(JLabel button) 
+	{
+		for(int i = 0; i < this.grafikSpeicher.length; i++)
+		{
+			if(button == this.grafikSpeicher[i].getImage())
+			{
+				return new IDInfo(i);
+			}
+		}
+		
+		return new IDInfo();
 	}
 	
 	
