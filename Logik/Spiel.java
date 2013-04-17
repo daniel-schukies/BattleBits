@@ -39,8 +39,6 @@ public class Spiel
 	
 	public void nextSpielzug()
 	{
-		this.spieler1.setIsDran(true);
-		
 		/**
 		* Steuert, welcher Spieler am Zug ist und startet seinen Spielzug 
 		*/
@@ -49,12 +47,14 @@ public class Spiel
 			this.spieler2.setIsDran(true);
 			this.spieler1.setIsDran(false);
 			this.spielen(this.spieler2, this.spieler1);
+			System.out.println("Spieler1 is dran!");
 		}
 		else
 		{
 			this.spieler2.setIsDran(false);
 			this.spieler1.setIsDran(true);
 			this.spielen(this.spieler1, this.spieler2);
+			System.out.println("Spieler0 is dran!");
 		}
 	}
 
@@ -78,13 +78,21 @@ public class Spiel
 	{
 		if(spieler.getLogikgatter(logikgatterIndex) instanceof Not) // pruefe auf NOT Gatter
 		{
-			if(zuInvertierendesBit < 0 && zuInvertierendesBit > 5 )// Wiederhole bei falschem Index
+			if(!(zuInvertierendesBit < 0 && zuInvertierendesBit > 5) )// Wiederhole bei falschem Index
 			{
 				this.bitfolge.invertBit(zuInvertierendesBit); // invertiere das Bit	
 				spieler.zieheNeuesLogikgatter(logikgatterIndex); // Loesche und ziehe neues Logikgatter des Spielers
 				return true; // Bit wurde invertiert (Not gelegt)
 			}
-		}	
+			else
+			{
+				System.out.println("Falsche Zahl");
+			}
+		}
+		else
+		{
+			System.out.println("Kein Not");
+		}
 		
 		return false; // Logikgatter konnte nicht platziert werden!
 	}
@@ -136,7 +144,7 @@ public class Spiel
 		
 		if(spieler.getIsKI())
 		{			
-			spieler.spieleAlsKI(spieler.getSpielfeld(), gegner.getSpielfeld(), this.bitfolge);
+			spieler.spieleAlsKI(gegner.getSpielfeld(), this.bitfolge);
 		}
 
 		
@@ -157,6 +165,8 @@ public class Spiel
 		this.spieler2 = new Spieler();
 		this.spieler1.setIsKI(true);
 		this.spieler2.setIsKI(true);
+		this.spieler1.setIsDran(false);
+		this.spieler2.setIsDran(true);
 		
 		this.spieler1.generiereLogikgatter();
 		this.spieler2.generiereLogikgatter();

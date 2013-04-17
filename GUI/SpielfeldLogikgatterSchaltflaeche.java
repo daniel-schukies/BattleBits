@@ -8,13 +8,13 @@ import javax.swing.JLabel;
 import Logik.Logikgatter;
 
 @SuppressWarnings("serial")
-public class SpielfeldLogikgatterSchaltflaeche extends LogikgatterSchaltflaeche 
+public class SpielfeldLogikgatterSchaltflaeche extends LogikgatterSchaltflaeche implements Refreshable
 {
 	private SpielfeldSchaltflaeche spielfeldSchaltflaeche;
 	
 	public SpielfeldLogikgatterSchaltflaeche(int xPos,int yPos, int  size, int anzahlGrafiken,Logikgatter[] logikgatter,MouseListener externerMouseListener,SpielfeldSchaltflaeche spielfeldSchaltflaeche,boolean spiegeln, boolean isVertikal )
 	{
-		super(xPos,yPos,size,anzahlGrafiken,logikgatter,externerMouseListener,spiegeln,isVertikal );
+		super(xPos,yPos,size,anzahlGrafiken,logikgatter,spiegeln,isVertikal );
 
 		this.spielfeldSchaltflaeche = spielfeldSchaltflaeche;
 	}
@@ -48,5 +48,6 @@ public class SpielfeldLogikgatterSchaltflaeche extends LogikgatterSchaltflaeche
 		}
 		
 		this.spielfeldSchaltflaeche.sucheGeklicktenButton();
+		this.spielfeldSchaltflaeche.beendeSpielzug();
 	}
 }

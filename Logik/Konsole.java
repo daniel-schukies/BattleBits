@@ -30,7 +30,7 @@ public class Konsole
 		{
 			this.conAusgabeSpielerlogikgatter(spieler);
 			
-			spieler.spieleAlsKI(eigenesSpielfeld, gegnerSpielfeld, this.bitfolge);
+			spieler.spieleAlsKI(gegnerSpielfeld, this.bitfolge);
 			
 			this.conAusgabeRundenzahl(rundenzahl);
 			
@@ -205,7 +205,7 @@ public class Konsole
 	 * Stellt ein Spielfeld in den Konsole dar.
 	 * @param s Spielfeld, welches dargestellt werden soll
 	 */
-	private void conSpielfeldAusgabe(Spielfeld s)
+	public void conSpielfeldAusgabe(Spielfeld s)
 	{
 		int i;
 		
@@ -246,7 +246,7 @@ public class Konsole
 	 * Stellt die Logikgatter eines Spielers in den Konsole dar.
 	 * @param s Spieler der gerade am Zug ist
 	 */
-	private void conAusgabeSpielerlogikgatter(Spieler s)
+	public void conAusgabeSpielerlogikgatter(Spieler s)
 	{
 		/** Konsolenausgabe der Logikgatter */
 		
@@ -260,7 +260,7 @@ public class Konsole
 	
 	
 	/** Gibt die Rundenzahl in der Konsole aus */
-	private void conAusgabeRundenzahl(int rundenzahl)
+	public void conAusgabeRundenzahl(int rundenzahl)
 	{
 		System.out.println("Runde:" + rundenzahl);
 	}
@@ -270,7 +270,7 @@ public class Konsole
 	 * Gibt Informationen ueber einen Spieler in der Konsole aus
 	 * @param s Spieler, dessen Infos ausgegeben werden sollen.
 	 */
-	private void conAusgabeSpielerInfo(Spieler s)
+	public void conAusgabeSpielerInfo(Spieler s)
 	{
 		System.out.print("Spieler " + s.getName() + " ist am Zug");
 		
