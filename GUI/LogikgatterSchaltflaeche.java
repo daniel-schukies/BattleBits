@@ -1,17 +1,17 @@
 package GUI;
 
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+
 
 import javax.swing.JLabel;
 
 import Logik.Logikgatter;
 
-public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche
+public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implements Refreshable
 {
 	
 	private Logikgatter[] logikgatter;
-	private IDInfo pressedID;
+
 	private int anzahlGrafiken;
 	
 	/**
@@ -19,15 +19,13 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche
 	 */
 	private static final long serialVersionUID = 8457018625255576914L;
 
-	public LogikgatterSchaltflaeche(int xPos,int yPos, int  size, int anzahlGrafiken,Logikgatter[] logikgatter,MouseListener externerMouseListener,boolean spiegeln, boolean isVertikal )
+	public LogikgatterSchaltflaeche(int xPos,int yPos, int  size, int anzahlGrafiken,Logikgatter[] logikgatter,boolean spiegeln, boolean isVertikal )
 	{
-		super(xPos, yPos,  size,anzahlGrafiken, externerMouseListener, spiegeln,  isVertikal);
+		super(xPos, yPos,  size,anzahlGrafiken, spiegeln,  isVertikal);
 		
 		this.anzahlGrafiken = anzahlGrafiken;
 		
 		this.logikgatter = logikgatter;
-		
-		this.pressedID = new IDInfo();
 		
 		this.refresh();
 		
@@ -54,6 +52,8 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche
 				this.setImageToLogikgatterStatus(logikgatter[i], this.getImage(i));
 			}
 		}
+		
+		this.setPressedID(new IDInfo());
 	}
 	
 	public void setImageToLogikgatterStatus(Logikgatter logikgatter, JLabel button)
@@ -83,14 +83,9 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche
 		}
 	}
 	
-	public IDInfo getPressedID()
+	public Logikgatter[] getLogikgatter()
 	{
-		return this.pressedID;
-	}
-	
-	public void setPressedID(IDInfo pressedID)
-	{
-		this.pressedID = pressedID;
+		return this.logikgatter;
 	}
 	
 
@@ -98,9 +93,9 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche
 	public void mouseEntered(MouseEvent e) 
 	{
 		JLabel button = (JLabel)e.getSource();
-		if(this.pressedID.getIsPressed())
+		if(this.getPressedID().getIsPressed())
 		{
-			if( button != this.getImage(this.pressedID.getID()) )
+			if( button != this.getImage(this.getPressedID().getID()) )
 			{
 				super.changeVersion(2, (JLabel)e.getSource());
 			}
@@ -115,9 +110,9 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche
 	public void mouseExited(MouseEvent e) 
 	{
 		JLabel button = (JLabel)e.getSource();
-		if(this.pressedID.getIsPressed())
+		if(this.getPressedID().getIsPressed())
 		{
-			if( button != this.getImage(this.pressedID.getID()) )
+			if( button != this.getImage(this.getPressedID().getID()) )
 			{
 				this.changeVersion(0, (JLabel)e.getSource());
 			}
@@ -145,24 +140,24 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche
 	{
 			
 		JLabel button = (JLabel)e.getSource();
-		if( this.pressedID.getIsPressed() )
+		if( this.getPressedID().getIsPressed() )
 		{
-			if(button == this.getImage(this.pressedID.getID()))
+			if(button == this.getImage(this.getPressedID().getID()))
 			{
 				this.changeVersion(0, button);
-				this.pressedID.setIsPressed(false);
+				this.getPressedID().setIsPressed(false);
 			}
 			else
 			{
-				this.changeVersion(0, this.getImage(this.pressedID.getID()));
+				this.changeVersion(0, this.getImage(this.getPressedID().getID()));
 				this.changeVersion(1, button);
-				this.pressedID = this.getImageIDInfo( button );
+				this.setPressedID(this.getImageIDInfo( button ));
 			}
 		}
 		else
 		{
 			this.changeVersion(1, button);
-			this.pressedID = this.getImageIDInfo( button );
+			this.setPressedID(this.getImageIDInfo( button ));
 		}
 
 		

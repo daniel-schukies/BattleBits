@@ -16,19 +16,20 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 {
 	private Dimension size;
 	private Dimension buttonSize;
+	private IDInfo pressedID;
 
 	
 	private Grafikspeicher[] grafikSpeicher;
 	
-	public SkallierbareSchaltflaeche(int xPos,int yPos, int  size, int anzahlGrafiken,MouseListener externerMouseListener,boolean spiegeln, boolean isVertikal)
+	public SkallierbareSchaltflaeche(int xPos,int yPos, int  size, int anzahlGrafiken,boolean spiegeln, boolean isVertikal)
 	{
 		this.grafikSpeicher = new Grafikspeicher[anzahlGrafiken];
-		
-		this.addMouseListener(externerMouseListener);
 		
 		FlowLayout layout = new FlowLayout();
 		layout.setHgap(0);
 		layout.setVgap(0);
+		
+		this.pressedID = new IDInfo();
 		
 		this.setBackground(new Color(0,0, 0,255) ); // Alpha-Channal nachlesen!
 		
@@ -91,6 +92,16 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 				this.grafikSpeicher[i].setVersion(versionID);
 			}
 		}
+	}
+	
+	public IDInfo getPressedID()
+	{
+		return this.pressedID;
+	}
+	
+	public void setPressedID(IDInfo pressedID)
+	{
+		this.pressedID = pressedID;
 	}
 	
 	public JLabel getImage(int index)

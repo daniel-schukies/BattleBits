@@ -148,15 +148,17 @@ public class Spieler
 	 * @param gegnerSpielfeld
 	 * @param bitfolge
 	 */
-	public void spieleAlsKI(Spielfeld eigenesSpielfeld, Spielfeld gegnerSpielfeld, Bitgenerator bitfolge)
+	public void spieleAlsKI(Spielfeld gegnerSpielfeld, Bitgenerator bitfolge)
 	{
+		System.out.println("KI Hat gespielt");
+		
 		int indexVerwendetesGatter = 404; // Error: 404 Gatter not found ;)
 		
 		int notSchadenBeimGegner[] = new int[5];
 		int notSchadenBeimSpieler[] = new int[5];
 
 		/** Lege Kopien der Spielfelder und des Bitgenerators an */
-		Spielfeld kopieEigenesSpielfeld = eigenesSpielfeld.clone();
+		Spielfeld kopieEigenesSpielfeld = this.spielfeld.clone();
 		Spielfeld kopieGegnerSpielfeld = gegnerSpielfeld.clone();
 		Bitgenerator kopieBitfolge = (Bitgenerator)bitfolge.clone();
 		
@@ -273,7 +275,7 @@ public class Spieler
 									}
 								}
 								
-								kopieEigenesSpielfeld = eigenesSpielfeld.clone(); // Setze kopie des Spielfelds zurueck.
+								kopieEigenesSpielfeld = this.spielfeld.clone(); // Setze kopie des Spielfelds zurueck.
 							}
 						}
 					}
@@ -296,7 +298,7 @@ public class Spieler
 			/** Entscheide, ob Logikgatter auf Spielfeld gelegt werden soll oder ein Neues gezogen werden soll */
 			if(gatterPrioritaet[priorisiertesGatter][2] > 0)
 			{
-				if( !(eigenesSpielfeld.setLogikgatter(gatterPrioritaet[priorisiertesGatter][0], gatterPrioritaet[priorisiertesGatter][1], this.logikgatter[priorisiertesGatter], bitfolge)) )
+				if( !(this.spielfeld.setLogikgatter(gatterPrioritaet[priorisiertesGatter][0], gatterPrioritaet[priorisiertesGatter][1], this.logikgatter[priorisiertesGatter], bitfolge)) )
 				{
 					System.out.println("--------- KI Entscheidungsfehler !!! ---------");
 					System.out.println("Gatter welches gespielt werden sollte: " + priorisiertesGatter);

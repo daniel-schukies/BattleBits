@@ -73,9 +73,9 @@ public class ImageCreator
 	{
 		Boolean castBit = (Boolean)bit; // Um spaeter die toString() zu nutzen.
 		
-		ImageIcon[] grafiken = new ImageIcon[this.anzahlVersionen];
+		ImageIcon[] grafiken = new ImageIcon[3];
 		
-		for(Integer i = 0; i < anzahlVersionen;i++  )
+		for(Integer i = 0; i < 3;i++  )
 		{
 			// Bild muss noch mit richtiger Aufloesung zurueckgegeben werden
 			try
