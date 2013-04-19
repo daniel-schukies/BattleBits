@@ -71,6 +71,11 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 							System.out.println("Dran:" + this.spiel.getAktuellerSpieler().getIsDran() +"ID:" + spielerID);
 							this.spiel.nextSpielzug();
 							
+							if(this.spiel.getAktuellerSpieler().getIsKI() && this.spiel.getAktuellerSpieler().getIsDran())
+							{
+								this.spiel.nextSpielzug();
+							}
+							
 							this.refresh();
 							this.getPressedID().setIsPressed(false);
 							

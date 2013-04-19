@@ -39,7 +39,7 @@ public class GameFrame extends JFrame
 		
 		this.spiel = new Spiel(true);
 		
-		this.spiel.getSpieler()[0].setIsKI(false);
+		this.spiel.getSpieler()[0].setIsKI(true);
 		this.spiel.getSpieler()[1].setIsKI(false);
 		
 		
