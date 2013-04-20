@@ -3,14 +3,24 @@ package GUI;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
+
 import Logik.Logikgatter;
+import Logik.Not;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 public class ImageCreator 
 {
 	private static final String VERZEICHNIS = "bin/GUI/grafiken/";
 	private static final String DATEIENDUNG = ".png";
 	private static final String PLATZHALTER = "platzhalter";
+	private static final String LOGIKGATTERSTATUS = "L";
 	private int anzahlVersionen;
 	private Dimension size;
 	private boolean spiegeln;
@@ -37,24 +47,45 @@ public class ImageCreator
 	{
 		ImageIcon[] grafiken = new ImageIcon[this.anzahlVersionen];
 		
+		Boolean castBit = (Boolean)logikgatter.getAusgang(); // Um spaeter die toString() zu nutzen.
+		
 		for(Integer i = 0; i < anzahlVersionen;i++  )
 		{
 			try
 			{
 				if(this.spiegeln)
 				{
-					grafiken[i] = new MirrorImageIcon( ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
+			        BufferedImage im1 = ImageIO.read(new File(ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG )); 
+			        
+			        BufferedImage im2 = ImageIO.read(new File(ImageCreator.VERZEICHNIS + ImageCreator.LOGIKGATTERSTATUS + castBit + "1" + ImageCreator.DATEIENDUNG )); 
+
+			        grafiken[i] = new MirrorImageIcon( ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
+
 					grafiken[i] = new MirrorImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
+					
+					BufferedImage bi = new BufferedImage((int)size.getWidth(), (int)size.getHeight(), BufferedImage.TYPE_INT_ARGB); 
+					
+					Graphics g = bi.getGraphics();
+					g.drawImage(grafiken[i].getImage(), 0, 0, null);
+					
+					BufferedImage combined = zeichneLogikgatterStatus(bi, im2, logikgatter);
+					
+					grafiken[i] = new ImageIcon(combined);
 				}
 				else
 				{
-					grafiken[i] = new ImageIcon( ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
-					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
-					//this.zeichneLogikgatterStatus(grafiken[i], logikgatter);
+			        BufferedImage im1 = ImageIO.read(new File(ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG )); 
+			        
+			        BufferedImage im2 = ImageIO.read(new File(ImageCreator.VERZEICHNIS + ImageCreator.LOGIKGATTERSTATUS + castBit + "1" + ImageCreator.DATEIENDUNG )); 
+
+			        BufferedImage combined = zeichneLogikgatterStatus(im1, im2, logikgatter);
+			        
+					grafiken[i] = new ImageIcon(combined.getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
+
 				}
 				
 			}
-			catch(InstantiationError e)// Grafik nicht vorhanden
+			catch(IOException e)// Grafik nicht vorhanden
 			{
 				grafiken[i] = null; 
 			}
@@ -129,11 +160,23 @@ public class ImageCreator
 		this.size = size;
 	}
 	
-	public void zeichneLogikgatterStatus(ImageIcon icon, Logikgatter Logikgatter)
+	public BufferedImage zeichneLogikgatterStatus(BufferedImage mainImage, BufferedImage overlayImage, Logikgatter logikgatter )
 	{
-		Image im = icon.getImage();
-		Graphics g = im.getGraphics();
-		g.drawImage(icon.getImage(), icon.getIconWidth()/2, icon.getIconHeight()/2, icon.getIconWidth()/2, icon.getIconHeight()/2, icon.getImageObserver());
+		if(!(logikgatter instanceof Not))
+		{
+	        BufferedImage combined = new BufferedImage((int)this.size.getWidth(), (int)this.size.getHeight(), BufferedImage.TYPE_INT_ARGB);
+	        
+	     // paint both images, preserving the alpha channels
+	        Graphics g = combined.getGraphics();
+	        g.drawImage(mainImage, 0, 0, (int)this.size.getWidth(), (int)this.size.getHeight(),null);
+	        g.drawImage(overlayImage, (int)this.size.getHeight()/4, (int)this.size.getHeight()/4, (int)this.size.getHeight()/2, (int)this.size.getHeight()/2, null);
+	        
+	        return combined;
+		}
+		else
+		{
+			return mainImage;
+		}
 	}
 	
 	
