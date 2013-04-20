@@ -1,10 +1,9 @@
 package GUI;
+
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Image;
-
 import Logik.Logikgatter;
-
-
 import javax.swing.ImageIcon;
 
 public class ImageCreator 
@@ -51,6 +50,7 @@ public class ImageCreator
 				{
 					grafiken[i] = new ImageIcon( ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
 					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
+					//this.zeichneLogikgatterStatus(grafiken[i], logikgatter);
 				}
 				
 			}
@@ -127,6 +127,13 @@ public class ImageCreator
 	public void setAufloesung(Dimension size)
 	{
 		this.size = size;
+	}
+	
+	public void zeichneLogikgatterStatus(ImageIcon icon, Logikgatter Logikgatter)
+	{
+		Image im = icon.getImage();
+		Graphics g = im.getGraphics();
+		g.drawImage(icon.getImage(), icon.getIconWidth()/2, icon.getIconHeight()/2, icon.getIconWidth()/2, icon.getIconHeight()/2, icon.getImageObserver());
 	}
 	
 	
