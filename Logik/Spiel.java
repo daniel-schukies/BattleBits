@@ -56,6 +56,10 @@ public class Spiel
 			this.spielen(this.spieler1, this.spieler2);
 			System.out.println("Spieler0 is dran!");
 		}
+		
+		Konsole con = new Konsole(this.getBitfolge());
+		con.conAusgabeSpielerlogikgatter(this.getAktuellerSpieler());
+		con.conSpielfeldAusgabe(this.getAktuellerSpieler().getSpielfeld());
 	}
 
 	public boolean legeLogikgatter(Spieler spieler, int logikgatterIndex, int ablegeReihe, int ablegeIndex)
