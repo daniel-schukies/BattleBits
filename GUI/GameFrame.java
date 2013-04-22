@@ -50,18 +50,18 @@ public class GameFrame extends JFrame
 		this.spielfeldSchaltflaeche1 = new SpielfeldSchaltflaeche(this.logikgatterSchaltflaeche1, this.spiel, this.spiel.getSpieler()[0], 500, false);
 		this.spielfeldSchaltflaeche2 = new SpielfeldSchaltflaeche(this.logikgatterSchaltflaeche2, this.spiel, this.spiel.getSpieler()[1], 500, true);
 		
-		Refreshable[] reSchaltflaechen1 = {this.spielfeldSchaltflaeche1};
-		Refreshable[] reSchaltflaechen2 = {this.spielfeldSchaltflaeche2};
-		
-		this.spielfeldSchaltflaeche1.setRefreshSchaltflaechen(reSchaltflaechen2);
-		this.spielfeldSchaltflaeche2.setRefreshSchaltflaechen(reSchaltflaechen1);
-		
 		LogikgatterSchaltflaeche[] logikgatterSchaltflaechen = {this.logikgatterSchaltflaeche1, this.logikgatterSchaltflaeche2};
 		Refreshable[] reSchaltflaechen = {this.logikgatterSchaltflaeche1,this.logikgatterSchaltflaeche2, this.spielfeldSchaltflaeche1, this.spielfeldSchaltflaeche2};
 		
 		this.bitfolgenSchaltflaeche = new BitfolgenSchaltflaeche(0, 0, 110, 5, this.spiel, this.spiel.getBitfolge(), logikgatterSchaltflaechen, false, true);
 		
 		this.bitfolgenSchaltflaeche.setRefreshSchaltflaechen(reSchaltflaechen);
+		
+		Refreshable[] reSchaltflaechen1 = {this.spielfeldSchaltflaeche1, this.bitfolgenSchaltflaeche};
+		Refreshable[] reSchaltflaechen2 = {this.spielfeldSchaltflaeche2, this.bitfolgenSchaltflaeche};
+		
+		this.spielfeldSchaltflaeche1.setRefreshSchaltflaechen(reSchaltflaechen2);
+		this.spielfeldSchaltflaeche2.setRefreshSchaltflaechen(reSchaltflaechen1);
 		
 		this.add(this.spielfeldSchaltflaeche2);
 		this.add(this.bitfolgenSchaltflaeche);

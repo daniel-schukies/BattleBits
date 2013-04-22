@@ -14,10 +14,11 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 	private LogikgatterSchaltflaeche[] schaltflaeche;
 	private Refreshable[] refreshSchaltflaechen;
 	private Spiel spiel;
+	private static final int ANZAHLVERSIONEN = 3;
 
 	public BitfolgenSchaltflaeche(int xPos, int yPos, int size,	int anzahlGrafiken,Spiel spiel, Bitgenerator bitfolge, LogikgatterSchaltflaeche[] schaltflaeche, boolean spiegeln, boolean isVertikal) 
 	{		
-		super(xPos, yPos, size, anzahlGrafiken, spiegeln, isVertikal);
+		super(xPos, yPos, size, anzahlGrafiken,BitfolgenSchaltflaeche.ANZAHLVERSIONEN, spiegeln, isVertikal);
 
 		this.anzahlGrafiken = anzahlGrafiken;
 		

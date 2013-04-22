@@ -127,9 +127,7 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 				
 				this.schaltflaeche.getPressedID().setIsPressed(false);
 				
-				Konsole con = new Konsole(this.spiel.getBitfolge());
-				con.conAusgabeSpielerlogikgatter(this.spiel.getSpieler()[0]);
-				con.conSpielfeldAusgabe(this.spiel.getSpieler()[0].getSpielfeld());
+
 				
 				this.refresh();
 				

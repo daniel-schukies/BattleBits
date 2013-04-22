@@ -21,7 +21,7 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 	
 	private Grafikspeicher[] grafikSpeicher;
 	
-	public SkallierbareSchaltflaeche(int xPos,int yPos, int  size, int anzahlGrafiken,boolean spiegeln, boolean isVertikal)
+	public SkallierbareSchaltflaeche(int xPos,int yPos, int  size, int anzahlGrafiken, int anzahlVersionen,boolean spiegeln, boolean isVertikal)
 	{
 		this.grafikSpeicher = new Grafikspeicher[anzahlGrafiken];
 		
@@ -45,7 +45,7 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 		
 		for(int i = 0; i < anzahlGrafiken; i++)
 		{
-			this.grafikSpeicher[i] = new Grafikspeicher(this.buttonSize, 6, spiegeln);
+			this.grafikSpeicher[i] = new Grafikspeicher(this.buttonSize, anzahlVersionen, spiegeln);
 		}
 		
 		

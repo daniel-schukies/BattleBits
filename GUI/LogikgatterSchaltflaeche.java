@@ -13,6 +13,9 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implemen
 	private Logikgatter[] logikgatter;
 
 	private int anzahlGrafiken;
+	private static final int ANZAHLVERSIONEN = 4;
+	private Logikgatter[] logikgatterCache;
+	private int refreshCounter;
 	
 	/**
 	 * 
@@ -21,11 +24,15 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implemen
 
 	public LogikgatterSchaltflaeche(int xPos,int yPos, int  size, int anzahlGrafiken,Logikgatter[] logikgatter,boolean spiegeln, boolean isVertikal )
 	{
-		super(xPos, yPos,  size,anzahlGrafiken, spiegeln,  isVertikal);
+		super(xPos, yPos,  size,anzahlGrafiken,LogikgatterSchaltflaeche.ANZAHLVERSIONEN, spiegeln, isVertikal);
+		
+		this.refreshCounter = 0;
 		
 		this.anzahlGrafiken = anzahlGrafiken;
 		
 		this.logikgatter = logikgatter;
+		
+		this.logikgatterCache = new Logikgatter[logikgatter.length];
 		
 		this.refresh();
 		
@@ -42,15 +49,31 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implemen
 	{
 		for(int i = 0; i < this.anzahlGrafiken; i++ )
 		{
-			if(this.logikgatter[i] == null)
+			if( (this.logikgatterCache[i] != this.logikgatter[i]) || this.refreshCounter == 0 )
 			{
-				this.setImage(i);
+				if(this.logikgatter[i] == null)
+				{
+					this.setImage(i);
+				}
+				else
+				{
+					this.setImage(i,this.logikgatter[i]);
+					this.setImageToLogikgatterStatus(logikgatter[i], this.getImage(i));
+				}
+				
+				System.out.println("Refresh OK");
 			}
 			else
 			{
-				this.setImage(i,this.logikgatter[i]);
-				this.setImageToLogikgatterStatus(logikgatter[i], this.getImage(i));
+				System.out.println("Refresh FAIL");
 			}
+		}
+		
+		this.refreshCounter++;
+		
+		for(int i = 0; i < this.logikgatter.length; i++)
+		{
+			this.logikgatterCache[i] = this.logikgatter[i];
 		}
 		
 		this.setPressedID(new IDInfo());
