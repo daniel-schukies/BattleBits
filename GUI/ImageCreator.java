@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
@@ -13,7 +12,7 @@ import Logik.Not;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+
 
 public class ImageCreator 
 {
@@ -58,19 +57,12 @@ public class ImageCreator
 			        BufferedImage im1 = ImageIO.read(new File(ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG )); 
 			        
 			        BufferedImage im2 = ImageIO.read(new File(ImageCreator.VERZEICHNIS + ImageCreator.LOGIKGATTERSTATUS + castBit + "1" + ImageCreator.DATEIENDUNG )); 
-
-			        grafiken[i] = new MirrorImageIcon( ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
-
-					grafiken[i] = new MirrorImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
 					
-					BufferedImage bi = new BufferedImage((int)size.getWidth(), (int)size.getHeight(), BufferedImage.TYPE_INT_ARGB); 
+			        BufferedImage im1Mirror = ImageUtil.mirror(im1, 0);
+			        
+					BufferedImage combined = zeichneLogikgatterStatus(im1Mirror,im2, logikgatter);
 					
-					Graphics g = bi.getGraphics();
-					g.drawImage(grafiken[i].getImage(), 0, 0, null);
-					
-					BufferedImage combined = zeichneLogikgatterStatus(bi, im2, logikgatter);
-					
-					grafiken[i] = new ImageIcon(combined);
+					grafiken[i] = new ImageIcon(combined.getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
 				}
 				else
 				{
@@ -81,13 +73,13 @@ public class ImageCreator
 			        BufferedImage combined = zeichneLogikgatterStatus(im1, im2, logikgatter);
 			        
 					grafiken[i] = new ImageIcon(combined.getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
-
 				}
 				
 			}
 			catch(IOException e)// Grafik nicht vorhanden
 			{
 				grafiken[i] = null; 
+				System.out.println("Error Versions ID:" + i);
 			}
 		}
 		
@@ -126,6 +118,7 @@ public class ImageCreator
 			catch(InstantiationError e)// Grafik nicht vorhanden
 			{
 				grafiken[i] = null; 
+				System.out.println("Error Versions ID:" + i);
 			}
 		}
 
@@ -149,6 +142,7 @@ public class ImageCreator
 			catch(InstantiationError e)// Grafik nicht vorhanden
 			{
 				grafiken[i] = null; 
+				System.out.println("Error Versions ID:" + i);
 			}
 		}
 		
@@ -163,7 +157,7 @@ public class ImageCreator
 	public BufferedImage zeichneLogikgatterStatus(BufferedImage mainImage, BufferedImage overlayImage, Logikgatter logikgatter )
 	{
 		if(!(logikgatter instanceof Not))
-		{
+		{			
 	        BufferedImage combined = new BufferedImage((int)this.size.getWidth(), (int)this.size.getHeight(), BufferedImage.TYPE_INT_ARGB);
 	        
 	     // paint both images, preserving the alpha channels
@@ -175,6 +169,7 @@ public class ImageCreator
 		}
 		else
 		{
+			System.out.println("return mainIMG");
 			return mainImage;
 		}
 	}
