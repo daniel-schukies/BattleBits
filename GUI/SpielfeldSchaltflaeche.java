@@ -5,7 +5,6 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
-import Logik.Konsole;
 import Logik.Spiel;
 import Logik.Spieler;
 

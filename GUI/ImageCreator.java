@@ -62,7 +62,7 @@ public class ImageCreator
 			        
 					BufferedImage combined = zeichneLogikgatterStatus(im1Mirror,im2, logikgatter);
 					
-					grafiken[i] = new ImageIcon(combined.getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
+					grafiken[i] = new ImageIcon(combined.getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_SMOOTH)); //Skallieren
 				}
 				else
 				{
@@ -72,7 +72,7 @@ public class ImageCreator
 
 			        BufferedImage combined = zeichneLogikgatterStatus(im1, im2, logikgatter);
 			        
-					grafiken[i] = new ImageIcon(combined.getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
+					grafiken[i] = new ImageIcon(combined.getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_SMOOTH)); //Skallieren
 				}
 				
 			}
@@ -106,14 +106,36 @@ public class ImageCreator
 				if(this.spiegeln)
 				{
 					grafiken[i] = new MirrorImageIcon( ImageCreator.VERZEICHNIS + castBit.toString() + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
-					grafiken[i] = new MirrorImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
+					grafiken[i] = new MirrorImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_SMOOTH)); //Skallieren
 
 				}
 				else
 				{
 					grafiken[i] = new ImageIcon( ImageCreator.VERZEICHNIS + castBit.toString() + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
-					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
+					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_SMOOTH)); //Skallieren
 				}		
+			}
+			catch(InstantiationError e)// Grafik nicht vorhanden
+			{
+				grafiken[i] = null; 
+				System.out.println("Error Versions ID:" + i);
+			}
+		}
+
+		return grafiken;
+	}
+	
+	public ImageIcon[] getImage(String dateiname)
+	{
+		ImageIcon[] grafiken = new ImageIcon[this.anzahlVersionen];
+		
+		for(Integer i = 0; i < this.anzahlVersionen;i++  )
+		{
+			// Bild muss noch mit richtiger Aufloesung zurueckgegeben werden
+			try
+			{
+				grafiken[i] = new ImageIcon( ImageCreator.VERZEICHNIS + dateiname + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
+				grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_SMOOTH)); //Skallieren
 			}
 			catch(InstantiationError e)// Grafik nicht vorhanden
 			{
@@ -136,7 +158,7 @@ public class ImageCreator
 			{
 				{
 					grafiken[i] = new ImageIcon( ImageCreator.VERZEICHNIS + ImageCreator.PLATZHALTER + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
-					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_DEFAULT)); //Skallieren
+					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_SMOOTH)); //Skallieren
 				}		
 			}
 			catch(InstantiationError e)// Grafik nicht vorhanden

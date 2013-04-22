@@ -28,6 +28,8 @@ public class GameFrame extends JFrame
 	
 	private BitfolgenSchaltflaeche bitfolgenSchaltflaeche;
 	
+	private NeuziehenButton neuziehenButton;
+	
 	
 	public GameFrame()
 	{
@@ -52,7 +54,9 @@ public class GameFrame extends JFrame
 		
 		LogikgatterSchaltflaeche[] logikgatterSchaltflaechen = {this.logikgatterSchaltflaeche1, this.logikgatterSchaltflaeche2};
 		Refreshable[] reSchaltflaechen = {this.logikgatterSchaltflaeche1,this.logikgatterSchaltflaeche2, this.spielfeldSchaltflaeche1, this.spielfeldSchaltflaeche2};
-		
+
+		this.neuziehenButton = new NeuziehenButton(0, 0, 180, spiel, logikgatterSchaltflaechen, reSchaltflaechen);
+	
 		this.bitfolgenSchaltflaeche = new BitfolgenSchaltflaeche(0, 0, 110, 5, this.spiel, this.spiel.getBitfolge(), logikgatterSchaltflaechen, false, true);
 		
 		this.bitfolgenSchaltflaeche.setRefreshSchaltflaechen(reSchaltflaechen);
@@ -68,6 +72,7 @@ public class GameFrame extends JFrame
 		this.add(this.spielfeldSchaltflaeche1);
 		
 		this.add(this.logikgatterSchaltflaeche2);
+		this.add(this.neuziehenButton);
 		this.add(this.logikgatterSchaltflaeche1);
 		
 		

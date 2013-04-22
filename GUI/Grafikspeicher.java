@@ -52,6 +52,27 @@ public class Grafikspeicher
 		this.button.setIcon(this.grafiken[0]);
 	}
 	
+	public boolean setImage(String dateiname)
+	{
+		this.grafiken = this.imageCreator.getImage(dateiname);
+		this.button.setIcon(this.grafiken[0]);
+		
+		return true;
+	}
+	
+	public boolean setImage(ImageIcon[] grafiken)
+	{
+		if(this.grafiken.length == grafiken.length)
+		{
+			this.grafiken = grafiken;
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 	public void setImage()
 	{
 		this.grafiken = this.imageCreator.getImage();
