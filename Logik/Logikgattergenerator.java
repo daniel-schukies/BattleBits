@@ -4,11 +4,14 @@ import java.util.Random;
 
 public class Logikgattergenerator 
 {
+	//private static final long  SEED = 219656347;
+	private static Random random;
 	
 	private Logikgatter generiertesLogikgatter;   //variable zum Speichern der generierten Logikgatter
 	
 	public Logikgattergenerator()
 	{
+		Logikgattergenerator.random = new Random(Double.doubleToLongBits(Math.random()));
 		this.generate();
 	}
 	
@@ -18,10 +21,9 @@ public class Logikgattergenerator
 	 */
 	public void generate()
 	{
-		Random r = new Random();
-		int zufall=r.nextInt(6); //generiert eine Zufallszahl zwischen 0 und 6
+		int zufall=Logikgattergenerator.random.nextInt(6); //generiert eine Zufallszahl zwischen 0 und 6
 		
-		
+
 		switch (zufall){
 			case 0: this.generiertesLogikgatter = new And();
 			break;

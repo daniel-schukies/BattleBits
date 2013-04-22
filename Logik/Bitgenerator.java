@@ -4,10 +4,12 @@ import java.util.Random;
 public class Bitgenerator implements Cloneable
 {
 	private boolean[] bitfolge;
+	private static Random random;
 	
 	public Bitgenerator(int bitanzahl )
 	{
 		this.bitfolge = new boolean[bitanzahl];
+		Bitgenerator.random = new Random(Double.doubleToLongBits(Math.random()));
 	}
 	
     public Object clone() 
@@ -27,11 +29,11 @@ public class Bitgenerator implements Cloneable
 	// Erstellt die Bitfolge
 	public void generate()
 	{
-		Random r = new Random();
+		//r.setSeed( Bitgenerator.SEED );
 		
 		for(int i = 0; i < this.bitfolge.length; i++ )
 		{
-			this.bitfolge[i] = r.nextBoolean();
+			this.bitfolge[i] = Bitgenerator.random.nextBoolean();
 		}
 	}
 	
