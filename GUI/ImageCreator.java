@@ -6,9 +6,15 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
+import Logik.And;
 import Logik.Logikgatter;
+import Logik.Nand;
+import Logik.Nor;
 import Logik.Not;
+import Logik.Or;
+import Logik.Xor;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -20,23 +26,77 @@ public class ImageCreator
 	private static final String DATEIENDUNG = ".png";
 	private static final String PLATZHALTER = "platzhalter";
 	private static final String LOGIKGATTERSTATUS = "L";
+	private ArrayList<ArrayList<Object>> logikgatterGrafikCache;
 	private int anzahlVersionen;
 	private Dimension size;
 	private boolean spiegeln;
+	
 	
 	public ImageCreator(Dimension size, int anzahlVersionen,boolean spiegeln)
 	{
 		this.setAufloesung(size);	
 		this.anzahlVersionen = anzahlVersionen;
 		this.spiegeln = spiegeln;
+		
+		this.logikgatterGrafikCache = new ArrayList<ArrayList<Object>>();
+		/*
+		ArrayList<Object> logikgatterList = new ArrayList<Object>();
+		ArrayList<Object> logikgatterGrafiken = new ArrayList<Object>();
+		
+		for(int i = 0; i < 6; i++)
+		{
+			switch (i)
+			{
+				case 0: 
+					
+				And and = new And();
+				logikgatterList.add(and);
+				logikgatterGrafiken.add(this.getImage(and));
+				
+				break;
+				case 1:
+				
+				Nand nand = new Nand();
+				logikgatterList.add(nand);
+				logikgatterGrafiken.add(this.getImage(nand));
+					
+				break;
+				case 2: 
+
+				Or or = new Or();
+				logikgatterList.add(or);
+				logikgatterGrafiken.add(this.getImage(or));
+					
+				break;
+				case 3: 
+
+				Nor nor = new Nor();
+				logikgatterList.add(nor);
+				logikgatterGrafiken.add(this.getImage(nor));
+					
+				break;
+				case 4:
+
+				Not not = new Not();
+				logikgatterList.add(not);
+				logikgatterGrafiken.add(this.getImage(not));	
+				
+				break; 
+				case 5: 
+				
+				Xor xor = new Xor();
+				logikgatterList.add(xor);
+				logikgatterGrafiken.add(this.getImage(xor));
+	
+				break; 
+			}
+		}
+		
+		this.logikgatterGrafikCache.add(logikgatterList);
+		this.logikgatterGrafikCache.add(logikgatterGrafiken);
+*/
 	}
 	
-	public ImageCreator(Dimension size)
-	{
-		this.setAufloesung(size);	
-		this.anzahlVersionen = 6;
-		this.spiegeln = false;
-	}
 	/**
 	 * Generiert ein Array mit allen Versionen(Grafiken) des uebergebenen Logikgatters
 	 * @param logikgatter Logikgatter von dem man alle Grafikversionen haben will.
@@ -44,47 +104,53 @@ public class ImageCreator
 	 */
 	public ImageIcon[] getImage(Logikgatter logikgatter)
 	{
-		ImageIcon[] grafiken = new ImageIcon[this.anzahlVersionen];
-		
-		Boolean castBit = (Boolean)logikgatter.getAusgang(); // Um spaeter die toString() zu nutzen.
-		
-		for(Integer i = 0; i < anzahlVersionen;i++  )
+		//if( !(this.logikgatterGrafikCache.isEmpty()) )
 		{
-			try
-			{
-				if(this.spiegeln)
-				{
-			        BufferedImage im1 = ImageIO.read(new File(ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG )); 
-			        
-			        BufferedImage im2 = ImageIO.read(new File(ImageCreator.VERZEICHNIS + ImageCreator.LOGIKGATTERSTATUS + castBit + "1" + ImageCreator.DATEIENDUNG )); 
-					
-			        BufferedImage im1Mirror = ImageUtil.mirror(im1, 0);
-			        
-					BufferedImage combined = zeichneLogikgatterStatus(im1Mirror,im2, logikgatter);
-					
-					grafiken[i] = new ImageIcon(combined.getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_SMOOTH)); //Skallieren
-				}
-				else
-				{
-			        BufferedImage im1 = ImageIO.read(new File(ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG )); 
-			        
-			        BufferedImage im2 = ImageIO.read(new File(ImageCreator.VERZEICHNIS + ImageCreator.LOGIKGATTERSTATUS + castBit + "1" + ImageCreator.DATEIENDUNG )); 
-
-			        BufferedImage combined = zeichneLogikgatterStatus(im1, im2, logikgatter);
-			        
-					grafiken[i] = new ImageIcon(combined.getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_SMOOTH)); //Skallieren
-				}
-				
-			}
-			catch(IOException e)// Grafik nicht vorhanden
-			{
-				grafiken[i] = null; 
-				System.out.println(e);
-				System.out.println("Error Versions ID:" + i);
-			}
+			//return (ImageIcon[])this.logikgatterGrafikCache.get(1).get(this.logikgatterGrafikCache.get(0).indexOf(logikgatter));
 		}
+	//	else
+		{
+			ImageIcon[] grafiken = new ImageIcon[this.anzahlVersionen];
 		
-		return grafiken;
+			Boolean castBit = (Boolean)logikgatter.getAusgang(); // Um spaeter die toString() zu nutzen.
+			
+			for(Integer i = 0; i < anzahlVersionen;i++  )
+			{
+				try
+				{
+					if(this.spiegeln)
+					{
+				        BufferedImage im1 = ImageIO.read(new File(ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG )); 
+				        
+				        BufferedImage im2 = ImageIO.read(new File(ImageCreator.VERZEICHNIS + ImageCreator.LOGIKGATTERSTATUS + castBit + "1" + ImageCreator.DATEIENDUNG )); 
+						
+				        BufferedImage im1Mirror = ImageUtil.mirror(im1, 0);
+				        
+				        grafiken[i] = zeichneLogikgatterStatus(im1Mirror,im2, logikgatter);
+						
+					}
+					else
+					{
+				        BufferedImage im1 = ImageIO.read(new File(ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG )); 
+				        
+				        BufferedImage im2 = ImageIO.read(new File(ImageCreator.VERZEICHNIS + ImageCreator.LOGIKGATTERSTATUS + castBit + "1" + ImageCreator.DATEIENDUNG )); 
+	
+				        grafiken[i] = zeichneLogikgatterStatus(im1, im2, logikgatter);
+				        
+					}
+					
+				}
+				catch(IOException e)// Grafik nicht vorhanden
+				{
+					grafiken[i] = null; 
+					System.out.println(e);
+					System.out.println("Error Versions ID:" + i);
+				}
+			}
+			
+			return grafiken;
+		}
+
 	}
 	
 	
@@ -107,13 +173,13 @@ public class ImageCreator
 				if(this.spiegeln)
 				{
 					grafiken[i] = new MirrorImageIcon( ImageCreator.VERZEICHNIS + castBit.toString() + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
-					grafiken[i] = new MirrorImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_SMOOTH)); //Skallieren
+					grafiken[i] = new MirrorImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), SCALE_FAST())); //Skallieren
 
 				}
 				else
 				{
 					grafiken[i] = new ImageIcon( ImageCreator.VERZEICHNIS + castBit.toString() + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
-					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_SMOOTH)); //Skallieren
+					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), SCALE_FAST())); //Skallieren
 				}		
 			}
 			catch(InstantiationError e)// Grafik nicht vorhanden
@@ -136,7 +202,7 @@ public class ImageCreator
 			try
 			{
 				grafiken[i] = new ImageIcon( ImageCreator.VERZEICHNIS + dateiname + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
-				grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_SMOOTH)); //Skallieren
+				grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), SCALE_FAST())); //Skallieren
 			}
 			catch(InstantiationError e)// Grafik nicht vorhanden
 			{
@@ -146,6 +212,10 @@ public class ImageCreator
 		}
 
 		return grafiken;
+	}
+
+	private int SCALE_FAST() {
+		return Image.SCALE_SMOOTH;
 	}
 	
 	public ImageIcon[] getImage()
@@ -159,7 +229,7 @@ public class ImageCreator
 			{
 				{
 					grafiken[i] = new ImageIcon( ImageCreator.VERZEICHNIS + ImageCreator.PLATZHALTER + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
-					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_SMOOTH)); //Skallieren
+					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_FAST)); //Skallieren
 				}		
 			}
 			catch(InstantiationError e)// Grafik nicht vorhanden
@@ -177,7 +247,7 @@ public class ImageCreator
 		this.size = size;
 	}
 	
-	public BufferedImage zeichneLogikgatterStatus(BufferedImage mainImage, BufferedImage overlayImage, Logikgatter logikgatter )
+	public ImageIcon zeichneLogikgatterStatus(BufferedImage mainImage, BufferedImage overlayImage, Logikgatter logikgatter )
 	{
 		if(!(logikgatter instanceof Not))
 		{			
@@ -188,12 +258,12 @@ public class ImageCreator
 	        g.drawImage(mainImage, 0, 0, (int)this.size.getWidth(), (int)this.size.getHeight(),null);
 	        g.drawImage(overlayImage, (int)this.size.getHeight()/4, (int)this.size.getHeight()/4, (int)this.size.getHeight()/2, (int)this.size.getHeight()/2, null);
 	        
-	        return combined;
+	        return new ImageIcon(combined);
 		}
 		else
 		{
 			System.out.println("return mainIMG");
-			return mainImage;
+			return new ImageIcon(mainImage.getScaledInstance((int)this.size.getWidth(), (int)this.size.getHeight(), Image.SCALE_FAST));
 		}
 	}
 	
