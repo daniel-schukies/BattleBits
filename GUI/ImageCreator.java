@@ -26,7 +26,7 @@ public class ImageCreator
 	private static final String DATEIENDUNG = ".png";
 	private static final String PLATZHALTER = "platzhalter";
 	private static final String LOGIKGATTERSTATUS = "L";
-	private ArrayList<ArrayList<Object>> logikgatterGrafikCache;
+	private ArrayList<ArrayList<?>> logikgatterGrafikCache;
 	private int anzahlVersionen;
 	private Dimension size;
 	private boolean spiegeln;
@@ -38,7 +38,7 @@ public class ImageCreator
 		this.anzahlVersionen = anzahlVersionen;
 		this.spiegeln = spiegeln;
 		
-		this.logikgatterGrafikCache = new ArrayList<ArrayList<Object>>();
+		this.logikgatterGrafikCache = new ArrayList<ArrayList<?>>();
 		/*
 		ArrayList<Object> logikgatterList = new ArrayList<Object>();
 		ArrayList<Object> logikgatterGrafiken = new ArrayList<Object>();
@@ -173,13 +173,13 @@ public class ImageCreator
 				if(this.spiegeln)
 				{
 					grafiken[i] = new MirrorImageIcon( ImageCreator.VERZEICHNIS + castBit.toString() + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
-					grafiken[i] = new MirrorImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), SCALE_FAST())); //Skallieren
+					grafiken[i] = new MirrorImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_FAST)); //Skallieren
 
 				}
 				else
 				{
 					grafiken[i] = new ImageIcon( ImageCreator.VERZEICHNIS + castBit.toString() + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
-					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), SCALE_FAST())); //Skallieren
+					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_FAST)); //Skallieren
 				}		
 			}
 			catch(InstantiationError e)// Grafik nicht vorhanden
@@ -202,7 +202,7 @@ public class ImageCreator
 			try
 			{
 				grafiken[i] = new ImageIcon( ImageCreator.VERZEICHNIS + dateiname + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
-				grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), SCALE_FAST())); //Skallieren
+				grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_FAST)); //Skallieren
 			}
 			catch(InstantiationError e)// Grafik nicht vorhanden
 			{
@@ -214,9 +214,6 @@ public class ImageCreator
 		return grafiken;
 	}
 
-	private int SCALE_FAST() {
-		return Image.SCALE_SMOOTH;
-	}
 	
 	public ImageIcon[] getImage()
 	{

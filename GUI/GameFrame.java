@@ -75,7 +75,7 @@ public class GameFrame extends JFrame
 		this.spielfeldSchaltflaeche1.setRefreshSchaltflaechen(reSchaltflaechen2);
 		this.spielfeldSchaltflaeche2.setRefreshSchaltflaechen(reSchaltflaechen1);
 		
-		this.add(this.spielerInfo1);
+		//this.add(this.spielerInfo1);
 		
 		this.add(this.spielfeldSchaltflaeche2);
 		this.add(this.bitfolgenSchaltflaeche);
