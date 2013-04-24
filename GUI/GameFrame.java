@@ -2,6 +2,7 @@ package GUI;
 
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import Logik.Spiel;
@@ -26,6 +27,9 @@ public class GameFrame extends JFrame
 	private LogikgatterSchaltflaeche logikgatterSchaltflaeche1;
 	private LogikgatterSchaltflaeche logikgatterSchaltflaeche2;
 	
+	private SpielerInfo spielerInfo1;
+	private SpielerInfo spielerInfo2;
+	
 	private BitfolgenSchaltflaeche bitfolgenSchaltflaeche;
 	
 	private NeuziehenButton neuziehenButton;
@@ -44,6 +48,10 @@ public class GameFrame extends JFrame
 		this.spiel.getSpieler()[0].setIsKI(true);
 		this.spiel.getSpieler()[1].setIsKI(false);
 		
+		this.spiel.getSpieler()[0].setName("SUpermegatollerSPieler");
+		this.spiel.getSpieler()[0].setName("SUpermegatollerSPielerKIIIIE");
+		
+		this.spielerInfo1 = new SpielerInfo(0, 0, this.spiel.getSpieler()[0], new Dimension(500,100));
 		
 		this.logikgatterSchaltflaeche1 = new  LogikgatterSchaltflaeche(0, 0, 180, 4, this.spiel.getSpieler()[0].getLogikgatter(), false, false);
 		this.logikgatterSchaltflaeche2 = new  LogikgatterSchaltflaeche(0, 0, 180, 4, this.spiel.getSpieler()[1].getLogikgatter(), true, false);
@@ -66,6 +74,8 @@ public class GameFrame extends JFrame
 		
 		this.spielfeldSchaltflaeche1.setRefreshSchaltflaechen(reSchaltflaechen2);
 		this.spielfeldSchaltflaeche2.setRefreshSchaltflaechen(reSchaltflaechen1);
+		
+		this.add(this.spielerInfo1);
 		
 		this.add(this.spielfeldSchaltflaeche2);
 		this.add(this.bitfolgenSchaltflaeche);

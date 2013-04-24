@@ -79,6 +79,7 @@ public class ImageCreator
 			catch(IOException e)// Grafik nicht vorhanden
 			{
 				grafiken[i] = null; 
+				System.out.println(e);
 				System.out.println("Error Versions ID:" + i);
 			}
 		}
