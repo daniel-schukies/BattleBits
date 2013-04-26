@@ -26,7 +26,7 @@ public class ImageCreator
 	private static final String DATEIENDUNG = ".png";
 	private static final String PLATZHALTER = "platzhalter";
 	private static final String LOGIKGATTERSTATUS = "L";
-	private ArrayList<ArrayList<?>> logikgatterGrafikCache;
+	private static GrafikCache grafikCache;
 	private int anzahlVersionen;
 	private Dimension size;
 	private boolean spiegeln;
@@ -37,8 +37,14 @@ public class ImageCreator
 		this.setAufloesung(size);	
 		this.anzahlVersionen = anzahlVersionen;
 		this.spiegeln = spiegeln;
+		ImageCreator.grafikCache = new GrafikCache();
+
 		
-		this.logikgatterGrafikCache = new ArrayList<ArrayList<?>>();
+
+
+		
+		
+
 		/*
 		ArrayList<Object> logikgatterList = new ArrayList<Object>();
 		ArrayList<Object> logikgatterGrafiken = new ArrayList<Object>();
@@ -104,52 +110,95 @@ public class ImageCreator
 	 */
 	public ImageIcon[] getImage(Logikgatter logikgatter)
 	{
-		//if( !(this.logikgatterGrafikCache.isEmpty()) )
-		{
-			//return (ImageIcon[])this.logikgatterGrafikCache.get(1).get(this.logikgatterGrafikCache.get(0).indexOf(logikgatter));
-		}
-	//	else
-		{
-			ImageIcon[] grafiken = new ImageIcon[this.anzahlVersionen];
+		BufferedImage[] logikgatterCacheImages = ImageCreator.grafikCache.getImages(this.size, logikgatter.toString());
+		BufferedImage[] statusCacheImages = ImageCreator.grafikCache.getImages(new Dimension((int)this.size.getWidth()/4, (int)this.size.getHeight()/4), ((Boolean)logikgatter.getAusgang()).toString());
 		
-			Boolean castBit = (Boolean)logikgatter.getAusgang(); // Um spaeter die toString() zu nutzen.
-			
-			for(Integer i = 0; i < anzahlVersionen;i++  )
-			{
-				try
-				{
-					if(this.spiegeln)
-					{
-				        BufferedImage im1 = ImageIO.read(new File(ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG )); 
-				        
-				        BufferedImage im2 = ImageIO.read(new File(ImageCreator.VERZEICHNIS + ImageCreator.LOGIKGATTERSTATUS + castBit + "1" + ImageCreator.DATEIENDUNG )); 
-						
-				        BufferedImage im1Mirror = ImageUtil.mirror(im1, 0);
-				        
-				        grafiken[i] = zeichneLogikgatterStatus(im1Mirror,im2, logikgatter);
-						
-					}
-					else
-					{
-				        BufferedImage im1 = ImageIO.read(new File(ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG )); 
-				        
-				        BufferedImage im2 = ImageIO.read(new File(ImageCreator.VERZEICHNIS + ImageCreator.LOGIKGATTERSTATUS + castBit + "1" + ImageCreator.DATEIENDUNG )); 
+		ImageIcon[] grafiken = new ImageIcon[this.anzahlVersionen];
 	
-				        grafiken[i] = zeichneLogikgatterStatus(im1, im2, logikgatter);
-				        
+		Boolean castBit = (Boolean)logikgatter.getAusgang(); // Um spaeter die toString() zu nutzen.
+		
+		BufferedImage[] cacheSpeicher = new BufferedImage[anzahlVersionen];
+		
+		for(Integer i = 0; i < anzahlVersionen;i++  )
+		{
+			try
+			{
+				BufferedImage logikgatterGrafik;
+				BufferedImage overlay;
+				
+				BufferedImage newOverlay;
+				BufferedImage newLogikgatterGrafik;
+				
+				if(statusCacheImages != null)
+				{
+					newOverlay = statusCacheImages[0];
+					System.out.println("Status aus Cache");
+				}
+				else
+				{
+			        overlay = ImageIO.read(new File(ImageCreator.VERZEICHNIS + ImageCreator.LOGIKGATTERSTATUS + castBit + "1" + ImageCreator.DATEIENDUNG ));
+					
+			        newOverlay = new BufferedImage((int)this.size.getWidth()/2, (int)this.size.getHeight()/2, BufferedImage.TYPE_INT_ARGB);
+			        Graphics g;
+			        g = newOverlay.getGraphics();
+			        g.drawImage(overlay.getScaledInstance((int)this.size.getWidth()/2,  (int)this.size.getHeight()/2, Image.SCALE_FAST), 0, 0,null);
+			        
+			        BufferedImage[] images = {newOverlay};
+			        
+			        ImageCreator.grafikCache.saveImages( ((Boolean)logikgatter.getAusgang()).toString(), images);
+				}
+
+				
+				if(logikgatterCacheImages != null)
+				{
+					System.out.println("Grafik aus Cache geladen!!!");
+					try
+					{
+						newLogikgatterGrafik = logikgatterCacheImages[i];
 					}
 					
+					catch(Exception e)
+					{
+				        newLogikgatterGrafik = ImageIO.read(new File(ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG )); 
+					}	
 				}
-				catch(IOException e)// Grafik nicht vorhanden
+				else
 				{
-					grafiken[i] = null; 
-					System.out.println(e);
-					System.out.println("Error Versions ID:" + i);
+					logikgatterGrafik = ImageIO.read(new File(ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG ));
+					
+			        newLogikgatterGrafik = new BufferedImage((int)this.size.getWidth(), (int)this.size.getHeight(), BufferedImage.TYPE_INT_ARGB);
+			        
+			        Graphics g = newLogikgatterGrafik.getGraphics();
+			        g.drawImage(logikgatterGrafik.getScaledInstance((int)this.size.getWidth(),  (int)this.size.getHeight(), Image.SCALE_FAST), 0, 0,null);
+			        
+			        cacheSpeicher[i] = newLogikgatterGrafik;
 				}
+				
+				if(this.spiegeln)
+				{
+			        newLogikgatterGrafik = ImageUtil.mirror(newLogikgatterGrafik, 0);
+				}
+		        
+		        
+		        grafiken[i] = zeichneLogikgatterStatus(newLogikgatterGrafik, newOverlay, logikgatter);
+				
 			}
-			
-			return grafiken;
+			catch(IOException e)// Grafik nicht vorhanden
+			{
+				grafiken[i] = null; 
+				System.out.println(e);
+				System.out.println("Error Versions ID:" + i);
+			}
 		}
+		
+		if(cacheSpeicher[0] != null)
+		{
+			ImageCreator.grafikCache.saveImages(logikgatter.toString(), cacheSpeicher);
+		}
+
+		
+		return grafiken;
+
 
 	}
 	
@@ -252,8 +301,8 @@ public class ImageCreator
 	        
 	     // paint both images, preserving the alpha channels
 	        Graphics g = combined.getGraphics();
-	        g.drawImage(mainImage, 0, 0, (int)this.size.getWidth(), (int)this.size.getHeight(),null);
-	        g.drawImage(overlayImage, (int)this.size.getHeight()/4, (int)this.size.getHeight()/4, (int)this.size.getHeight()/2, (int)this.size.getHeight()/2, null);
+	        g.drawImage(mainImage, 0, 0,null);
+	        g.drawImage(overlayImage, (int)this.size.getHeight()/4, (int)this.size.getHeight()/4, null);
 	        
 	        return new ImageIcon(combined);
 		}

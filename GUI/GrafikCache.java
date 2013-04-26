@@ -1,31 +1,32 @@
 package GUI;
 
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class GrafikCache 
 {
-	private ArrayList<ArrayList<?>> logikgatterGrafikCache;
+	private ArrayList<ArrayList<?>> grafikCache;
 	
 	public GrafikCache()
 	{
-		this.logikgatterGrafikCache = new ArrayList<ArrayList<?>>();
+		this.grafikCache = new ArrayList<ArrayList<?>>();
 	}
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public boolean saveImage(String grafikBezeichnung, BufferedImage[] images)
+	public boolean saveImages(String grafikBezeichnung, BufferedImage[] images)
 	{
 		//Schauen ob Grafik existiert
-		for(int i = 0; i < this.logikgatterGrafikCache.size(); i++)
+		for(int i = 0; i < this.grafikCache.size(); i++)
 		{
-			if(!this.logikgatterGrafikCache.isEmpty())
+			if(!this.grafikCache.isEmpty())
 			{
-				if(!this.logikgatterGrafikCache.get(i).isEmpty())
+				if(!this.grafikCache.get(i).isEmpty())
 				{
-					if( ((String)this.logikgatterGrafikCache.get(i).get(0)).contains(grafikBezeichnung))
+					if( ((String)this.grafikCache.get(i).get(0)).contains(grafikBezeichnung))
 					{
-						if( ((BufferedImage[])this.logikgatterGrafikCache.get(i).get(1))[0].getWidth() == images[0].getWidth() && (((BufferedImage[])this.logikgatterGrafikCache.get(i).get(1))[0].getHeight() == images[0].getHeight()) )
+						if( ((BufferedImage[])this.grafikCache.get(i).get(1))[0].getWidth() == images[0].getWidth() && (((BufferedImage[])this.grafikCache.get(i).get(1))[0].getHeight() == images[0].getHeight()) )
 						{
 							return false;
 						}
@@ -36,9 +37,32 @@ public class GrafikCache
 		
 		// Speichere
 		ArrayList cache = new ArrayList();
-		cache.add(grafikBezeichnung);
-		cache.add(images);
+		cache.add(0,grafikBezeichnung);
+		cache.add(1,images);
+		
+		this.grafikCache.add(cache);
 		
 		return true;
 	}
+	
+	
+	public BufferedImage[] getImages(Dimension size, String grafikBezeichnung)
+	{
+		//Schauen ob Grafik existiert
+		for(int i = 0; i < this.grafikCache.size(); i++)
+		{
+			if( ((String)this.grafikCache.get(i).get(0)).contains(grafikBezeichnung))
+			{
+				if( ((BufferedImage[])this.grafikCache.get(i).get(1))[0].getWidth() == size.getWidth() && (((BufferedImage[])this.grafikCache.get(i).get(1))[0].getHeight() == size.getHeight()) )
+				{
+					return ((BufferedImage[])this.grafikCache.get(i).get(1));
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	
+	
 }
