@@ -6,16 +6,16 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-
-import Logik.And;
 import Logik.Logikgatter;
+import Logik.Not;
+
+/*
+import Logik.And;
 import Logik.Nand;
 import Logik.Nor;
-import Logik.Not;
 import Logik.Or;
 import Logik.Xor;
-
+*/
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 

@@ -40,6 +40,8 @@ public class GrafikCache
 		cache.add(0,grafikBezeichnung);
 		cache.add(1,images);
 		
+		System.out.println(grafikBezeichnung+" Hoehe:"+images[0].getHeight());
+		
 		this.grafikCache.add(cache);
 		
 		return true;
