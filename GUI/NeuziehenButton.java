@@ -17,14 +17,15 @@ public class NeuziehenButton extends JPanel implements MouseListener
 	LogikgatterSchaltflaeche[] schaltflaeche;
 	Refreshable[] refreshSchaltflaechen;
 	
-	public NeuziehenButton(int xPos, int yPos, int size, Spiel spiel,LogikgatterSchaltflaeche[] logikgatterSchaltflaeche, Refreshable[] refreshSchaltflaechen )
+	public NeuziehenButton(int xPos, int yPos, int size, Spiel spiel,LogikgatterSchaltflaeche[] logikgatterSchaltflaeche )
 	{
+		this.setLayout(null);
 		this.setBounds(xPos, yPos, size, size);
 		this.setPreferredSize(new Dimension(size, size));
 		this.setBackground(new Color(0,0, 0,255) ); // Alpha-Channal nachlesen!
 		
 		this.spiel = spiel;
-		this.refreshSchaltflaechen = refreshSchaltflaechen;
+		
 		this.schaltflaeche = logikgatterSchaltflaeche;
 		
 		this.grafik = new Grafikspeicher(new Dimension(size,size), 3, false);
@@ -33,7 +34,14 @@ public class NeuziehenButton extends JPanel implements MouseListener
 		
 		this.grafik.getImage().addMouseListener(this);
 		
+		this.grafik.getImage().setBounds(0, 0, size, size);
+		
 		this.add(this.grafik.getImage());
+	}
+	
+	public void setRefreshSchaltflaechen(Refreshable[] refreshSchaltflaechen)
+	{
+		this.refreshSchaltflaechen = refreshSchaltflaechen;
 	}
 
 	@Override

@@ -28,10 +28,10 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 	
 	private LogikgatterSchaltflaeche[] logikgatterSchaltflaechenArray;
 	
-	public SpielfeldSchaltflaeche(LogikgatterSchaltflaeche schaltflaeche, Spiel spiel, Spieler spieler, int breite,boolean spiegeln )
+	public SpielfeldSchaltflaeche(int xPos,int yPos,LogikgatterSchaltflaeche schaltflaeche, Spiel spiel, Spieler spieler, int breite,boolean spiegeln )
 	{
 		this.setLayout(null);
-		this.setSize(breite, breite);
+		this.setBounds(xPos, yPos, breite, breite);
 		this.setPreferredSize(new Dimension(breite,breite));
 		
 		this.logikgatterSchaltflaechenArray = new LogikgatterSchaltflaeche[4];
