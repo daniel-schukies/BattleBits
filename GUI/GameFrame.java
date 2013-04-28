@@ -30,7 +30,7 @@ public class GameFrame extends JFrame
 		this.setSize(1900, 1000);
 		this.getContentPane().setBackground(Color.BLACK);
 		
-		GamePanel gp = new GamePanel(new Dimension(800,480)); 
+		GamePanel gp = new GamePanel(new Dimension(1700,900)); 
 		this.add(gp);
 		
 		this.setVisible(true);

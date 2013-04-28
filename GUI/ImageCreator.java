@@ -251,7 +251,7 @@ public class ImageCreator
 			try
 			{
 				grafiken[i] = new ImageIcon( ImageCreator.VERZEICHNIS + dateiname + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
-				grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_FAST)); //Skallieren
+				grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_SMOOTH)); //Skallieren
 			}
 			catch(InstantiationError e)// Grafik nicht vorhanden
 			{
