@@ -24,14 +24,17 @@ public class GameFrame extends JFrame
 	
 	public GameFrame()
 	{
-		this.setLayout(new FlowLayout());
+		this.setLayout(null);
+		this.setResizable(false);
 		this.setTitle("Battlebits");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(1900, 1000);
-		this.getContentPane().setBackground(Color.BLACK);
+		this.setSize(800, 600);
+		//this.getContentPane().setBackground(Color.BLACK);
 		
-		GamePanel gp = new GamePanel(new Dimension(1700,900)); 
-		this.add(gp);
+		//GamePanel gp = new GamePanel(new Dimension(1700,900)); 
+		//this.add(gp);
+		
+		this.add(new MainMenue(0,0,new Dimension(800,600)));
 		
 		this.setVisible(true);
 		
