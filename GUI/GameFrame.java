@@ -34,7 +34,7 @@ public class GameFrame extends JFrame
 		//GamePanel gp = new GamePanel(new Dimension(1700,900)); 
 		//this.add(gp);
 		
-		this.add(new MainMenue(0,0,new Dimension(800,600)));
+		this.add(new MainMenue(0,0,new Dimension(800,600), new Menue()));
 		
 		this.setVisible(true);
 		

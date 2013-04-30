@@ -18,9 +18,8 @@ public class MainMenue extends JPanel implements MouseListener
 	
 	private static final Dimension buttonSize = new Dimension(355,134);
 	
-	public static final String start = "start";
-	public static final String options = "options";
-	public static final String close = "close";
+	private Menue menue;
+
 	
 	ImageCreator imageCreator;
 	
@@ -30,6 +29,8 @@ public class MainMenue extends JPanel implements MouseListener
 		this.setBackground(new Color(0,0,255));
 		this.setBounds(xPos, yPos, (int)size.getWidth(), (int)size.getHeight());
 		this.setPreferredSize(size);
+		
+		this.menue = menue;
 		
 		this.imageCreator = new ImageCreator(new Dimension(134,355), 3, false);
 		
@@ -41,6 +42,10 @@ public class MainMenue extends JPanel implements MouseListener
 		this.startButton.setBounds(225,140, (int)MainMenue.buttonSize.getWidth(),(int)MainMenue.buttonSize.getHeight());
 		this.optionsButton.setBounds(225, 270, (int)MainMenue.buttonSize.getWidth(), (int)MainMenue.buttonSize.getHeight());
 		this.closeButton.setBounds(225, 400, (int)MainMenue.buttonSize.getWidth(), (int)MainMenue.buttonSize.getHeight());
+		
+		this.startButton.addMouseListener(this);
+		this.optionsButton.addMouseListener(this);
+		this.closeButton.addMouseListener(this);
 		
 		this.add(this.startButton);
 		this.add(this.optionsButton);
@@ -58,8 +63,21 @@ public class MainMenue extends JPanel implements MouseListener
     }
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseClicked(MouseEvent e) 
+	{
+		JLabel button = (JLabel)e.getSource();
+		if(button == this.startButton)
+		{
+			this.menue.changeMenueCardTo(Menue.START);
+		}
+		else if(button == this.optionsButton)
+		{
+			this.menue.changeMenueCardTo(Menue.OPTIONS);
+		}
+		else if(button == this.closeButton)
+		{
+			this.menue.changeMenueCardTo(Menue.CLOSE);
+		}
 		
 	}
 
