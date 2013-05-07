@@ -20,7 +20,6 @@ public class MainMenue extends JPanel implements MouseListener
 	
 	private Menue menue;
 
-	
 	ImageCreator imageCreator;
 	
 	public MainMenue(int xPos,int yPos, Dimension size,Menue menue) 

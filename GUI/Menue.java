@@ -2,9 +2,6 @@ package GUI;
 
 import java.awt.CardLayout;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -25,13 +22,13 @@ public class Menue extends JPanel
 	{
 		this.setLayout(new CardLayout());
 		
-		this.mainMenue = new MainMenue(0,0,new Dimension(800,600), new Menue());
+		this.mainMenue = new MainMenue(0,0,new Dimension(800,600), this);
 		this.p2 = new JPanel();
 		this.p3 = new JPanel();
 		
+		//this.p2.add(new JButton("P22222"));
+		//this.p3.add(new JButton("P3333333"));
 		this.add(this.mainMenue, Menue.START);
-		this.p2.add(new JButton("P22222"));
-		this.p3.add(new JButton("P3333333"));
 	}
 	
 	public void changeMenueCardTo(String menueName)
