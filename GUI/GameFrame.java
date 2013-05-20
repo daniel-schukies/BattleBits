@@ -34,9 +34,9 @@ public class GameFrame extends JFrame
 		
 		//this.add(new MainMenue(0,0,new Dimension(800,600),new Menue()));
 		
-		//this.add( new SpielereinstellungenMenue( 0,0,new Dimension(800,600), new Menue()) );
+		this.add( new SpielereinstellungenMenue( 0,0,new Dimension(800,600), new Menue()) );
 		
-		this.add( new OptionsMenue( 0 , 0 , new Dimension(800,600), new Menue()) );
+		//this.add( new OptionsMenue( 0 , 0 , new Dimension(800,600), new Menue()) );
 		
 		this.setVisible(true);
 		
