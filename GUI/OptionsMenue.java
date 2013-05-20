@@ -28,6 +28,8 @@ public class OptionsMenue extends JPanel {
 	//private JCheckBox grafikenLaden;
 	//private JButton speichern;
 	private JLabel onofButton;
+	private Grafikspeicher grafikspeicher;
+	private Grafikspeicher backgrafikspeicher;
 	
 	
 	public OptionsMenue( int xPos,int yPos, Dimension size,Menue menue )
@@ -59,9 +61,12 @@ public class OptionsMenue extends JPanel {
 		this.width = new JTextField( "" + (int)this.aufloesung.getWidth() , 10 );
 		this.width.setOpaque( false );
 		
-		this.onofButton = new JLabel( new ImageIcon(new ImageCreator(new Dimension(133,47),1, false).getImage("on")[0].getImage()));
-		this.onofButton.setBounds( 0, 0, 133, this.onofButton.getHeight() );
-		System.out.println( this.onofButton.getHeight() );
+		this.grafikspeicher = new Grafikspeicher(new Dimension(47,133),1, false);
+		this.grafikspeicher.setImage( "on" );
+		this.backgrafikspeicher = new Grafikspeicher(new Dimension(47,133),1,false);
+		this.backgrafikspeicher.setImage( "back" );
+		//this.onofButton.setBounds( 0, 0, 133, this.onofButton.getHeight() );
+		//System.out.println( this.onofButton.getHeight() );
 		
 		
 		//Rahmen von textfields durchsichtig machen
@@ -86,8 +91,8 @@ public class OptionsMenue extends JPanel {
 		//this.add( this.bild );
 		
 		//hoehe 45 für das Textfield wird benötigt, weil die Buchstaben sonst abgeschnitten werden
-		 this.width.setBounds( 425, 370, 300, 45 );
-		 this.height.setBounds( 590, 370, 300, 45 );
+		 this.width.setBounds( 425, 365, 100, 45 );
+		 this.height.setBounds( 590, 365, 100, 45 );
 		 
 		 //this.grafikenLaden.setBounds( 235, 335, 410, 45 );
 		
@@ -96,7 +101,12 @@ public class OptionsMenue extends JPanel {
 		this.add( this.width );
 	    this.add( this.height);
 	    
-	    this.add( this.onofButton );
+	    this.grafikspeicher.getImage().setBounds( 485,250,133,47 );
+	    this.backgrafikspeicher.getImage().setBounds( 0,0,133,47 );
+	    
+	    
+	    this.add( this.grafikspeicher.getImage() );
+	    this.add( this.backgrafikspeicher.getImage() );
 	    
 	   // this.add( this.grafikenLaden );
 	    
