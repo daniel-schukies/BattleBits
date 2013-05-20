@@ -68,22 +68,39 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 	
 	
 
-		
+	/**
+	 * Setzt Logikgatter-Grafik an bestimmten Index im Grafikspeicher	
+	 * @param index Index im Grafikspeicher
+	 * @param logikgatter Logikgatter, das dargestellt werden soll.
+	 */
 	public void setImage(int index, Logikgatter logikgatter)
 	{
 		this.grafikSpeicher[index].setImage(logikgatter);
 	}
 	
+	/**
+	 * Setzt Bit-Grafiken an einen Index im Grafikspeicher
+	 * @param index Index im Grafikspeicher
+	 * @param bit Bit, welches dargestellt werden soll.
+	 */
 	public void setImage(int index, boolean bit)
 	{
 		this.grafikSpeicher[index].setImage(bit);
 	}
 	
+	/**
+	 * Setzt Platzhaltergrafik an uebergebenen Index
+	 * @param index Index des Grafikspeichers
+	 */
 	public void setImage(int index)
 	{
 		this.grafikSpeicher[index].setImage();
 	}
 	
+	/**
+	 * Setzt alle Grafiken in der Schaltflaeche auf eine bestimmte Bildversion
+	 * @param versionID Bildversions ID
+	 */
 	public void setAllImagesToVersion(int versionID)
 	{
 		for(int i = 0;i < this.grafikSpeicher.length;i++)
@@ -94,21 +111,41 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 		}
 	}
 	
+	
+	/**
+	 * Gibt Referenz der aktuellen pressedID zurueck.
+	 * @return Referenz des aktuellen pressedID Objekts
+	 */
 	public IDInfo getPressedID()
 	{
 		return this.pressedID;
 	}
 	
+	/**
+	 * Setzt die pressedID Info
+	 * @param pressedID Info ueber Buttonstatus
+	 */
 	public void setPressedID(IDInfo pressedID)
 	{
 		this.pressedID = pressedID;
 	}
 	
+	/**
+	 * Gibt Image(JLabel) aus einem Index des Grafikspeichers zurueck
+	 * @param index Ein Index des Grafikspeichers
+	 * @return JLabel am Index
+	 */
 	public JLabel getImage(int index)
 	{
 		return this.grafikSpeicher[index].getImage();
 	}
 	
+	
+	/**
+	 * Vergleicht uebergebenes Label mit denen im Grafikspeicher-Array
+	 * @param button Label, welches geprueft werden soll
+	 * @return IDInfo ob Label enthalten und, welche ID es besitzt.
+	 */
 	public IDInfo getImageIDInfo(JLabel button) 
 	{
 		for(int i = 0; i < this.grafikSpeicher.length; i++)
@@ -123,9 +160,16 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 	}
 	
 	
+	/*
+	 * (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void mouseEntered(MouseEvent e) 
 	{
+		/*
+		 * Aendert die Version (auf eine andere Grafik) des angeklickten Buttons.
+		 */
 		this.changeVersion(2, (JLabel)e.getSource());
 	}
 
@@ -146,12 +190,4 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 	{
 		this.changeVersion(0, (JLabel)e.getSource());
 	}
-	
-	/**
-	 * getIsKilcked
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
 }
