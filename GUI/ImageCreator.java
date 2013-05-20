@@ -22,7 +22,7 @@ import javax.swing.ImageIcon;
 
 public class ImageCreator 
 {
-	private static final String VERZEICHNIS = "bin/GUI/grafiken/";
+	private static final String VERZEICHNIS = "GUI/grafiken/";
 	private static final String DATEIENDUNG = ".png";
 	private static final String PLATZHALTER = "platzhalter";
 	private static final String LOGIKGATTERSTATUS = "L";
