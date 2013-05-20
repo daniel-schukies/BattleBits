@@ -25,8 +25,9 @@ public class OptionsMenue extends JPanel {
 	private Image image;
 	private ImageCreator imagecreator;
 	private Dimension aufloesung;
-	private JCheckBox grafikenLaden;
-	private JButton speichern;
+	//private JCheckBox grafikenLaden;
+	//private JButton speichern;
+	private JLabel onofButton;
 	
 	
 	public OptionsMenue( int xPos,int yPos, Dimension size,Menue menue )
@@ -36,20 +37,20 @@ public class OptionsMenue extends JPanel {
 		this.setBounds(xPos, yPos, (int)size.getWidth(), (int)size.getHeight());
 		this.setPreferredSize(size);
 		this.imagecreator = new ImageCreator(new Dimension(600,800),1, false);
-		this.image = this.imagecreator.getImage("menue")[0].getImage();
+		this.image = this.imagecreator.getImage("MenuOptionsBack")[0].getImage();
 		
-		this.grafikenLaden = new JCheckBox( "Grafiken vorladen" , false );
-		this.grafikenLaden.setOpaque( false );
-		this.grafikenLaden.setFont( new Font(Font.MONOSPACED,Font.BOLD,28) );
-		this.grafikenLaden.setForeground( new Color(0,0,255) );
-		this.grafikenLaden.setBackground( new Color(0,0,0,255) );
+		//this.grafikenLaden = new JCheckBox( "Grafiken vorladen" , false );
+		//this.grafikenLaden.setOpaque( false );
+		//this.grafikenLaden.setFont( new Font(Font.MONOSPACED,Font.BOLD,28) );
+		//this.grafikenLaden.setForeground( new Color(0,0,255) );
+		//this.grafikenLaden.setBackground( new Color(0,0,0,255) );
 		//this.grafikenLaden.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-		this.speichern = new JButton( "Speichern" );
-		this.speichern.setBounds( 235, 435, 320, 45 );
+		//this.speichern = new JButton( "Speichern" );
+		//this.speichern.setBounds( 235, 435, 320, 45 );
 		
-		this.bild = new JLabel( new ImageIcon(new ImageCreator(new Dimension(600,800),1, false).getImage("menue")[0].getImage()));
-		this.bild.setBounds(xPos, yPos, (int)size.getWidth(), (int)size.getHeight());
+		//this.bild = new JLabel( new ImageIcon(new ImageCreator(new Dimension(600,800),1, false).getImage("MenuOptionsBack")[0].getImage()));
+		//this.bild.setBounds(xPos, yPos, (int)size.getWidth(), (int)size.getHeight());
 		
 		this.aufloesung = Toolkit.getDefaultToolkit().getScreenSize();
 		
@@ -57,6 +58,11 @@ public class OptionsMenue extends JPanel {
 		this.height.setOpaque( false );
 		this.width = new JTextField( "" + (int)this.aufloesung.getWidth() , 10 );
 		this.width.setOpaque( false );
+		
+		this.onofButton = new JLabel( new ImageIcon(new ImageCreator(new Dimension(133,47),1, false).getImage("on")[0].getImage()));
+		this.onofButton.setBounds( 0, 0, 133, this.onofButton.getHeight() );
+		System.out.println( this.onofButton.getHeight() );
+		
 		
 		//Rahmen von textfields durchsichtig machen
 		width.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -68,10 +74,10 @@ public class OptionsMenue extends JPanel {
 		this.width.setForeground( new Color(0,0,255) );
 		this.height.setForeground( new Color(0,0,255) );
 		
-		this.laufloesung = new JLabel( "Auflösung:" );
-		this.laufloesung.setFont( new Font(Font.MONOSPACED,Font.BOLD,22) );
-		this.laufloesung.setForeground( new Color(0,0,255,255) );
-		this.laufloesung.setBounds(235, 235, 300, 45);
+		//this.laufloesung = new JLabel( "Auflösung:" );
+		//this.laufloesung.setFont( new Font(Font.MONOSPACED,Font.BOLD,22) );
+		//this.laufloesung.setForeground( new Color(0,0,255,255) );
+		//this.laufloesung.setBounds(235, 235, 300, 45);
 
 		
 		this.width.setFont( new Font(Font.MONOSPACED,Font.BOLD,30) );
@@ -80,19 +86,21 @@ public class OptionsMenue extends JPanel {
 		//this.add( this.bild );
 		
 		//hoehe 45 für das Textfield wird benötigt, weil die Buchstaben sonst abgeschnitten werden
-		 this.width.setBounds( 365, 235, 300, 45 );
-		 this.height.setBounds( 465, 235, 300, 45 );
+		 this.width.setBounds( 425, 370, 300, 45 );
+		 this.height.setBounds( 590, 370, 300, 45 );
 		 
-		 this.grafikenLaden.setBounds( 235, 335, 410, 45 );
+		 //this.grafikenLaden.setBounds( 235, 335, 410, 45 );
 		
 
-		this.add( this.laufloesung );
+		//this.add( this.laufloesung );
 		this.add( this.width );
 	    this.add( this.height);
 	    
-	    this.add( this.grafikenLaden );
+	    this.add( this.onofButton );
 	    
-	    this.add( this.speichern );
+	   // this.add( this.grafikenLaden );
+	    
+	   // this.add( this.speichern );
 		
 		this.setVisible(true);
 
