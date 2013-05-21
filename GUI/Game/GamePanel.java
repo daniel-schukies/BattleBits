@@ -1,10 +1,14 @@
-package GUI;
+package GUI.Game;
 
 import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
+import GUI.Game.Schaltflaechen.BitfolgenSchaltflaeche;
+import GUI.Game.Schaltflaechen.LogikgatterSchaltflaeche;
+import GUI.Game.Schaltflaechen.NeuziehenButton;
+import GUI.Game.Schaltflaechen.SpielfeldSchaltflaeche;
 import Logik.Spiel;
 
 @SuppressWarnings("serial")

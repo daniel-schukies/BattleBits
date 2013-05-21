@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Game.Schaltflaechen;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -7,6 +7,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
+import GUI.Game.Refreshable;
+import GUI.Game.Grafikverwaltung.Grafikspeicher;
 import Logik.Spiel;
 
 @SuppressWarnings("serial")

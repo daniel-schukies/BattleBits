@@ -1,7 +1,9 @@
-package GUI;
+package GUI.Game.Schaltflaechen;
 
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
+
+import GUI.Game.Refreshable;
 import Logik.Bitgenerator;
 import Logik.Spiel;
 

@@ -1,10 +1,12 @@
-package GUI;
+package GUI.Game.Schaltflaechen;
 
 import java.awt.event.MouseEvent;
 
 
 import javax.swing.JLabel;
 
+import GUI.Game.IDInfo;
+import GUI.Game.Refreshable;
 import Logik.Logikgatter;
 
 public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implements Refreshable

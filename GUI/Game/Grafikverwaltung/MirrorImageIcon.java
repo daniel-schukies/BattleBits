@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Game.Grafikverwaltung;
 
 import java.awt.Component;
 import java.awt.Graphics;

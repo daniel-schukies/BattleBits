@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Menue;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,6 +11,10 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
+
+import GUI.Game.Grafikverwaltung.Grafikspeicher;
+import GUI.Game.Grafikverwaltung.ImageCreator;
+
 import java.awt.event.*;
 
 

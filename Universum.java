@@ -1,4 +1,4 @@
-import GUI.GameFrame;
+import GUI.Game.GameFrame;
 
 public class Universum {
 

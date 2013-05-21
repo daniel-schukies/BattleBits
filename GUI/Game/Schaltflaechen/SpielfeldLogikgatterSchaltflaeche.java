@@ -1,10 +1,11 @@
-package GUI;
+package GUI.Game.Schaltflaechen;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JLabel;
 
+import GUI.Game.Refreshable;
 import Logik.Logikgatter;
 
 @SuppressWarnings("serial")
