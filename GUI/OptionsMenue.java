@@ -10,26 +10,25 @@ import java.awt.Image;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.ImageIcon;
 import java.awt.Toolkit;
-import javax.swing.JCheckBox;
-import javax.swing.JButton;
+import java.awt.event.*;
 
 
-public class OptionsMenue extends JPanel {
+@SuppressWarnings("serial")
+public class OptionsMenue extends JPanel implements MouseListener {
+
 	
 	private JTextField width;
 	private JTextField height;
-	private JLabel laufloesung;
-	private JLabel bild;
 	private Image image;
 	private ImageCreator imagecreator;
 	private Dimension aufloesung;
 	//private JCheckBox grafikenLaden;
 	//private JButton speichern;
-	private JLabel onofButton;
 	private Grafikspeicher grafikspeicher;
 	private Grafikspeicher backgrafikspeicher;
+	private boolean kiButtonKlicked , backButtonKlicked;
+
 	
 	
 	public OptionsMenue( int xPos,int yPos, Dimension size,Menue menue )
@@ -54,6 +53,10 @@ public class OptionsMenue extends JPanel {
 		//this.bild = new JLabel( new ImageIcon(new ImageCreator(new Dimension(600,800),1, false).getImage("MenuOptionsBack")[0].getImage()));
 		//this.bild.setBounds(xPos, yPos, (int)size.getWidth(), (int)size.getHeight());
 		
+
+		this.kiButtonKlicked = false;
+		this.backButtonKlicked = false;
+		
 		this.aufloesung = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		this.height = new JTextField( "" + (int)this.aufloesung.getHeight() , 10 );
@@ -61,9 +64,11 @@ public class OptionsMenue extends JPanel {
 		this.width = new JTextField( "" + (int)this.aufloesung.getWidth() , 10 );
 		this.width.setOpaque( false );
 		
-		this.grafikspeicher = new Grafikspeicher(new Dimension(47,133),1, false);
+
+		this.grafikspeicher = new Grafikspeicher(new Dimension(47,133),3, false);
 		this.grafikspeicher.setImage( "on" );
-		this.backgrafikspeicher = new Grafikspeicher(new Dimension(47,133),1,false);
+		this.backgrafikspeicher = new Grafikspeicher(new Dimension(47,133),3,false);
+
 		this.backgrafikspeicher.setImage( "back" );
 		//this.onofButton.setBounds( 0, 0, 133, this.onofButton.getHeight() );
 		//System.out.println( this.onofButton.getHeight() );
@@ -104,6 +109,11 @@ public class OptionsMenue extends JPanel {
 	    this.grafikspeicher.getImage().setBounds( 485,250,133,47 );
 	    this.backgrafikspeicher.getImage().setBounds( 0,0,133,47 );
 	    
+
+	    this.grafikspeicher.getImage().addMouseListener( this );
+	    this.backgrafikspeicher.getImage().addMouseListener( this );
+	    
+
 	    
 	    this.add( this.grafikspeicher.getImage() );
 	    this.add( this.backgrafikspeicher.getImage() );
@@ -119,9 +129,111 @@ public class OptionsMenue extends JPanel {
 		
 	}
 		
-		public void paintComponent(Graphics g) {
+	public void paintComponent(Graphics g) {
 	        g.drawImage(this.image, 0, 0, null);
-	    }
+	}
+
+	    
+	    @Override
+	public void mouseExited(MouseEvent e) 
+	{	//wenn vorher nicht angeklickt
+		if( (JLabel)e.getSource() == this.backgrafikspeicher.getImage() && !( this.backButtonKlicked ) )
+		{
+			this.backgrafikspeicher.setVersion( 0 );
+			this.repaint();
+		}else
+		{	//wenn vorher angeklickt
+			if( (JLabel)e.getSource() == this.backgrafikspeicher.getImage() && this.backButtonKlicked )
+			{
+				this.backgrafikspeicher.setVersion( 1 );
+				this.repaint();
+			}
+		}
+		
+		if( (JLabel)e.getSource() == this.grafikspeicher.getImage() && !( this.kiButtonKlicked ) )
+		{
+			this.grafikspeicher.setVersion( 0 );
+			this.repaint();
+		}else
+		{
+			if( (JLabel)e.getSource() == this.grafikspeicher.getImage() && this.kiButtonKlicked  )
+			{
+				this.grafikspeicher.setVersion( 1 );
+				this.repaint();
+			}
+		}
+				
+	}
+	
+	@Override
+	public void mouseEntered(MouseEvent e) 
+	{
+		if( (JLabel)e.getSource() == this.backgrafikspeicher.getImage() )
+		{
+			this.backgrafikspeicher.setVersion( 1 );
+			this.repaint();
+		}
+		
+		
+		if( (JLabel)e.getSource() == this.grafikspeicher.getImage() )
+		{
+			this.grafikspeicher.setVersion( 1 );
+			this.repaint();
+		}
+		
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) 
+	{
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) 
+	{
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) 
+	{
+		//backgrafikspeicher und grafikspeicher brauchen kein zuruecksetzen auf Version 0, da beim anklicken in ein anderes
+		//Fenster gwechselt wird
+		if( (JLabel)e.getSource() == this.backgrafikspeicher.getImage() && this.backButtonKlicked)
+		{
+			this.backgrafikspeicher.setVersion( 0 );
+			this.repaint();
+			this.backButtonKlicked = false;
+		}else
+		{
+			if( (JLabel)e.getSource() == this.backgrafikspeicher.getImage() && !( this.backButtonKlicked ) )
+			{
+				this.backgrafikspeicher.setVersion( 1 );
+				this.repaint();
+				this.backButtonKlicked = true;
+			}
+		}
+		
+		if( (JLabel)e.getSource() == this.grafikspeicher.getImage() &&  this.kiButtonKlicked  )
+		{
+			this.grafikspeicher.setVersion( 0 );
+			this.repaint();
+			this.kiButtonKlicked = false;
+		}else
+		{
+			if( (JLabel)e.getSource() == this.grafikspeicher.getImage() && !( this.kiButtonKlicked ) ) 	
+			{
+				this.grafikspeicher.setVersion( 1 );
+				this.repaint();
+				this.kiButtonKlicked = true;
+			}
+		}
+		
+
+	}
+
 	
 }
 
