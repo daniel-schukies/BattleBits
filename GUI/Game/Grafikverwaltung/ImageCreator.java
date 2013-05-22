@@ -4,8 +4,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.net.URL;
+
 import Logik.Logikgatter;
 import Logik.Not;
 
@@ -17,12 +17,13 @@ import Logik.Or;
 import Logik.Xor;
 */
 import javax.imageio.ImageIO;
+
 import javax.swing.ImageIcon;
 
 
 public class ImageCreator 
 {
-	private static final String VERZEICHNIS = "bin/GUI/grafiken/";
+	private static final String VERZEICHNIS = "/GUI/grafiken/";
 	private static final String DATEIENDUNG = ".png";
 	private static final String PLATZHALTER = "platzhalter";
 	private static final String LOGIKGATTERSTATUS = "L";
@@ -136,7 +137,7 @@ public class ImageCreator
 				}
 				else
 				{
-			        overlay = ImageIO.read(new File(ImageCreator.VERZEICHNIS + ImageCreator.LOGIKGATTERSTATUS + castBit + "1" + ImageCreator.DATEIENDUNG ));
+			        overlay = ImageIO.read(getClass().getResource(ImageCreator.VERZEICHNIS + ImageCreator.LOGIKGATTERSTATUS + castBit + "1" + ImageCreator.DATEIENDUNG ));
 					
 			        newOverlay = new BufferedImage((int)this.size.getWidth()/2, (int)this.size.getHeight()/2, BufferedImage.TYPE_INT_ARGB);
 			        Graphics g;
@@ -151,20 +152,20 @@ public class ImageCreator
 				
 				if(logikgatterCacheImages != null)
 				{
-					System.out.println("Grafik aus Cache geladen!!!");
 					try
 					{
 						newLogikgatterGrafik = logikgatterCacheImages[i];
+						System.out.println("Grafik aus Cache geladen!!!");
 					}
-					
 					catch(Exception e)
 					{
-				        newLogikgatterGrafik = ImageIO.read(new File(ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG )); 
+				        newLogikgatterGrafik = ImageIO.read(getClass().getResource(ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG ));
+				        System.out.println("Fehler beim Laden aus Cache :(");
 					}	
 				}
 				else
 				{
-					logikgatterGrafik = ImageIO.read(new File(ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG ));
+					logikgatterGrafik = ImageIO.read(getClass().getResource(ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG ));
 					
 			        newLogikgatterGrafik = new BufferedImage((int)this.size.getWidth(), (int)this.size.getHeight(), BufferedImage.TYPE_INT_ARGB);
 			        
@@ -183,11 +184,12 @@ public class ImageCreator
 		        grafiken[i] = zeichneLogikgatterStatus(newLogikgatterGrafik, newOverlay, logikgatter);
 				
 			}
-			catch(IOException e)// Grafik nicht vorhanden
+			catch(Exception e)// Grafik nicht vorhanden
 			{
 				grafiken[i] = null; 
 				System.out.println(e);
 				System.out.println("Error Versions ID:" + i);
+				System.out.println(getClass().getResource(ImageCreator.VERZEICHNIS + logikgatter.toString() + i.toString() + ImageCreator.DATEIENDUNG ).getPath());
 			}
 		}
 		
@@ -212,29 +214,13 @@ public class ImageCreator
 	{
 		Boolean castBit = (Boolean)bit; // Um spaeter die toString() zu nutzen.
 		
-		ImageIcon[] grafiken = new ImageIcon[3];
+		ImageIcon[] grafiken = this.getImage(castBit.toString());
 		
-		for(Integer i = 0; i < 3;i++  )
+		if(this.spiegeln)
 		{
-			// Bild muss noch mit richtiger Aufloesung zurueckgegeben werden
-			try
+			for(Integer i = 0; i < 3;i++  )
 			{
-				if(this.spiegeln)
-				{
-					grafiken[i] = new MirrorImageIcon( ImageCreator.VERZEICHNIS + castBit.toString() + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
-					grafiken[i] = new MirrorImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_FAST)); //Skallieren
-
-				}
-				else
-				{
-					grafiken[i] = new ImageIcon( ImageCreator.VERZEICHNIS + castBit.toString() + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
-					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_FAST)); //Skallieren
-				}		
-			}
-			catch(InstantiationError e)// Grafik nicht vorhanden
-			{
-				grafiken[i] = null; 
-				System.out.println("Error Versions ID:" + i);
+				grafiken[i] = new ImageIcon(ImageUtil.mirror((BufferedImage)grafiken[i].getImage(), 0));
 			}
 		}
 
@@ -243,50 +229,88 @@ public class ImageCreator
 	
 	public ImageIcon[] getImage(String dateiname)
 	{
-		ImageIcon[] grafiken = new ImageIcon[this.anzahlVersionen];
+		BufferedImage[] logikgatterCacheImages = ImageCreator.grafikCache.getImages(this.size, dateiname); // Lade Grafiken aus Cache
+
+		ImageIcon[] grafiken = new ImageIcon[this.anzahlVersionen]; // Array, welcher spaeter zuueckgegeben wird.
+	
+		BufferedImage[] cacheSpeicher = new BufferedImage[anzahlVersionen]; // Array, welcher spaeter im Grafikcache gespeichert wird.
 		
 		for(Integer i = 0; i < this.anzahlVersionen;i++  )
 		{
-			// Bild muss noch mit richtiger Aufloesung zurueckgegeben werden
 			try
 			{
-				grafiken[i] = new ImageIcon( ImageCreator.VERZEICHNIS + dateiname + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
-				grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_SMOOTH)); //Skallieren
+				BufferedImage currentGrafik; // Grafik der Datei
+				BufferedImage newCurrentGrafik = new BufferedImage((int)this.size.getWidth(), (int)this.size.getHeight(), BufferedImage.TYPE_INT_ARGB); // In dieser wird skalliert
+				
+				URL url = getClass().getResource(ImageCreator.VERZEICHNIS + dateiname + i.toString() + ImageCreator.DATEIENDUNG);
+				
+				if(url != null)// Preufe, ob Pfad existiert
+				{
+					// Abfrage des Grafikcaches
+					if((logikgatterCacheImages != null))
+					{
+						try
+						{
+							newCurrentGrafik = logikgatterCacheImages[i];
+							System.out.println("Grafik aus Cache geladen!!!");
+						}
+						catch(Exception e)
+						{
+							currentGrafik = ImageIO.read(getClass().getResource(ImageCreator.VERZEICHNIS + dateiname + i.toString() + ImageCreator.DATEIENDUNG ));
+							
+						    // Scalliere Grfik
+						    Graphics g = newCurrentGrafik.getGraphics();
+						    g.drawImage(currentGrafik.getScaledInstance((int)this.size.getWidth(),  (int)this.size.getHeight(), Image.SCALE_SMOOTH), 0, 0,null);
+						      
+							System.out.println("Fehler beim Laden aus Cache :(");
+						}	
+					}
+					else // Wenn nicht vorhanden, erstelle Grafik
+					{
+						// Erstelle Grafik
+						currentGrafik = ImageIO.read(url);
+							
+					    // Scalliere Grfik
+					    Graphics g = newCurrentGrafik.getGraphics();
+					    g.drawImage(currentGrafik.getScaledInstance((int)this.size.getWidth(),  (int)this.size.getHeight(), Image.SCALE_SMOOTH), 0, 0,null);
+					        
+					    cacheSpeicher[i] = newCurrentGrafik; // speichere Grafik fuer Grafikcache
+	
+					    System.out.println("Grafik erstellt: " + url);
+					}
+					
+	  				grafiken[i] = new ImageIcon(newCurrentGrafik); // Speichere Grafik um spaeter zurueckzugeben.  
+				}
+				else
+				{
+					grafiken[i] = null; 
+					System.out.println("Version does not exitst -> Error Versions ID:" + i);
+				}
 			}
-			catch(InstantiationError e)// Grafik nicht vorhanden
+			catch(Exception e)// Grafik nicht vorhanden (konnte nicht erstellt werden)
 			{
 				grafiken[i] = null; 
+				System.out.println(e);
 				System.out.println("Error Versions ID:" + i);
+				//Thread.getAllStackTraces();
 			}
 		}
-
+		
+		//Wenn Grafik im cacheSpeicher vonhanden wird sie gespeichert
+		if(cacheSpeicher[0] != null)
+		{
+			ImageCreator.grafikCache.saveImages(dateiname, cacheSpeicher);
+		}
+		
 		return grafiken;
 	}
 
 	
 	public ImageIcon[] getImage()
-	{
-		ImageIcon[] grafiken = new ImageIcon[this.anzahlVersionen];
-		
-		for(Integer i = 0; i < 3;i++  )
-		{
-			// Bild muss noch mit richtiger Aufloesung zurueckgegeben werden
-			try
-			{
-				{
-					grafiken[i] = new ImageIcon( ImageCreator.VERZEICHNIS + ImageCreator.PLATZHALTER + i.toString() + ImageCreator.DATEIENDUNG ); // Grafik erstellen
-					grafiken[i] = new ImageIcon(grafiken[i].getImage().getScaledInstance((int)this.size.getHeight(), (int)this.size.getWidth(), Image.SCALE_FAST)); //Skallieren
-				}		
-			}
-			catch(InstantiationError e)// Grafik nicht vorhanden
-			{
-				grafiken[i] = null; 
-				System.out.println("Error Versions ID:" + i);
-			}
-		}
-		
-		return grafiken;
+	{	
+		return this.getImage(ImageCreator.PLATZHALTER);
 	}
+	
 	
 	public void setAufloesung(Dimension size)
 	{

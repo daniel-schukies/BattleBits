@@ -3,7 +3,7 @@ package GUI.Game;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;

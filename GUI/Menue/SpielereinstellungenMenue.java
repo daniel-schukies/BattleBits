@@ -41,24 +41,24 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 		this.setBackground(new Color(20,60,20));
 		this.setBounds(xPos, yPos, (int)size.getWidth(), (int)size.getHeight());
 		this.setPreferredSize(size);
-		this.image = new ImageCreator(new Dimension(600,800),1, false).getImage("SpielereinstellungenMenue")[0].getImage();
+		this.image = new ImageCreator(new Dimension(800,600),1, false).getImage("SpielereinstellungenMenue")[0].getImage();
 		
 		this.menue = menue;
 
-		this.finalstartButton = new Grafikspeicher(new Dimension(101,302),3, false);
+		this.finalstartButton = new Grafikspeicher(new Dimension(302,101),3, false);
 		this.finalstartButton.setImage( "finalstart" );
 		
 		this.pcButtonKlicked = false;
 		this.backButtonKlicked = false;
 		this.playButtonKlicked = false;
 		
-		this.backButton = new Grafikspeicher(new Dimension(47,133),3,false);
+		this.backButton = new Grafikspeicher(new Dimension(133,47),3,false);
 		this.backButton.setImage( "back" );
 		
-		this.pcButton = new Grafikspeicher(new Dimension(47,133),3, false);
+		this.pcButton = new Grafikspeicher(new Dimension(133,47),3, false);
 		this.pcButton.setImage( "pc" );
 		
-		this.bild = new JLabel( new ImageIcon(new ImageCreator(new Dimension(600,800),3, false).getImage("SpielereinstellungenMenue")[0].getImage()));
+		this.bild = new JLabel( new ImageIcon(new ImageCreator(new Dimension(800,600),3, false).getImage("SpielereinstellungenMenue")[0].getImage()));
 		this.bild.setBounds(xPos, yPos, (int)size.getWidth(), (int)size.getHeight());
 		
 		this.sname1 = new JTextField( "" , 10 );

@@ -45,7 +45,7 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		this.setBackground(new Color(20,60,20));
 		this.setBounds(xPos, yPos, (int)size.getWidth(), (int)size.getHeight());
 		this.setPreferredSize(size);
-		this.imagecreator = new ImageCreator(new Dimension(600,800),1, false);
+		this.imagecreator = new ImageCreator(new Dimension(800,600),1, false);
 		this.image = this.imagecreator.getImage("MenuOptionsBack")[0].getImage();
 		
 		this.menue = menue;
@@ -75,9 +75,9 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		this.width.setOpaque( false );
 		
 
-		this.grafikcacheButton = new Grafikspeicher(new Dimension(47,133),3, false);
+		this.grafikcacheButton = new Grafikspeicher(new Dimension(133,47),3, false);
 		this.grafikcacheButton.setImage( "on" );
-		this.backButton = new Grafikspeicher(new Dimension(47,133),3,false);
+		this.backButton = new Grafikspeicher(new Dimension(133,47),3,false);
 
 		this.backButton.setImage( "back" );
 		//this.onofButton.setBounds( 0, 0, 133, this.onofButton.getHeight() );

@@ -39,10 +39,10 @@ public class MainMenue extends JPanel implements MouseListener
 		
 		//this.grafik = new ImageCreator(new Dimension(134,355), 3, false);
 		
-		this.startButton = new Grafikspeicher(new Dimension(134,355), 3, false);
-		this.optionsButton = new Grafikspeicher(new Dimension(134,355), 3, false);
-		this.closeButton = new Grafikspeicher(new Dimension(134,355), 3, false);
-		this.background = new ImageCreator(new Dimension(600,800), 1, false).getImage("menue")[0].getImage();
+		this.startButton = new Grafikspeicher(new Dimension(355,134), 3, false);
+		this.optionsButton = new Grafikspeicher(new Dimension(355,134), 3, false);
+		this.closeButton = new Grafikspeicher(new Dimension(355,134), 3, false);
+		this.background = new ImageCreator(new Dimension(800,600), 1, false).getImage("menue")[0].getImage();
 		
 		this.startButton.setImage("start");
 		this.optionsButton.setImage("options");
