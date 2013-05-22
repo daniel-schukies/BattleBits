@@ -24,6 +24,7 @@ public class ImageCreator
 	private static final String LOGIKGATTERSTATUS = "L";
 	private static GrafikCache grafikCache;
 	private boolean grafikenVorgeladen;
+	private int cntReload;
 	private int anzahlVersionen;
 	private Dimension size;
 	private boolean spiegeln;
@@ -35,6 +36,7 @@ public class ImageCreator
 		this.anzahlVersionen = anzahlVersionen;
 		this.spiegeln = spiegeln;
 		this.grafikenVorgeladen = false;
+		this.cntReload = 0;
 		ImageCreator.grafikCache = new GrafikCache();
 	}
 	
@@ -274,7 +276,7 @@ public class ImageCreator
 	
 	public void grafikenVorladen()
 	{
-		if(!this.grafikenVorgeladen)
+		if(!(this.grafikenVorgeladen))
 		{
 			for(int i = 0; i < 6; i++)
 			{
@@ -299,7 +301,11 @@ public class ImageCreator
 					break;
 				}
 			}
+						this.cntReload++;
+			System.out.println("Alle Gatter Vorgeladen--------------------------------" + cntReload);
+
 			this.grafikenVorgeladen = true;
+
 		}
 	}
 
