@@ -26,11 +26,12 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 	private JTextField sname2;
 	private JLabel bild;
 	private Image image;
-	private ImageCreator imagecreator;
-	private Grafikspeicher grafikspeicher;
-	private Grafikspeicher backgrafikspeicher;
-	private Grafikspeicher kigrafikspeicher;
+	private Grafikspeicher finalstartButton;
+	private Grafikspeicher backButton;
+	private Grafikspeicher pcButton;
 	private boolean pcButtonKlicked , backButtonKlicked , playButtonKlicked;
+	
+	private Menue menue;
 
 	
 	
@@ -40,28 +41,29 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 		this.setBackground(new Color(20,60,20));
 		this.setBounds(xPos, yPos, (int)size.getWidth(), (int)size.getHeight());
 		this.setPreferredSize(size);
-		this.imagecreator = new ImageCreator(new Dimension(600,800),1, false);
-		this.image = this.imagecreator.getImage("SpielereinstellungenMenue")[0].getImage();
+		this.image = new ImageCreator(new Dimension(600,800),1, false).getImage("SpielereinstellungenMenue")[0].getImage();
+		
+		this.menue = menue;
 
-		this.grafikspeicher = new Grafikspeicher(new Dimension(101,302),3, false);
-		this.grafikspeicher.setImage( "finalstart" );
+		this.finalstartButton = new Grafikspeicher(new Dimension(101,302),3, false);
+		this.finalstartButton.setImage( "finalstart" );
 		
 		this.pcButtonKlicked = false;
 		this.backButtonKlicked = false;
 		this.playButtonKlicked = false;
 		
-		this.backgrafikspeicher = new Grafikspeicher(new Dimension(47,133),3,false);
-		this.backgrafikspeicher.setImage( "back" );
+		this.backButton = new Grafikspeicher(new Dimension(47,133),3,false);
+		this.backButton.setImage( "back" );
 		
-		this.kigrafikspeicher = new Grafikspeicher(new Dimension(47,133),3, false);
-		this.kigrafikspeicher.setImage( "pc" );
+		this.pcButton = new Grafikspeicher(new Dimension(47,133),3, false);
+		this.pcButton.setImage( "pc" );
 		
 		this.bild = new JLabel( new ImageIcon(new ImageCreator(new Dimension(600,800),3, false).getImage("SpielereinstellungenMenue")[0].getImage()));
 		this.bild.setBounds(xPos, yPos, (int)size.getWidth(), (int)size.getHeight());
 		
-		this.sname1 = new JTextField( "Player1" , 10 );
+		this.sname1 = new JTextField( "" , 10 );
 		this.sname1.setOpaque( false );
-		this.sname2 = new JTextField( "Player2" , 10 );
+		this.sname2 = new JTextField( "" , 10 );
 		this.sname2.setOpaque( false );
 		
 		//Rahmen von textfields durchsichtig machen
@@ -72,52 +74,36 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 		this.sname1.setBackground( new Color(0,0,0,255) );
 		this.sname2.setBackground( new Color(0,0,0,255) );
 		
-		this.sname1.setForeground( new Color(0,0,255) );
-		this.sname2.setForeground( new Color(0,0,255) );
+		this.sname1.setForeground( new Color(40,40,40) );
+		this.sname2.setForeground( new Color(40,40,40) );
 		
-
-		
-		//this.lname1 = new JLabel( "Spieler 1:" );
-		//this.lname2= new JLabel( "Spieler 2:" );
-		//this.lname1.setFont( new Font(Font.MONOSPACED,Font.PLAIN,16) );
-		//this.lname2.setFont( new Font(Font.MONOSPACED,Font.PLAIN,16) );
-		
-	
-		//this.lname1.setForeground( new Color(0,0,255,255) );
-		//this.lname2.setForeground( new Color(0,0,255,255) );
-		
-		//this.lname1.setBounds(225,140, 100, 30);
-		//this.lname2.setBounds(225, 220, 100, 30);
-		
-		this.sname1.setFont( new Font(Font.MONOSPACED,Font.BOLD,30) );
-		this.sname2.setFont( new Font(Font.MONOSPACED,Font.BOLD,30) );
+		this.sname1.setFont( new Font(Font.SANS_SERIF,Font.BOLD,40) );
+		this.sname2.setFont( new Font(Font.SANS_SERIF,Font.BOLD,40) );
 		
 		//hoehe 45 für das Textfield wird benötigt, weil die Buchstaben sonst abgeschnitten werden
-		 this.sname1.setBounds( 385,230, 250, 45 );
-		 this.sname2.setBounds( 385	, 288, 250, 45 );
+		this.sname1.setBounds( 385, 224, 250, 55 );
+		this.sname2.setBounds( 385, 282, 250, 55 );
 		 
-		 this.backgrafikspeicher.getImage().setBounds( 0,0,133,47 );
+		this.backButton.getImage().setBounds( 5,5,133,47 );
 		 
-		 this.grafikspeicher.getImage().setBounds( 280,370,302,101 );
+		this.finalstartButton.getImage().setBounds( 245,400,302,101 );
 		 
-		 this.kigrafikspeicher.getImage().setBounds( 648,286,133,47 );
+		this.pcButton.getImage().setBounds( 638,286,133,47 );
 
-		//this.add( this.lname1 );
 		this.add( this.sname1 );
 		
-		//this.add( this.lname2 );
 	    this.add( this.sname2);
 		
 		this.setVisible(true);
 		
 
-		this.backgrafikspeicher.getImage().addMouseListener( this );
-		this.grafikspeicher.getImage().addMouseListener( this );
-		this.kigrafikspeicher.getImage().addMouseListener( this );
+		this.backButton.getImage().addMouseListener( this );
+		this.finalstartButton.getImage().addMouseListener( this );
+		this.pcButton.getImage().addMouseListener( this );
 		
-		this.add( this.grafikspeicher.getImage() );
-		this.add( this.backgrafikspeicher.getImage() );
-		this.add( this.kigrafikspeicher.getImage() );
+		this.add( this.finalstartButton.getImage() );
+		this.add( this.backButton.getImage() );
+		this.add( this.pcButton.getImage() );
 
 		
 		
@@ -131,58 +117,61 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 	@Override
 	public void mouseExited(MouseEvent e) 
 	{	//wenn vorher nicht angeklickt
-		if( (JLabel)e.getSource() == this.backgrafikspeicher.getImage() && !( this.backButtonKlicked ) )
+		if( (JLabel)e.getSource() == this.backButton.getImage() && !( this.backButtonKlicked ) )
 		{
-			this.backgrafikspeicher.setVersion( 0 );
-			this.repaint();
+			this.backButton.setVersion( 0 );
 		}else
 		{	//wenn vorher angeklickt
-			if( (JLabel)e.getSource() == this.backgrafikspeicher.getImage() && this.backButtonKlicked )
+			if( (JLabel)e.getSource() == this.backButton.getImage() && this.backButtonKlicked )
 			{
-				this.backgrafikspeicher.setVersion( 1 );
-				this.repaint();
+				this.backButton.setVersion( 1 );
 			}
 		}
 		
-		if( (JLabel)e.getSource() == this.grafikspeicher.getImage() && !( this.playButtonKlicked ) )
+		if( (JLabel)e.getSource() == this.finalstartButton.getImage() && !( this.playButtonKlicked ) )
 		{
-			this.grafikspeicher.setVersion( 0 );
-			this.repaint();
+			this.finalstartButton.setVersion( 0 );
 		}else
 		{
-			if( (JLabel)e.getSource() == this.grafikspeicher.getImage() && this.playButtonKlicked  )
+			if( (JLabel)e.getSource() == this.finalstartButton.getImage() && this.playButtonKlicked  )
 			{
-				this.grafikspeicher.setVersion( 1 );
-				this.repaint();
+				this.finalstartButton.setVersion( 1 );
 			}
 		}
-				
+		
+		if((JLabel)e.getSource() == this.pcButton.getImage())
+		{
+			if(this.pcButtonKlicked)
+			{
+				this.pcButton.setVersion(1);
+			}
+			else
+			{
+				this.pcButton.setVersion(0);
+			}
+		}		
 	}
 	
 	@Override
 	public void mouseEntered(MouseEvent e) 
 	{
-		if( (JLabel)e.getSource() == this.backgrafikspeicher.getImage() )
+		if( (JLabel)e.getSource() == this.backButton.getImage() )
 		{
-			this.backgrafikspeicher.setVersion( 2 );
-			this.repaint();
+			this.backButton.setVersion( 2 );
 		}
 		
 		
-		if( (JLabel)e.getSource() == this.grafikspeicher.getImage() )
+		if( (JLabel)e.getSource() == this.finalstartButton.getImage() )
 		{
-			this.grafikspeicher.setVersion( 2 );
-			this.repaint();
+			this.finalstartButton.setVersion( 2 );
 		}
 		
-		if ( (JLabel)e.getSource() == this.kigrafikspeicher.getImage() &&  this.pcButtonKlicked  )
+		if ( (JLabel)e.getSource() == this.pcButton.getImage() )
 		{
-			this.kigrafikspeicher.setVersion( 2 );
-			this.repaint();
+			this.pcButton.setVersion( 1 );
 			//this.pcButtonKlicked = false;
-			
-		
-		}	
+		}
+
 	}
 
 	@Override
@@ -200,51 +189,45 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) 
 	{
-		//backgrafikspeicher und grafikspeicher brauchen kein zuruecksetzen auf Version 0, da beim anklicken in ein anderes
-		//Fenster gwechselt wird
-		if( (JLabel)e.getSource() == this.backgrafikspeicher.getImage() && this.backButtonKlicked)
+		if((JLabel)e.getSource() == this.backButton.getImage())
 		{
-			this.backgrafikspeicher.setVersion( 0 );
-			this.repaint();
-			this.backButtonKlicked = false;
-		}else
-		{
-			if( (JLabel)e.getSource() == this.backgrafikspeicher.getImage() && !( this.backButtonKlicked ) )
-			{
-				this.backgrafikspeicher.setVersion( 1 );
-				this.repaint();
-				this.backButtonKlicked = true;
-			}
+			this.menue.changeMenueCardTo(Menue.MAIN_MENUE);
+			this.backButton.setVersion(0);
 		}
+		//backgrafikspeicher und grafikspeicher brauchen kein zuruecksetzen auf Version 0, da beim anklicken in ein anderes
+		//Fenster gwechselt wird /// DOCH :D
+
 		
-		if( (JLabel)e.getSource() == this.grafikspeicher.getImage() &&  this.playButtonKlicked  )
+		if( (JLabel)e.getSource() == this.finalstartButton.getImage()  )
 		{
-			this.grafikspeicher.setVersion( 0 );
-			this.repaint();
-			this.playButtonKlicked = false;
-		}else
-		{
-			if( (JLabel)e.getSource() == this.grafikspeicher.getImage() && !( this.playButtonKlicked ) ) 	
+			if(this.playButtonKlicked )
 			{
-				this.grafikspeicher.setVersion( 1 );
+				this.finalstartButton.setVersion( 0 );
+				this.repaint();
+				this.playButtonKlicked = false;
+			}
+			else
+			{
+				this.finalstartButton.setVersion( 1 );
 				this.repaint();
 				this.playButtonKlicked = true;
 			}
+			
+			this.menue.startGame(new Dimension(1200,720));
 		}
 		
-		if ( (JLabel)e.getSource() == this.kigrafikspeicher.getImage() &&  this.pcButtonKlicked  )
+		if ( (JLabel)e.getSource() == this.pcButton.getImage() &&  this.pcButtonKlicked  )
 		{
-			this.kigrafikspeicher.setVersion( 0 );
+			this.pcButton.setVersion( 0 );
 			this.repaint();
 			this.pcButtonKlicked = false;
 			
-		
 		}else
 		{
 		
-			if ( (JLabel)e.getSource() == this.kigrafikspeicher.getImage() && !( this.pcButtonKlicked ) )
+			if ( (JLabel)e.getSource() == this.pcButton.getImage() && !( this.pcButtonKlicked ) )
 			{
-				this.kigrafikspeicher.setVersion( 1 );
+				this.pcButton.setVersion( 1 );
 				this.repaint();
 				this.pcButtonKlicked = true;
 			}

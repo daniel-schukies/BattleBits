@@ -24,14 +24,18 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	
 	private JTextField width;
 	private JTextField height;
+	
 	private Image image;
 	private ImageCreator imagecreator;
 	private Dimension aufloesung;
+	
 	//private JCheckBox grafikenLaden;
 	//private JButton speichern;
-	private Grafikspeicher grafikspeicher;
-	private Grafikspeicher backgrafikspeicher;
+	private Grafikspeicher grafikcacheButton;
+	private Grafikspeicher backButton;
 	private boolean kiButtonKlicked , backButtonKlicked;
+	
+	private Menue menue;
 
 	
 	
@@ -43,6 +47,8 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		this.setPreferredSize(size);
 		this.imagecreator = new ImageCreator(new Dimension(600,800),1, false);
 		this.image = this.imagecreator.getImage("MenuOptionsBack")[0].getImage();
+		
+		this.menue = menue;
 		
 		//this.grafikenLaden = new JCheckBox( "Grafiken vorladen" , false );
 		//this.grafikenLaden.setOpaque( false );
@@ -69,11 +75,11 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		this.width.setOpaque( false );
 		
 
-		this.grafikspeicher = new Grafikspeicher(new Dimension(47,133),3, false);
-		this.grafikspeicher.setImage( "on" );
-		this.backgrafikspeicher = new Grafikspeicher(new Dimension(47,133),3,false);
+		this.grafikcacheButton = new Grafikspeicher(new Dimension(47,133),3, false);
+		this.grafikcacheButton.setImage( "on" );
+		this.backButton = new Grafikspeicher(new Dimension(47,133),3,false);
 
-		this.backgrafikspeicher.setImage( "back" );
+		this.backButton.setImage( "back" );
 		//this.onofButton.setBounds( 0, 0, 133, this.onofButton.getHeight() );
 		//System.out.println( this.onofButton.getHeight() );
 		
@@ -85,8 +91,8 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		this.width.setBackground( new Color(0,0,0,255) );
 		this.height.setBackground( new Color(0,0,0,255) );
 		
-		this.width.setForeground( new Color(0,0,255) );
-		this.height.setForeground( new Color(0,0,255) );
+		this.width.setForeground( new Color(40,40,40) );
+		this.height.setForeground( new Color(40,40,40) );
 		
 		//this.laufloesung = new JLabel( "Auflösung:" );
 		//this.laufloesung.setFont( new Font(Font.MONOSPACED,Font.BOLD,22) );
@@ -94,14 +100,14 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		//this.laufloesung.setBounds(235, 235, 300, 45);
 
 		
-		this.width.setFont( new Font(Font.MONOSPACED,Font.BOLD,30) );
-		this.height.setFont( new Font(Font.MONOSPACED,Font.BOLD,30) );
+		this.width.setFont( new Font(Font.SANS_SERIF,Font.BOLD,40) );
+		this.height.setFont( new Font(Font.SANS_SERIF,Font.BOLD,40) );
 		
 		//this.add( this.bild );
 		
 		//hoehe 45 für das Textfield wird benötigt, weil die Buchstaben sonst abgeschnitten werden
-		 this.width.setBounds( 425, 365, 100, 45 );
-		 this.height.setBounds( 590, 365, 100, 45 );
+		 this.width.setBounds( 425, 362, 100, 55 );
+		 this.height.setBounds( 575, 362, 100, 55 );
 		 
 		 //this.grafikenLaden.setBounds( 235, 335, 410, 45 );
 		
@@ -110,17 +116,17 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		this.add( this.width );
 	    this.add( this.height);
 	    
-	    this.grafikspeicher.getImage().setBounds( 485,250,133,47 );
-	    this.backgrafikspeicher.getImage().setBounds( 0,0,133,47 );
+	    this.grafikcacheButton.getImage().setBounds( 485,250,133,47 );
+	    this.backButton.getImage().setBounds( 0,0,133,47 );
 	    
 
-	    this.grafikspeicher.getImage().addMouseListener( this );
-	    this.backgrafikspeicher.getImage().addMouseListener( this );
+	    this.grafikcacheButton.getImage().addMouseListener( this );
+	    this.backButton.getImage().addMouseListener( this );
 	    
 
 	    
-	    this.add( this.grafikspeicher.getImage() );
-	    this.add( this.backgrafikspeicher.getImage() );
+	    this.add( this.grafikcacheButton.getImage() );
+	    this.add( this.backButton.getImage() );
 	    
 	   // this.add( this.grafikenLaden );
 	    
@@ -133,36 +139,35 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		
 	}
 		
-	public void paintComponent(Graphics g) {
-	        g.drawImage(this.image, 0, 0, null);
+	public void paintComponent(Graphics g) 
+	{
+	    g.drawImage(this.image, 0, 0, null);
 	}
 
 	    
 	    @Override
 	public void mouseExited(MouseEvent e) 
 	{	//wenn vorher nicht angeklickt
-		if( (JLabel)e.getSource() == this.backgrafikspeicher.getImage() && !( this.backButtonKlicked ) )
+		if( (JLabel)e.getSource() == this.backButton.getImage() && !( this.backButtonKlicked ) )
 		{
-			this.backgrafikspeicher.setVersion( 0 );
-			this.repaint();
+			this.backButton.setVersion( 0 );
 		}else
 		{	//wenn vorher angeklickt
-			if( (JLabel)e.getSource() == this.backgrafikspeicher.getImage() && this.backButtonKlicked )
+			if( (JLabel)e.getSource() == this.backButton.getImage() && this.backButtonKlicked )
 			{
-				this.backgrafikspeicher.setVersion( 1 );
-				this.repaint();
+				this.backButton.setVersion( 1 );
 			}
 		}
 		
-		if( (JLabel)e.getSource() == this.grafikspeicher.getImage() && !( this.kiButtonKlicked ) )
+		if( (JLabel)e.getSource() == this.grafikcacheButton.getImage() && !( this.kiButtonKlicked ) )
 		{
-			this.grafikspeicher.setVersion( 0 );
+			this.grafikcacheButton.setVersion( 0 );
 			this.repaint();
 		}else
 		{
-			if( (JLabel)e.getSource() == this.grafikspeicher.getImage() && this.kiButtonKlicked  )
+			if( (JLabel)e.getSource() == this.grafikcacheButton.getImage() && this.kiButtonKlicked  )
 			{
-				this.grafikspeicher.setVersion( 1 );
+				this.grafikcacheButton.setVersion( 1 );
 				this.repaint();
 			}
 		}
@@ -172,17 +177,15 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent e) 
 	{
-		if( (JLabel)e.getSource() == this.backgrafikspeicher.getImage() )
+		if( (JLabel)e.getSource() == this.backButton.getImage() )
 		{
-			this.backgrafikspeicher.setVersion( 1 );
-			this.repaint();
+			this.backButton.setVersion( 1 );
 		}
 		
 		
-		if( (JLabel)e.getSource() == this.grafikspeicher.getImage() )
+		if( (JLabel)e.getSource() == this.grafikcacheButton.getImage() )
 		{
-			this.grafikspeicher.setVersion( 1 );
-			this.repaint();
+			this.grafikcacheButton.setVersion( 1 );
 		}
 		
 
@@ -205,31 +208,23 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	{
 		//backgrafikspeicher und grafikspeicher brauchen kein zuruecksetzen auf Version 0, da beim anklicken in ein anderes
 		//Fenster gwechselt wird
-		if( (JLabel)e.getSource() == this.backgrafikspeicher.getImage() && this.backButtonKlicked)
+		if((JLabel)e.getSource() == this.backButton.getImage())
 		{
-			this.backgrafikspeicher.setVersion( 0 );
-			this.repaint();
-			this.backButtonKlicked = false;
-		}else
-		{
-			if( (JLabel)e.getSource() == this.backgrafikspeicher.getImage() && !( this.backButtonKlicked ) )
-			{
-				this.backgrafikspeicher.setVersion( 1 );
-				this.repaint();
-				this.backButtonKlicked = true;
-			}
+			this.menue.changeMenueCardTo(Menue.MAIN_MENUE);
+			this.backButton.setVersion(0);
 		}
+
 		
-		if( (JLabel)e.getSource() == this.grafikspeicher.getImage() &&  this.kiButtonKlicked  )
+		if( (JLabel)e.getSource() == this.grafikcacheButton.getImage() &&  this.kiButtonKlicked  )
 		{
-			this.grafikspeicher.setVersion( 0 );
+			this.grafikcacheButton.setVersion( 0 );
 			this.repaint();
 			this.kiButtonKlicked = false;
 		}else
 		{
-			if( (JLabel)e.getSource() == this.grafikspeicher.getImage() && !( this.kiButtonKlicked ) ) 	
+			if( (JLabel)e.getSource() == this.grafikcacheButton.getImage() && !( this.kiButtonKlicked ) ) 	
 			{
-				this.grafikspeicher.setVersion( 1 );
+				this.grafikcacheButton.setVersion( 1 );
 				this.repaint();
 				this.kiButtonKlicked = true;
 			}
