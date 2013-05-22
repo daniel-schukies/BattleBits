@@ -1,11 +1,14 @@
 package GUI.Game;
 
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
+import GUI.Game.Grafikverwaltung.Grafikspeicher;
 import GUI.Menue.Menue;
 
 
@@ -20,8 +23,9 @@ public class GameFrame extends JFrame
 	/**
 	 * 
 	 */
+	private Menue menue;
 
-
+	
 	
 	
 	public GameFrame()
@@ -40,14 +44,80 @@ public class GameFrame extends JFrame
 
 		//this.add(new MainMenue(0,0,new Dimension(800,600),new Menue()));
 		
-		this.getContentPane().add(new Menue());
+		this.menue = new Menue(this);
+		this.add(menue);
+		
 		
 		//this.add( new SpielereinstellungenMenue( 0,0,new Dimension(800,600), new Menue()) );
 		
 		//this.add( new OptionsMenue( 0 , 0 , new Dimension(800,600), new Menue()) );
 
 		
+		
 		this.setVisible(true);
 		
+		
+		//this.startGame(new Dimension(1200,700));
+	}
+	
+	public void closeGameFrame()
+	{
+		this.removeAll();
+		System.exit(0);
+	}
+	
+	public void startGame(final Dimension aufloesung)
+	{
+		this.setSize((int)aufloesung.getWidth()+15,(int)aufloesung.getHeight()+40);
+		this.remove(this.menue);
+
+		this.getContentPane().setBackground(Color.BLACK);
+		
+		final Grafikspeicher loadingScreen;
+		
+		if(aufloesung.getWidth() < aufloesung.getHeight())
+		{
+			loadingScreen = new Grafikspeicher(new Dimension((int)aufloesung.getWidth(),(int)aufloesung.getWidth()), 1, false);
+			loadingScreen.setImage("loading");
+			loadingScreen.getImage().setBounds(0,(int)((aufloesung.getHeight()/2)-(aufloesung.getWidth()/2)), (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
+		}
+		else
+		{
+			loadingScreen = new Grafikspeicher(new Dimension((int)aufloesung.getHeight(),(int)aufloesung.getHeight()), 1, false);
+			loadingScreen.setImage("loading");
+			loadingScreen.getImage().setBounds((int)((aufloesung.getWidth()/2)-(aufloesung.getHeight()/2)),0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
+		}
+		
+		
+		this.add(loadingScreen.getImage());
+		
+		this.invalidate();
+		this.validate();
+		this.repaint();
+		
+		  SwingUtilities.invokeLater(new Runnable() 
+		  {
+			    public void run() 
+			    {
+
+					GamePanel game = new GamePanel(aufloesung);
+					game.setBounds(0, 0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
+					GameFrame.this.remove(loadingScreen.getImage());
+					GameFrame.this.getContentPane().add(game);
+					
+					GameFrame.this.repaint();
+					GameFrame.this.invalidate();
+					GameFrame.this.validate();
+					GameFrame.this.repaint();
+
+			    }
+		  });
+		
+
+		
+		
+		//game.setBounds(0, 0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
+		
+		//this.remove(loadingScreen.getImage());
 	}
 }
