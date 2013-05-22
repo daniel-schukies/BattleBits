@@ -111,7 +111,6 @@ public class GameFrame extends JFrame
 					GameFrame.this.invalidate();
 					GameFrame.this.validate();
 					GameFrame.this.repaint();
-
 			    }
 		  });
 		

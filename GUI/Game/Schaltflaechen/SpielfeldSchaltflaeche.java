@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
+import GUI.Game.GameFrame;
+import GUI.Game.GamePanel;
 import GUI.Game.IDInfo;
 import GUI.Game.Refreshable;
 import Logik.Spiel;
@@ -117,29 +120,33 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 			{
 				this.resetAllImages();
 				this.spiel.nextSpielzug();
-				
-				if(this.spiel.getAktuellerSpieler().getIsKI() && this.spiel.getAktuellerSpieler().getIsDran())
-				{
-					this.spiel.nextSpielzug();
-				}
-				
-				this.gatterPosition[0].setIsPressed(false);
-				this.gatterPosition[1].setIsPressed(false);
-				
-				this.schaltflaeche.getPressedID().setIsPressed(false);
-				
-
-				
 				this.refresh();
 				
-				this.schaltflaeche.refresh();
-				if(this.refreshSchaltflaechen != null)
-				{
-					for(int i = 0; i < this.refreshSchaltflaechen.length; i++)
-					{
-						this.refreshSchaltflaechen[i].refresh();
-					}
-				}
+				  SwingUtilities.invokeLater(new Runnable() 
+				  {
+					    public void run() 
+					    {
+							if(SpielfeldSchaltflaeche.this.spiel.getAktuellerSpieler().getIsKI() && SpielfeldSchaltflaeche.this.spiel.getAktuellerSpieler().getIsDran())
+							{
+								SpielfeldSchaltflaeche.this.spiel.nextSpielzug();
+							}
+							
+							SpielfeldSchaltflaeche.this.gatterPosition[0].setIsPressed(false);
+							SpielfeldSchaltflaeche.this.gatterPosition[1].setIsPressed(false);
+							
+							SpielfeldSchaltflaeche.this.schaltflaeche.getPressedID().setIsPressed(false);
+
+							SpielfeldSchaltflaeche.this.schaltflaeche.refresh();
+							if(SpielfeldSchaltflaeche.this.refreshSchaltflaechen != null)
+							{
+								for(int i = 0; i < SpielfeldSchaltflaeche.this.refreshSchaltflaechen.length; i++)
+								{
+									SpielfeldSchaltflaeche.this.refreshSchaltflaechen[i].refresh();
+								}
+							}
+					    }
+				  });
+
 			}
 		}
 	}
