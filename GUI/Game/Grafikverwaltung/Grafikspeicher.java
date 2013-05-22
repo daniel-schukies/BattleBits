@@ -89,15 +89,20 @@ public class Grafikspeicher
 	{
 		try
 		{
-			//this.button.setIcon(null);
-			this.button.setIcon(this.grafiken[versionID]);
-			//this.button.revalidate();
-			return true;
+			if(this.grafiken.length > versionID )
+			{
+				//this.button.setIcon(null);
+				this.button.setIcon(this.grafiken[versionID]);
+				//this.button.revalidate();
+				return true;
+			}
 			
 		}catch(Exception e)
 		{
-			return false;
+			// False wird zurueckgegeben
 		}
+		
+		return false; // Return erst hier, da IF-Verzweigung beruecksichtigt wird.
 	}
 	
 	public JLabel getImage()
