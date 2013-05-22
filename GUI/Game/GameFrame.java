@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import GUI.Game.Grafikverwaltung.Grafikspeicher;
+import GUI.Game.Grafikverwaltung.ImageCreator;
 import GUI.Menue.Menue;
 
 
@@ -99,12 +100,13 @@ public class GameFrame extends JFrame
 		  {
 			    public void run() 
 			    {
-
+			    	//ImageCreator.grafikenVorladen = true;
 					GamePanel game = new GamePanel(aufloesung);
 					game.setBounds(0, 0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
 					GameFrame.this.remove(loadingScreen.getImage());
 					GameFrame.this.getContentPane().add(game);
-					
+					//ImageCreator.grafikenVorladen = false;
+					System.out.println("-------------Spiel geladen---------------");
 					GameFrame.this.repaint();
 					GameFrame.this.invalidate();
 					GameFrame.this.validate();

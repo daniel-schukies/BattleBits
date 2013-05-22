@@ -5,19 +5,14 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.net.URL;
-
-import Logik.Logikgatter;
-import Logik.Not;
-
-/*
 import Logik.And;
+import Logik.Logikgatter;
 import Logik.Nand;
 import Logik.Nor;
+import Logik.Not;
 import Logik.Or;
 import Logik.Xor;
-*/
 import javax.imageio.ImageIO;
-
 import javax.swing.ImageIcon;
 
 
@@ -28,6 +23,7 @@ public class ImageCreator
 	private static final String PLATZHALTER = "platzhalter";
 	private static final String LOGIKGATTERSTATUS = "L";
 	private static GrafikCache grafikCache;
+	private boolean grafikenVorgeladen;
 	private int anzahlVersionen;
 	private Dimension size;
 	private boolean spiegeln;
@@ -38,70 +34,8 @@ public class ImageCreator
 		this.setAufloesung(size);	
 		this.anzahlVersionen = anzahlVersionen;
 		this.spiegeln = spiegeln;
+		this.grafikenVorgeladen = false;
 		ImageCreator.grafikCache = new GrafikCache();
-
-		
-
-
-		
-		
-
-		/*
-		ArrayList<Object> logikgatterList = new ArrayList<Object>();
-		ArrayList<Object> logikgatterGrafiken = new ArrayList<Object>();
-		
-		for(int i = 0; i < 6; i++)
-		{
-			switch (i)
-			{
-				case 0: 
-					
-				And and = new And();
-				logikgatterList.add(and);
-				logikgatterGrafiken.add(this.getImage(and));
-				
-				break;
-				case 1:
-				
-				Nand nand = new Nand();
-				logikgatterList.add(nand);
-				logikgatterGrafiken.add(this.getImage(nand));
-					
-				break;
-				case 2: 
-
-				Or or = new Or();
-				logikgatterList.add(or);
-				logikgatterGrafiken.add(this.getImage(or));
-					
-				break;
-				case 3: 
-
-				Nor nor = new Nor();
-				logikgatterList.add(nor);
-				logikgatterGrafiken.add(this.getImage(nor));
-					
-				break;
-				case 4:
-
-				Not not = new Not();
-				logikgatterList.add(not);
-				logikgatterGrafiken.add(this.getImage(not));	
-				
-				break; 
-				case 5: 
-				
-				Xor xor = new Xor();
-				logikgatterList.add(xor);
-				logikgatterGrafiken.add(this.getImage(xor));
-	
-				break; 
-			}
-		}
-		
-		this.logikgatterGrafikCache.add(logikgatterList);
-		this.logikgatterGrafikCache.add(logikgatterGrafiken);
-*/
 	}
 	
 	/**
@@ -216,13 +150,13 @@ public class ImageCreator
 		
 		ImageIcon[] grafiken = this.getImage(castBit.toString());
 		
-		if(this.spiegeln)
+		/*if(this.spiegeln)
 		{
 			for(Integer i = 0; i < 3;i++  )
 			{
 				grafiken[i] = new ImageIcon(ImageUtil.mirror((BufferedImage)grafiken[i].getImage(), 0));
 			}
-		}
+		}*/
 
 		return grafiken;
 	}
@@ -284,7 +218,7 @@ public class ImageCreator
 				else
 				{
 					grafiken[i] = null; 
-					System.out.println("Version does not exitst -> Error Versions ID:" + i);
+					System.out.println("Version does not exitst -> Error Versions ID:" + i + ImageCreator.VERZEICHNIS + dateiname + i.toString() + ImageCreator.DATEIENDUNG  );
 				}
 			}
 			catch(Exception e)// Grafik nicht vorhanden (konnte nicht erstellt werden)
@@ -311,6 +245,7 @@ public class ImageCreator
 		return this.getImage(ImageCreator.PLATZHALTER);
 	}
 	
+
 	
 	public void setAufloesung(Dimension size)
 	{
@@ -337,5 +272,35 @@ public class ImageCreator
 		}
 	}
 	
-	
+	public void grafikenVorladen()
+	{
+		if(!this.grafikenVorgeladen)
+		{
+			for(int i = 0; i < 6; i++)
+			{
+				switch (i)
+				{
+					case 0: this.getImage(new And());
+					break;
+					
+					case 1:this.getImage(new Nand());
+					break;
+					
+					case 2: this.getImage(new Or());
+					break;
+					
+					case 3: this.getImage(new Nor());
+					break;
+					
+					case 4:this.getImage(new Not());
+					break;
+
+					case 5: this.getImage(new Xor());
+					break;
+				}
+			}
+			this.grafikenVorgeladen = true;
+		}
+	}
+
 }
