@@ -95,7 +95,7 @@ public class GameFrame extends JFrame
 		this.validate();
 		this.repaint();
 		
-		sound.play( getClass().getResource( "/loading1.wav" ) );
+	//	sound.play( getClass().getResource( "/loading1.wav" ) );
 		
 		  SwingUtilities.invokeLater(new Runnable() 
 		  {
