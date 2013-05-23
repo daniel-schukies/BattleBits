@@ -2,12 +2,8 @@ package GUI.Game.Schaltflaechen;
 
 import java.awt.Color;
 import java.awt.Dimension;
-
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
-import GUI.Game.GameFrame;
-import GUI.Game.GamePanel;
 import GUI.Game.IDInfo;
 import GUI.Game.Refreshable;
 import Logik.Spiel;

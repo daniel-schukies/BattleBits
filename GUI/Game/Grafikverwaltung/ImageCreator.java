@@ -23,8 +23,8 @@ public class ImageCreator
 	private static final String PLATZHALTER = "platzhalter";
 	private static final String LOGIKGATTERSTATUS = "L";
 	private static GrafikCache grafikCache;
-	private boolean grafikenVorgeladen;
-	private int cntReload;
+	private static boolean grafikenVorgeladen = false;
+	private static int cntReload = 0;
 	private int anzahlVersionen;
 	private Dimension size;
 	private boolean spiegeln;
@@ -35,8 +35,6 @@ public class ImageCreator
 		this.setAufloesung(size);	
 		this.anzahlVersionen = anzahlVersionen;
 		this.spiegeln = spiegeln;
-		this.grafikenVorgeladen = false;
-		this.cntReload = 0;
 		ImageCreator.grafikCache = new GrafikCache();
 	}
 	
@@ -276,9 +274,9 @@ public class ImageCreator
 	
 	public void grafikenVorladen()
 	{
-		if(!(this.grafikenVorgeladen))
+		if( (!(ImageCreator.grafikenVorgeladen)) && (ImageCreator.cntReload == 0))
 		{
-			for(int i = 0; i < 6; i++)
+			for(int i = 0; i < 7; i++)
 			{
 				switch (i)
 				{
@@ -299,12 +297,15 @@ public class ImageCreator
 
 					case 5: this.getImage(new Xor());
 					break;
+					
+					case 6: this.getImage();
+					break;
 				}
 			}
-						this.cntReload++;
+			ImageCreator.cntReload++;
 			System.out.println("Alle Gatter Vorgeladen--------------------------------" + cntReload);
 
-			this.grafikenVorgeladen = true;
+			ImageCreator.grafikenVorgeladen = true;
 
 		}
 	}
