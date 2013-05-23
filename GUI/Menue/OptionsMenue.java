@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import GUI.Game.FileAdmin;
 //import GUI.Game.FileAdmin;
+//import GUI.Game.FileAdmin;
 import GUI.Game.Grafikverwaltung.Grafikspeicher;
 import GUI.Game.Grafikverwaltung.ImageCreator;
 
@@ -54,7 +55,7 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		
 		this.menue = menue;
 		
-	//	this.fileadmin = new FileAdmin();
+		this.fileadmin = new FileAdmin();
 		
 		//this.grafikenLaden = new JCheckBox( "Grafiken vorladen" , false );
 		//this.grafikenLaden.setOpaque( false );
@@ -215,10 +216,25 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		//backgrafikspeicher und grafikspeicher brauchen kein zuruecksetzen auf Version 0, da beim anklicken in ein anderes
 		//Fenster gwechselt wird
 		if((JLabel)e.getSource() == this.backButton.getImage())
-		{
-			this.fileadmin.setHeight( Integer.parseInt( this.height.getText() ) );
-			this.menue.changeMenueCardTo(Menue.MAIN_MENUE);
-			this.backButton.setVersion(0);
+		{	//gegen Buchstaben in der Eingabe
+			try{
+				//speichern der Aufloesung
+				if ( this.fileadmin.setHeight( Integer.parseInt( this.height.getText() ) ) && this.fileadmin.setWidth( Integer.parseInt( this.width.getText())))
+				{
+					this.fileadmin.setCache(kiButtonKlicked);
+					this.menue.changeMenueCardTo(Menue.MAIN_MENUE);
+					this.backButton.setVersion(0);
+				}else
+				{
+					this.width.setForeground( new Color(255,255,255).RED );
+					this.height.setForeground( new Color(255,255,255).RED );
+				}
+			}catch(NumberFormatException x)
+			{
+				this.width.setForeground( new Color(255,255,255).RED );
+				this.height.setForeground( new Color(255,255,255).RED );
+			}
+
 		}
 
 		
