@@ -30,7 +30,7 @@ public class FileAdmin {
 	
 	public FileAdmin()
 	{
-		FileAdmin.file = new File( getClass().getResource( "infos.ini" ).toString() );
+		FileAdmin.file = new File( "infos.ini" );
 		this.trennzeichen = new int[7];
 		FileAdmin.player1Name = "Player1";
 		FileAdmin.player2Name = "Player2";
@@ -157,8 +157,7 @@ public class FileAdmin {
 	public void updateFile()
 	{
 		try{
-			 writer = new FileWriter(file); //datei aufloesung.txt muss existieren
-			 								//, wird jedoch ueberschrieben
+			 writer = new FileWriter(file); 
 			 writer.write( "" + FileAdmin.height + ";" + FileAdmin.width + ";" + FileAdmin.player1Name + ";" + FileAdmin.player2Name + ";" + FileAdmin.ki + ";" + FileAdmin.cache + ";" + FileAdmin.hardcoreMode);
 			 writer.flush(); //leert den  Stream
 			 
@@ -172,23 +171,35 @@ public class FileAdmin {
 	
 	public boolean setHeight( int height )
 	{
-		if( height > 0 )
+		try
 		{
-			FileAdmin.height = height;
-			this.updateFile();
-			return true;
+			if( height > 0 )
+			{
+				FileAdmin.height = height;
+				this.updateFile();
+				return true;
+			}//Falls so ein Witzbold Buchstaben eingibt
+		}catch(NumberFormatException e)
+		{
+				return false;
 		}
 		return false;
 	}
 	
 	public boolean setWidth( int width )
 	{
-		if( width > 0 )
+		try
 		{
-			FileAdmin.width = width;
-			this.updateFile();
-			return true;
-		}
+			if( width > 0 )
+			{
+				FileAdmin.width = width;
+				this.updateFile();
+				return true;
+			}
+		} catch(NumberFormatException x)
+			{
+				return false;
+			}
 		return false;
 	}
 	
