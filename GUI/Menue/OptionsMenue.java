@@ -76,9 +76,9 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		
 		this.aufloesung = Toolkit.getDefaultToolkit().getScreenSize();
 		
-		this.height = new JTextField( "" + (int)this.aufloesung.getHeight() , 10 );
+		this.height = new JTextField( String.valueOf( fileadmin.getHeight() ), 10 );
 		this.height.setOpaque( false );
-		this.width = new JTextField( "" + (int)this.aufloesung.getWidth() , 10 );
+		this.width = new JTextField( String.valueOf( fileadmin.getWidth() ) , 10 );
 		this.width.setOpaque( false );
 		
 
@@ -138,6 +138,13 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	   // this.add( this.grafikenLaden );
 	    
 	   // this.add( this.speichern );
+	    
+	    //Zustand des Cache - Buttons dem Inhalt der Datei anpassen
+	    if( this.fileadmin.getCacheZustand() )
+	    {
+	    	this.grafikcacheButton.setVersion( 1 );
+	    	this.kiButtonKlicked=true;
+	    }
 		
 		this.setVisible(true);
 

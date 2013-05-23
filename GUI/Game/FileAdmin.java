@@ -41,17 +41,22 @@ public class FileAdmin {
 		FileAdmin.width = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		
 		this.tmp = this.readOfFile();
-
-		try{
-			writer = new FileWriter(file);
-			
-		}catch(IOException e)
+		//wenn Datei nicht existiert
+		if( !(file.exists()) )
 		{
-			e.printStackTrace();
+			try{
+				writer = new FileWriter(file);
+				
+			}catch(IOException e)
+			{
+				System.out.println( "Datei wurde erstellt" );
+			}
 		}
+
 		
 		if( this.readOfFile().length() == 0 )
 		{
+			System.out.println("Dummywerte");
 			this.updateFile();
 	
 		}else
