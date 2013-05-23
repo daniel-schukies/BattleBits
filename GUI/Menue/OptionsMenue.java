@@ -11,6 +11,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import GUI.Game.FileAdmin;
+//import GUI.Game.FileAdmin;
 import GUI.Game.Grafikverwaltung.Grafikspeicher;
 import GUI.Game.Grafikverwaltung.ImageCreator;
 
@@ -35,6 +37,8 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	private Grafikspeicher backButton;
 	private boolean kiButtonKlicked , backButtonKlicked;
 	
+	private FileAdmin fileadmin;
+	
 	private Menue menue;
 
 	
@@ -49,6 +53,8 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		this.image = this.imagecreator.getImage("MenuOptionsBack")[0].getImage();
 		
 		this.menue = menue;
+		
+		this.fileadmin = new FileAdmin();
 		
 		//this.grafikenLaden = new JCheckBox( "Grafiken vorladen" , false );
 		//this.grafikenLaden.setOpaque( false );
@@ -210,6 +216,10 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		//Fenster gwechselt wird
 		if((JLabel)e.getSource() == this.backButton.getImage())
 		{
+			this.fileadmin.setAufloesung( new Dimension( Integer.parseInt(this.height.getText()) , Integer.parseInt(this.width.getText() )) );
+			System.out.println( this.fileadmin.getAufloesung().getHeight() );
+			//System.out.println( "" + Integer.parseInt(this.height.getText()) + "" + "," + Integer.parseInt(this.width.getText()) );
+	//		this.fileadmin.setCache( this.kiButtonKlicked );
 			this.menue.changeMenueCardTo(Menue.MAIN_MENUE);
 			this.backButton.setVersion(0);
 		}
