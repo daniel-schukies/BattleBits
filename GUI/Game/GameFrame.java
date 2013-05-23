@@ -3,13 +3,10 @@ package GUI.Game;
 
 import java.awt.Color;
 import java.awt.Dimension;
-
-
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import GUI.Game.Grafikverwaltung.Grafikspeicher;
-import GUI.Game.Grafikverwaltung.ImageCreator;
 import GUI.Menue.Menue;
 
 
@@ -100,6 +97,25 @@ public class GameFrame extends JFrame
 		  {
 			    public void run() 
 			    {
+
+			    /*	try {
+					    File warning;
+					    AudioInputStream stream;
+					    AudioFormat format;
+					    DataLine.Info info;
+					    Clip clip;
+					    
+					    warning = new File( "/home/sebi/battlebits/loading.wav" );
+					    stream = AudioSystem.getAudioInputStream(warning);
+					    format = stream.getFormat();
+					    info = new DataLine.Info(Clip.class, format);
+					    clip = (Clip) AudioSystem.getLine(info);
+					    clip.open(stream);
+					    clip.start();
+					}
+					catch (Exception e) {
+					    System.out.println( "Sound fehler ");
+					}*/
 			    	//ImageCreator.grafikenVorladen = true;
 					GamePanel game = new GamePanel(aufloesung);
 					game.setBounds(0, 0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
