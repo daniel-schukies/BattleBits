@@ -1,7 +1,14 @@
 package Logik;
 
 
+import java.io.File;
 import java.util.Random;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 
 
 
@@ -218,8 +225,27 @@ public class Spieler
 		
 		if(nutzeNot)
 		{
-			bitfolge.invertBit(bitMitMeistemSchaden);
+			
 			this.zieheNeuesLogikgatter(indexVerwendetesGatter);
+			bitfolge.invertBit(bitMitMeistemSchaden);
+			try {
+			    File warning;
+			    AudioInputStream stream;
+			    AudioFormat format;
+			    DataLine.Info info;
+			    Clip clip;
+			    
+			    warning = new File( "/home/sebi/battlebits/warning.wav" );
+			    stream = AudioSystem.getAudioInputStream(warning);
+			    format = stream.getFormat();
+			    info = new DataLine.Info(Clip.class, format);
+			    clip = (Clip) AudioSystem.getLine(info);
+			    clip.open(stream);
+			    clip.start();
+			}
+			catch (Exception e) {
+			    System.out.println( "Sound fehler ");
+			}
 		}
 		else // Anderes Gatter muss gespielt werden.
 		{
