@@ -100,10 +100,31 @@ public class GameFrame extends JFrame
 		  {
 			    public void run() 
 			    {
+					Grafikspeicher background;
+					/*
+					if(aufloesung.getWidth() < aufloesung.getHeight())
+					{
+						background = new Grafikspeicher(new Dimension((int)aufloesung.getWidth(),(int)aufloesung.getWidth()), 1, false);
+						background.setImage("background1");
+						background.getImage().setBounds(0,(int)((aufloesung.getHeight()/2)-(aufloesung.getWidth()/2)), (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
+					}
+					else
+					{
+						background = new Grafikspeicher(new Dimension((int)aufloesung.getHeight(),(int)aufloesung.getHeight()), 1, false);
+						background.setImage("background1");
+						background.getImage().setBounds((int)((aufloesung.getWidth()/2)-(aufloesung.getHeight()/2)),0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
+					}*/
+					
+					
+			    	
 			    	//ImageCreator.grafikenVorladen = true;
 					GamePanel game = new GamePanel(aufloesung);
 					game.setBounds(0, 0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
 					GameFrame.this.remove(loadingScreen.getImage());
+					background = new Grafikspeicher(game.getSize(), 1, false);
+					background.setImage("background1");
+					background.getImage().setBounds(0,0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
+					GameFrame.this.getContentPane().add(background.getImage());
 					GameFrame.this.getContentPane().add(game);
 					//ImageCreator.grafikenVorladen = false;
 					System.out.println("-------------Spiel geladen---------------");
