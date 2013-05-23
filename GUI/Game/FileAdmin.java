@@ -1,40 +1,165 @@
 package GUI.Game;
-import java.awt.Dimension;
+
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+//import GUI.Game.FileAdmin;
+
+import GUI.Game.FileAdmin;
+
+
 
 public class FileAdmin {
-	
-	//private static String inhalt="";
-	private static Dimension resolution;
-	private StringBuffer player1Name;
-	private StringBuffer player2Name;
-	//private static boolean cache;
+
 	private FileWriter writer;
-	private File file;
+	private static File file;
 	private FileReader fr;
-	private static StringBuffer zustand;
+	private int[] trennzeichen;
+	private static String player1Name;
+	private static String player2Name;
+	private static Boolean ki;
 	private static Boolean cache;
+	private static Boolean hardcoreMode;
+	private static int height;
+	private static int width;
+	private String tmp;
 	
-	public FileAdmin(){
+	
+	public FileAdmin()
+	{
+		FileAdmin.file = new File( "infos.ini" );
+		this.trennzeichen = new int[7];
+		FileAdmin.player1Name = "Player1";
+		FileAdmin.player2Name = "Player2";
+		FileAdmin.ki = false;
+		FileAdmin.cache = false;
+		FileAdmin.hardcoreMode = false;
+		FileAdmin.height = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+		FileAdmin.width = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		
-		FileAdmin.resolution = Toolkit.getDefaultToolkit().getScreenSize();
-		this.player1Name = new StringBuffer( "Player1" );
-		this.player2Name = new StringBuffer( "Player2" );
-		FileAdmin.zustand = new StringBuffer( this.cache.toString() );
-		
+		this.tmp = this.readOfFile();
 
-				file = new File("gameinfo.txt");
+		try{
+			writer = new FileWriter(file);
+			
+		}catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 		
+		if( this.readOfFile().length() == 0 )
+		{
+			this.updateFile();
+	
+		}else
+		{
+			int counter=0;
+			for( int i=0; i < this.tmp.length(); i++)
+			{
+				if( this.tmp.charAt( i ) == ';' )
+				{
+					this.trennzeichen[ counter ] = i;
+					counter++;
+				}
+			}
+		
+			StringBuffer temporaer = new StringBuffer();
+			
+			for(int i=0; i< trennzeichen[0]; i++)
+			{
+				temporaer.append( tmp.charAt(i) );
+			}
+			
+		
+			this.setHeight(Integer.parseInt(temporaer.toString()) );
+			
+			temporaer.delete(0, temporaer.length());
+			
+			//System.out.println( Gruetze.height );
+			
+			for( int i=trennzeichen[0]+1; i < trennzeichen[1]; i++)
+			{
+				temporaer.append( tmp.charAt(i) );
+			}
+			
+			this.setWidth( Integer.parseInt(temporaer.toString()) );
+			temporaer.delete(0, temporaer.length());
+			
+			for( int i=trennzeichen[1]+1; i < trennzeichen[2]; i++ )
+			{
+				temporaer.append( tmp.charAt(i) );
+			}
+			//System.out.println(temporaer);
+			this.setPlayer1Name( temporaer.toString() );
+			temporaer.delete(0, temporaer.length());
+			
+			for( int i=trennzeichen[2]+1; i < trennzeichen[3]; i++)
+			{
+				temporaer.append( tmp.charAt(i) );
+			}
+			
+			this.setPlayer2Name( temporaer.toString() );
+			temporaer.delete(0, temporaer.length());
+			
+			for(int i=trennzeichen[3]+1; i < trennzeichen[4]; i++)
+			{
+				temporaer.append( tmp.charAt(i) );
+			}
+			if ( temporaer.toString().matches("false") )
+			{
+				this.setKI( false );
+			}else
+			{
+				this.setKI( true );
+			}
+			temporaer.delete(0, temporaer.length());
+			
+			for(int i=trennzeichen[4]+1; i < trennzeichen[5]; i++)
+			{
+				temporaer.append( tmp.charAt(i) );
+			}
+			
+			if ( temporaer.toString().matches("false") )
+			{
+				this.setCache( false );
+			}else
+			{
+				this.setCache( true );
+			}
+			
+			temporaer.delete(0, temporaer.length());
+			
+		//	System.out.println(trennzeichen[5]);
+			for(int i=trennzeichen[5]+1; i < tmp.length(); i++)
+			{
+				temporaer.append( tmp.charAt(i) );
+			}
+			
+		//	System.out.println(temporaer);
+			
+			if ( temporaer.toString().matches("false") )
+			{
+				this.setHardCoreMode( false );
+			}else
+			{
+				this.setHardCoreMode( true );
+			}
+
+			temporaer.delete(0, temporaer.length());
+			
+		}
+		
+	}
+	
+	public void updateFile()
+	{
 		try{
 			 writer = new FileWriter(file); //datei aufloesung.txt muss existieren
 			 								//, wird jedoch ueberschrieben
-			 writer.write("" + (int)FileAdmin.resolution.getHeight() + "x" + (int)FileAdmin.resolution.getWidth() + ";" + this.player1Name + ";" + this.player2Name + ";" + FileAdmin.zustand); //Werte werden durch Komma getrennt
-
+			 writer.write( "" + FileAdmin.height + ";" + FileAdmin.width + ";" + FileAdmin.player1Name + ";" + FileAdmin.player2Name + ";" + FileAdmin.ki + ";" + FileAdmin.cache + ";" + FileAdmin.hardcoreMode);
 			 writer.flush(); //leert den  Stream
 			 
 			 writer.close(); //schließt den Stream
@@ -44,137 +169,128 @@ public class FileAdmin {
 			e.printStackTrace();
 		}
 	}
-
 	
-	public void writeInFile(){
-		
-		try{
-			 writer = new FileWriter(file); //datei aufloesung.txt muss existieren
-			 								//, wird jedoch ueberschrieben
-			 writer.write("" + (int)FileAdmin.resolution.getHeight() + "x" + (int)FileAdmin.resolution.getWidth() + ";" + this.player1Name + ";" + this.player2Name + ";" + FileAdmin.zustand); //Werte werden durch Komma getrennt
-
-			 writer.flush(); //leert den  Stream
-			 
-			 writer.close(); //schließt den Stream
-			 
-		}catch(IOException e)
+	public boolean setHeight( int height )
+	{
+		if( height > 0 )
 		{
-			e.printStackTrace();
-		}
-	}
-	
-	public String readOfFile(){
-	
-	//return "900x1440;Player1;Player2;";	
-	
-    this.fr = null;
-    int c;
-    StringBuffer buff = new StringBuffer();
-    try {
-        fr = new FileReader(file);
-        while ((c = fr.read()) != -1) {
-            buff.append((char) c);
-        }
-        fr.close();
-
-    } catch (IOException e) {
-        e.printStackTrace();
-    } 
-		return buff.toString();
-	}
-
-	public Dimension getAufloesung(){
-		return FileAdmin.resolution;
-	}
-	
-	
-	public void setCache( boolean cache )
-	{
-		FileAdmin.cache = cache;
-	}
-	
-	public boolean setPlayer1Name( StringBuffer name )
-	{
-		this.player1Name = name;
-		this.writeInFile();
-		return true;
-	}
-	
-	public boolean setPlayer2Name( StringBuffer name )
-	{
-		this.player2Name = name;
-		this.writeInFile();
-		return true;
-	}
-	
-	public boolean setAufloesung( Dimension resolution )
-	{
-		if( resolution.getHeight() > 0 && resolution.getWidth() > 0 )
-		{
-			FileAdmin.resolution = resolution;
+			FileAdmin.height = height;
+			this.updateFile();
 			return true;
 		}
 		return false;
 	}
 	
-	//public 
+	public boolean setWidth( int width )
+	{
+		if( width > 0 )
+		{
+			FileAdmin.width = width;
+			this.updateFile();
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean setKI( boolean ki )
+	{
+		FileAdmin.ki = ki;
+		this.updateFile();
+		return true;
+	}
+	
+	public boolean setHardCoreMode( boolean hardcore )
+	{
+		FileAdmin.hardcoreMode = hardcore;
+		return true;
+	}
+	
+	public boolean setCache( boolean cache )
+	{
+		FileAdmin.cache = cache;
+		this.updateFile();
+		return true;
+	}
+	
+	public boolean setPlayer2Name( String name2 )
+	{
+		if( name2.length() > 0 )
+		{
+			FileAdmin.player2Name = name2;
+			this.updateFile();
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean setPlayer1Name( String name1 )
+	{
+		if( name1.length() > 0 )
+		{
+			FileAdmin.player1Name = name1;
+			this.updateFile();
+			return true;
+		}
+		return false;
+	}
+	
+	public int getHeight()
+	{
+		return FileAdmin.height;
+	}
+	
+	public int getWidth()
+	{
+		return FileAdmin.width;
+	}
 	
 	public String getPlayer1Name()
 	{
+		//System.out.println(Gruetze.player1Name.toString());
+		return FileAdmin.player1Name.toString();
+		
+	}
 	
-		String tmp = this.readOfFile();
-		int counter=0;
-		//SpielerName (zwischen ersten zwei ';') auslesen
-		for( int i=tmp.indexOf(';')+1; i < tmp.indexOf(';', tmp.indexOf(';')+2 );i++)
-		{
-			//this.player1Name = "";
-			this.player1Name.setCharAt(counter,tmp.charAt(i));		
-		//	System.out.println(tmp.length());
-		//h	System.out.println( this.player1Name + "" + (char)tmp.charAt(i));
-			counter++;
-		}
-		return this.player1Name.toString();
+	public boolean getCacheZustand()
+	{
+		return FileAdmin.cache;
 	}
 	
 	public String getPlayer2Name()
 	{
-		String tmp = this.readOfFile();
-		int counter=0;
-		//SpielerName (zwischen ersten zwei ';') auslesen
-		for( int i=tmp.indexOf(';' , tmp.indexOf(';')+1) ; i < tmp.indexOf(';', tmp.indexOf(';')+2 );i++)
-		{
-			//this.player1Name = "";
-			this.player2Name.setCharAt(counter,tmp.charAt(i));		
-			//System.out.println(tmp.charAt(i));
-		//h	System.out.println( this.player1Name + "" + (char)tmp.charAt(i));
-			counter++;
-		}
-		return this.player2Name.toString();
+		return FileAdmin.player2Name.toString();
 	}
 	
-	public boolean getGrafikCache()
+	public boolean getHardCoreZustand()
 	{
-		String tmp = this.readOfFile();
-		int counter=0;
-		//Zustand (zwischen ';') auslesen
-		for( int i=tmp.lastIndexOf(';')+1; i < tmp.length();i++)
-		{
-			//this.player1Name = "";
-			zustand.setCharAt(counter,tmp.charAt(i));		
-			
-		//	System.out.println( tmp.charAt(tmp.indexOf(';' , tmp.indexOf(';' , tmp.indexOf(';')+1)+1)+2) );
-			counter++;
-		}
-		System.out.println(zustand.toString());
-		if ( zustand.toString().matches("false") )
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
+		return FileAdmin.hardcoreMode;
 	}
 	
+	public boolean getKiZustand()
+	{
+		return FileAdmin.ki;
+	}
+	
+	public String readOfFile(){
+		
+	    this.fr = null;
+	    int c;
+	    StringBuffer buff = new StringBuffer();
+	    try {
+	        fr = new FileReader(file);
+	        while ((c = fr.read()) != -1) {
+	            buff.append((char) c);
+	        }
+	        fr.close();
+
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    } 
+			return buff.toString();
+		}
+
 
 }
+
+
+
