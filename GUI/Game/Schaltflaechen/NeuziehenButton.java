@@ -4,17 +4,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
-
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
+import java.net.URL;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import GUI.Game.Refreshable;
+import GUI.Game.SoundAusgabe;
 import GUI.Game.Grafikverwaltung.Grafikspeicher;
+import GUI.Game.Grafikverwaltung.ImageCreator;
 import Logik.Spiel;
 
 @SuppressWarnings("serial")
@@ -24,6 +21,7 @@ public class NeuziehenButton extends JPanel implements MouseListener
 	Spiel spiel;
 	LogikgatterSchaltflaeche[] schaltflaeche;
 	Refreshable[] refreshSchaltflaechen;
+	private SoundAusgabe sa;
 	
 	public NeuziehenButton(int xPos, int yPos, int size, Spiel spiel,LogikgatterSchaltflaeche[] logikgatterSchaltflaeche )
 	{
@@ -33,6 +31,7 @@ public class NeuziehenButton extends JPanel implements MouseListener
 		this.setBackground(new Color(0,0, 0,255) ); // Alpha-Channal nachlesen!
 		
 		this.spiel = spiel;
+		this.sa  = new SoundAusgabe();
 		
 		this.schaltflaeche = logikgatterSchaltflaeche;
 		
@@ -64,25 +63,18 @@ public class NeuziehenButton extends JPanel implements MouseListener
 				System.out.println("GEHHT5 ID" + spielerID);
 				if(this.schaltflaeche[spielerID].getPressedID().getIsPressed())
 				{
+					
+				/*	SwingUtilities.invokeLater(new Runnable() 
+					{
+						public void run() 
+						{
+							
+							
+						}
+					});*/
 					this.spiel.getAktuellerSpieler().zieheNeuesLogikgatter(this.schaltflaeche[spielerID].getPressedID().getID());
-					try {
-					    File neuziehen;
-					    AudioInputStream stream;
-					    AudioFormat format;
-					    DataLine.Info info;
-					    Clip clip;
-					    
-					    neuziehen = new File( "/home/sebi/battlebits/neuziehen.wav" );
-					    stream = AudioSystem.getAudioInputStream(neuziehen);
-					    format = stream.getFormat();
-					    info = new DataLine.Info(Clip.class, format);
-					    clip = (Clip) AudioSystem.getLine(info);
-					    clip.open(stream);
-					    clip.start();
-					}
-					catch (Exception ex) {
-					    System.out.println( "Sound fehler ");
-					}
+
+					
 					this.spiel.nextSpielzug();
 					
 					if(this.spiel.getAktuellerSpieler().getIsKI())
@@ -93,10 +85,13 @@ public class NeuziehenButton extends JPanel implements MouseListener
 					this.grafik.setVersion(0);
 					
 					if(this.refreshSchaltflaechen != null)
-					{
+					{	
+						URL url = getClass().getResource("/neuziehen.wav");
+						sa.play(url);
 						for(int i = 0; i < this.refreshSchaltflaechen.length; i++)
 						{
 							this.refreshSchaltflaechen[i].refresh();
+						
 						}
 					}
 			

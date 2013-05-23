@@ -3,6 +3,7 @@ package GUI.Game.Schaltflaechen;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
+import java.net.URL;
 
 import javax.print.attribute.standard.Media;
 import javax.sound.sampled.AudioFormat;
@@ -14,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import GUI.Game.IDInfo;
 import GUI.Game.Refreshable;
+import GUI.Game.SoundAusgabe;
 import Logik.Spiel;
 import Logik.Spieler;
 
@@ -35,6 +37,8 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 	
 	private Refreshable[] refreshSchaltflaechen;
 	
+	private SoundAusgabe sa;
+	
 	private LogikgatterSchaltflaeche[] logikgatterSchaltflaechenArray;
 	
 	public SpielfeldSchaltflaeche(int xPos,int yPos,LogikgatterSchaltflaeche schaltflaeche, Spiel spiel, Spieler spieler, int breite,boolean spiegeln )
@@ -46,7 +50,9 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 		this.logikgatterSchaltflaechenArray = new LogikgatterSchaltflaeche[4];
 		
 		this.schaltflaeche = schaltflaeche;
-				
+		
+		this.sa  = new SoundAusgabe();
+		
 		this.spiel = spiel;
 		this.spieler = spieler;
 		
@@ -153,24 +159,15 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 
 			}else
 			{
-				try {
-				    File error;
-				    AudioInputStream stream;
-				    AudioFormat format;
-				    DataLine.Info info;
-				    Clip clip;
-				    
-				    error = new File( "/home/sebi/battlebits/error.wav" );
-				    stream = AudioSystem.getAudioInputStream(error);
-				    format = stream.getFormat();
-				    info = new DataLine.Info(Clip.class, format);
-				    clip = (Clip) AudioSystem.getLine(info);
-				    clip.open(stream);
-				    clip.start();
-				}
-				catch (Exception e) {
-				    System.out.println( "Sound fehler ");
-				}
+				SwingUtilities.invokeLater(new Runnable() 
+				{
+					public void run() 
+					{
+						
+						URL url = getClass().getResource("/error.wav");
+						sa.play(url);
+					}
+				});
 			}
 		}
 	}

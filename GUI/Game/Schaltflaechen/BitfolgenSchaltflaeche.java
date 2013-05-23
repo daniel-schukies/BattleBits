@@ -2,6 +2,7 @@ package GUI.Game.Schaltflaechen;
 
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.net.URL;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -13,6 +14,8 @@ import javax.swing.SwingUtilities;
 
 
 import GUI.Game.Refreshable;
+import GUI.Game.SoundAusgabe;
+import GUI.Game.Grafikverwaltung.ImageCreator;
 import Logik.Bitgenerator;
 import Logik.Spiel;
 
@@ -26,6 +29,7 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 	private Refreshable[] refreshSchaltflaechen;
 	private Spiel spiel;
 	private static final int ANZAHLVERSIONEN = 3;
+	private SoundAusgabe sa;
 
 	public BitfolgenSchaltflaeche(int xPos, int yPos, int size,	int anzahlGrafiken,Spiel spiel, Bitgenerator bitfolge, LogikgatterSchaltflaeche[] schaltflaeche, boolean spiegeln, boolean isVertikal) 
 	{		
@@ -34,6 +38,8 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 		this.anzahlGrafiken = anzahlGrafiken;
 		
 		this.bitfolge = bitfolge;
+		
+		this.sa  = new SoundAusgabe();
 		
 		this.schaltflaeche = schaltflaeche;
 		
@@ -95,6 +101,8 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 							{
 								public void run() 
 								{
+									URL url = getClass().getResource("/warning.wav");
+									sa.play(url);
 									if(BitfolgenSchaltflaeche.this.refreshSchaltflaechen != null)
 									{
 										for(int i = 0; i < BitfolgenSchaltflaeche.this.refreshSchaltflaechen.length; i++)
@@ -102,51 +110,18 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 											BitfolgenSchaltflaeche.this.refreshSchaltflaechen[i].refresh();
 										}
 								    }
+									
 								}
 							});
 
-							try {
-							    File warning;
-							    AudioInputStream stream;
-							    AudioFormat format;
-							    DataLine.Info info;
-							    Clip clip;
-							    
-							    warning = new File( "/home/sebi/battlebits/warning.wav" );
-							    stream = AudioSystem.getAudioInputStream(warning);
-							    format = stream.getFormat();
-							    info = new DataLine.Info(Clip.class, format);
-							    clip = (Clip) AudioSystem.getLine(info);
-							    clip.open(stream);
-							    clip.start();
-							}
-							catch (Exception e) {
-							    System.out.println( "Sound fehler ");
-							}
 							
 							System.out.println("GEHHT1");
 						}
 						else
 						{
 							System.out.println("Schaltflaeche Index:"+this.schaltflaeche[spielerID].getPressedID().getID() +"Invert Bit:" +this.getPressedID().getID());
-							try {
-							    File error;
-							    AudioInputStream stream;
-							    AudioFormat format;
-							    DataLine.Info info;
-							    Clip clip;
-							    
-							    error = new File( "/home/sebi/battlebits/error.wav" );
-							    stream = AudioSystem.getAudioInputStream(error);
-							    format = stream.getFormat();
-							    info = new DataLine.Info(Clip.class, format);
-							    clip = (Clip) AudioSystem.getLine(info);
-							    clip.open(stream);
-							    clip.start();
-							}
-							catch (Exception e) {
-							    System.out.println( "Sound fehler ");
-							}
+							URL url = getClass().getResource("/error.wav");
+							sa.play(url);
 						}
 						
 						break;
