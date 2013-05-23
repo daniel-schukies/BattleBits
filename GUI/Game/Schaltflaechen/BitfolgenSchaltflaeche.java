@@ -29,7 +29,7 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 	private Refreshable[] refreshSchaltflaechen;
 	private Spiel spiel;
 	private static final int ANZAHLVERSIONEN = 3;
-	private SoundAusgabe sa;
+	private SoundAusgabe sound;
 
 	public BitfolgenSchaltflaeche(int xPos, int yPos, int size,	int anzahlGrafiken,Spiel spiel, Bitgenerator bitfolge, LogikgatterSchaltflaeche[] schaltflaeche, boolean spiegeln, boolean isVertikal) 
 	{		
@@ -39,7 +39,7 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 		
 		this.bitfolge = bitfolge;
 		
-		this.sa  = new SoundAusgabe();
+		this.sound  = new SoundAusgabe();
 		
 		this.schaltflaeche = schaltflaeche;
 		
@@ -101,7 +101,7 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 							{
 								public void run() 
 								{
-									sa.playWarning();
+									BitfolgenSchaltflaeche.this.sound.playWarning();
 									if(BitfolgenSchaltflaeche.this.refreshSchaltflaechen != null)
 									{
 										for(int i = 0; i < BitfolgenSchaltflaeche.this.refreshSchaltflaechen.length; i++)
@@ -119,7 +119,7 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 						else
 						{
 							System.out.println("Schaltflaeche Index:"+this.schaltflaeche[spielerID].getPressedID().getID() +"Invert Bit:" +this.getPressedID().getID());
-							sa.playError();
+							BitfolgenSchaltflaeche.this.sound.playError();
 						}
 						
 						break;
