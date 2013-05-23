@@ -86,6 +86,7 @@ public class Spiel
 			{
 				this.bitfolge.invertBit(zuInvertierendesBit); // invertiere das Bit	
 				spieler.zieheNeuesLogikgatter(logikgatterIndex); // Loesche und ziehe neues Logikgatter des Spielers
+				System.out.println("invertiert");
 				return true; // Bit wurde invertiert (Not gelegt)
 			}
 			else
