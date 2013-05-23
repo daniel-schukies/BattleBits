@@ -1,5 +1,6 @@
 package GUI.Game.Schaltflaechen;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -16,7 +17,8 @@ public class SpielfeldLogikgatterSchaltflaeche extends LogikgatterSchaltflaeche 
 	public SpielfeldLogikgatterSchaltflaeche(int xPos,int yPos, int  size, int anzahlGrafiken,Logikgatter[] logikgatter,MouseListener externerMouseListener,SpielfeldSchaltflaeche spielfeldSchaltflaeche,boolean spiegeln, boolean isVertikal )
 	{
 		super(xPos,yPos,size,anzahlGrafiken,logikgatter,spiegeln,isVertikal );
-
+		this.setBackground(new Color(0,0, 0,255) );
+		this.setOpaque(false);
 		this.spielfeldSchaltflaeche = spielfeldSchaltflaeche;
 	}
 	

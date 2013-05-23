@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import GUI.Game.Refreshable;
 import GUI.Game.Grafikverwaltung.Grafikspeicher;
@@ -36,9 +37,13 @@ public class NeuziehenButton extends JPanel implements MouseListener
 		
 		this.grafik.getImage().addMouseListener(this);
 		
+		//this.grafik.getImage()
+		
 		this.grafik.getImage().setBounds(0, 0, size, size);
 		
 		this.add(this.grafik.getImage());
+		
+		this.setOpaque(false);
 	}
 	
 	public void setRefreshSchaltflaechen(Refreshable[] refreshSchaltflaechen)
@@ -67,15 +72,23 @@ public class NeuziehenButton extends JPanel implements MouseListener
 						this.spiel.nextSpielzug();
 					}
 					
-					this.grafik.setVersion(0);
+					this.schaltflaeche[spielerID].refresh();
 					
-					if(this.refreshSchaltflaechen != null)
-					{
-						for(int i = 0; i < this.refreshSchaltflaechen.length; i++)
-						{
-							this.refreshSchaltflaechen[i].refresh();
-						}
-					}
+					this.grafik.setVersion(0);
+					 SwingUtilities.invokeLater(new Runnable() 
+					 {
+					    public void run() 
+						   {
+								if(NeuziehenButton.this.refreshSchaltflaechen != null)
+								{
+									for(int i = 0; i < NeuziehenButton.this.refreshSchaltflaechen.length; i++)
+									{
+										NeuziehenButton.this.refreshSchaltflaechen[i].refresh();
+									}
+								}
+						   }
+					 });
+
 			
 					break;
 				}
@@ -87,6 +100,7 @@ public class NeuziehenButton extends JPanel implements MouseListener
 	public void mouseEntered(MouseEvent e) 
 	{
 		this.grafik.setVersion(2);
+		this.repaint();
 		
 	}
 
@@ -94,6 +108,7 @@ public class NeuziehenButton extends JPanel implements MouseListener
 	public void mouseExited(MouseEvent e) 
 	{
 		this.grafik.setVersion(0);
+		this.repaint();
 		
 	}
 
@@ -101,6 +116,7 @@ public class NeuziehenButton extends JPanel implements MouseListener
 	public void mousePressed(MouseEvent e) 
 	{
 		this.grafik.setVersion(1);
+		this.repaint();
 		
 	}
 
@@ -108,6 +124,7 @@ public class NeuziehenButton extends JPanel implements MouseListener
 	public void mouseReleased(MouseEvent e) 
 	{
 		this.grafik.setVersion(0);
+		this.repaint();
 		
 	}
 	

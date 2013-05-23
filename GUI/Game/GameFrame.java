@@ -100,7 +100,6 @@ public class GameFrame extends JFrame
 		  {
 			    public void run() 
 			    {
-					Grafikspeicher background;
 					/*
 					if(aufloesung.getWidth() < aufloesung.getHeight())
 					{
@@ -121,10 +120,10 @@ public class GameFrame extends JFrame
 					GamePanel game = new GamePanel(aufloesung);
 					game.setBounds(0, 0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
 					GameFrame.this.remove(loadingScreen.getImage());
-					background = new Grafikspeicher(game.getSize(), 1, false);
-					background.setImage("background1");
-					background.getImage().setBounds(0,0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
-					GameFrame.this.getContentPane().add(background.getImage());
+					//background = new Grafikspeicher(game.getSize(), 1, false);
+					//background.setImage("background1");
+					//background.getImage().setBounds(0,0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
+					//GameFrame.this.getContentPane().add(background.getImage());
 					GameFrame.this.getContentPane().add(game);
 					//ImageCreator.grafikenVorladen = false;
 					System.out.println("-------------Spiel geladen---------------");

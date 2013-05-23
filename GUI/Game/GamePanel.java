@@ -2,9 +2,13 @@ package GUI.Game;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.JPanel;
 
+import GUI.Game.Grafikverwaltung.Grafikspeicher;
+import GUI.Game.Grafikverwaltung.ImageCreator;
 import GUI.Game.Schaltflaechen.BitfolgenSchaltflaeche;
 import GUI.Game.Schaltflaechen.LogikgatterSchaltflaeche;
 import GUI.Game.Schaltflaechen.NeuziehenButton;
@@ -31,6 +35,7 @@ public class GamePanel extends JPanel
 	private int logikgatterLaenge;
 	private int xCenter;
 	private int yCenter;
+	private Image background;
 	
 	
 	public GamePanel(Dimension size)
@@ -38,6 +43,7 @@ public class GamePanel extends JPanel
 		this.setLayout(null);
 		this.setPreferredSize(size);
 		this.setBackground(new Color(0,0,0,255));
+		setOpaque(false);
 		
 		
 		if(size.getHeight() < size.getWidth())
@@ -53,6 +59,10 @@ public class GamePanel extends JPanel
 			this.xCenter= 0;
 		}
 		
+		this.background = new ImageCreator(size, 1, false).getImage("background1")[0].getImage();
+		//this.background.setImage("background1");
+		//this.background.getImage().setBounds(0,0, (int)size.getWidth(), (int)size.getHeight());
+
 		
 		
 		
@@ -158,4 +168,9 @@ public class GamePanel extends JPanel
 		*/
 		this.setVisible(true);
 	}
+	
+    public void paintComponent(Graphics g) 
+    {
+        g.drawImage(this.background, 0, 0, null);
+    }
 }

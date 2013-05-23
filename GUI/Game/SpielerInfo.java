@@ -21,6 +21,7 @@ public class SpielerInfo extends JPanel
 		this.setBounds(xPos, yPos, (int)size.getWidth(), (int)size.getHeight());
 		this.setPreferredSize(size);
 		this.setBackground(new Color(0,0,0,255));
+		this.setOpaque(false);
 		
 		this.spielerName.setBackground(new Color(0,0,0,255));
 		this.spielerName.setPreferredSize(size);

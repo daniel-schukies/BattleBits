@@ -33,7 +33,10 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 		
 		this.pressedID = new IDInfo();
 		
-		this.setBackground(new Color(0,0, 0,255) ); // Alpha-Channal nachlesen!
+		this.setOpaque(false);
+		
+		
+		//this.getViewport().setOpaque(false);
 		
 		if(isVertikal)
 		{
@@ -54,6 +57,8 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 		this.setPreferredSize(this.size);
 		this.setBounds(xPos, yPos, (int)this.size.getWidth(), (int)this.size.getHeight());
 		this.setLayout(layout);
+		this.setBackground(new Color(0,0, 0,255) ); // Alpha-Channal nachlesen!
+
 	}
 	
 	protected boolean changeVersion(int versionID, JLabel button)

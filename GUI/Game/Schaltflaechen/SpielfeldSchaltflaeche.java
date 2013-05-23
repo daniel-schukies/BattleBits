@@ -48,6 +48,7 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 		this.gatterPosition[1] = new IDInfo();
 		
 		this.setBackground(new Color(0,0, 0,255) );
+		this.setOpaque(false);
 		
 		int yPosSchaltflaechen = 0;
 		int xPosSchaltflaechen = 0;
