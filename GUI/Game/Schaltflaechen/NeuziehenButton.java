@@ -4,7 +4,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 import javax.swing.JPanel;
 
 import GUI.Game.Refreshable;
@@ -59,7 +65,24 @@ public class NeuziehenButton extends JPanel implements MouseListener
 				if(this.schaltflaeche[spielerID].getPressedID().getIsPressed())
 				{
 					this.spiel.getAktuellerSpieler().zieheNeuesLogikgatter(this.schaltflaeche[spielerID].getPressedID().getID());
-					
+					try {
+					    File neuziehen;
+					    AudioInputStream stream;
+					    AudioFormat format;
+					    DataLine.Info info;
+					    Clip clip;
+					    
+					    neuziehen = new File( "/home/sebi/battlebits/neuziehen.wav" );
+					    stream = AudioSystem.getAudioInputStream(neuziehen);
+					    format = stream.getFormat();
+					    info = new DataLine.Info(Clip.class, format);
+					    clip = (Clip) AudioSystem.getLine(info);
+					    clip.open(stream);
+					    clip.start();
+					}
+					catch (Exception ex) {
+					    System.out.println( "Sound fehler ");
+					}
 					this.spiel.nextSpielzug();
 					
 					if(this.spiel.getAktuellerSpieler().getIsKI())
