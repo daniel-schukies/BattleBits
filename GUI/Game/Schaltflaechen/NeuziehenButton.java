@@ -85,9 +85,8 @@ public class NeuziehenButton extends JPanel implements MouseListener
 					this.grafik.setVersion(0);
 					
 					if(this.refreshSchaltflaechen != null)
-					{	
-						URL url = getClass().getResource("/neuziehen.wav");
-						sa.play(url);
+					{
+						sa.playNeuZiehen();
 						for(int i = 0; i < this.refreshSchaltflaechen.length; i++)
 						{
 							this.refreshSchaltflaechen[i].refresh();

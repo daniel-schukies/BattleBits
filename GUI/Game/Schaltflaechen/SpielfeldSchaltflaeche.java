@@ -164,8 +164,8 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 					public void run() 
 					{
 						
-						URL url = getClass().getResource("/error.wav");
-						sa.play(url);
+						//URL url = getClass().getResource("/error.wav");
+						sa.playError();
 					}
 				});
 			}

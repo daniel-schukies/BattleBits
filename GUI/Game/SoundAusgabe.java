@@ -10,28 +10,83 @@ import javax.sound.sampled.DataLine;
 
 public class SoundAusgabe {
 	
+	private AudioInputStream stream;
+	private AudioFormat format;
+	private  DataLine.Info info;
+	private  Clip clip;
+	private URL url;
+	
 	public SoundAusgabe()
 	{
 		
 	}
 
-public void play( URL url)
-{
-	try {
-	   // File neuziehen;
-	    AudioInputStream stream;
-	    AudioFormat format;
-	    DataLine.Info info;
-	    Clip clip;
-	    stream = AudioSystem.getAudioInputStream(url);
-	    format = stream.getFormat();
-	    info = new DataLine.Info(Clip.class, format);
-	    clip = (Clip) AudioSystem.getLine(info);
-	    clip.open(stream);
-	    clip.start();
+	public void play( URL url)
+	{
+		try {
+		   // File neuziehen;
+		    this.stream = AudioSystem.getAudioInputStream(url);
+		    this.format = stream.getFormat();
+		    this.info = new DataLine.Info(Clip.class, format);
+		    this.clip = (Clip) AudioSystem.getLine(info);
+		    this.clip.open(stream);
+		    this.clip.start();
+		}
+		catch (Exception ex) {
+		    System.out.println( "Sound fehler ");
+		}
 	}
-	catch (Exception ex) {
-	    System.out.println( "Sound fehler ");
+	
+	public void playWarning()
+	{
+		try{
+		
+			this.url = getClass().getResource("/warning.wav");
+			this.stream = AudioSystem.getAudioInputStream(url);
+		    this.format = stream.getFormat();
+		    this.info = new DataLine.Info(Clip.class, format);
+		    this.clip = (Clip) AudioSystem.getLine(info);
+		    this.clip.open(stream);
+		    this.clip.start();
+		
+		}catch (Exception ex) {
+		    System.out.println( "Sound fehler ");
+		}
+
 	}
-}
+	
+	public void playError()
+	{
+		try{
+			
+			this.url = getClass().getResource("/error.wav");
+			this.stream = AudioSystem.getAudioInputStream(url);
+		    this.format = stream.getFormat();
+		    this.info = new DataLine.Info(Clip.class, format);
+		    this.clip = (Clip) AudioSystem.getLine(info);
+		    this.clip.open(stream);
+		    this.clip.start();
+		
+		}catch (Exception ex) {
+		    System.out.println( "Sound fehler ");
+		}
+	}
+	
+	public void playNeuZiehen()
+	{
+		try{
+			
+			this.url = getClass().getResource("/neuziehen.wav");
+			this.stream = AudioSystem.getAudioInputStream(url);
+		    this.format = stream.getFormat();
+		    this.info = new DataLine.Info(Clip.class, format);
+		    this.clip = (Clip) AudioSystem.getLine(info);
+		    this.clip.open(stream);
+		    this.clip.start();
+		
+		}catch (Exception ex) {
+		    System.out.println( "Sound fehler ");
+		}
+	}
+	
 }
