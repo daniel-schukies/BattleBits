@@ -54,7 +54,7 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		
 		this.menue = menue;
 		
-		this.fileadmin = new FileAdmin();
+	//	this.fileadmin = new FileAdmin();
 		
 		//this.grafikenLaden = new JCheckBox( "Grafiken vorladen" , false );
 		//this.grafikenLaden.setOpaque( false );
@@ -216,10 +216,7 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		//Fenster gwechselt wird
 		if((JLabel)e.getSource() == this.backButton.getImage())
 		{
-			this.fileadmin.setAufloesung( new Dimension( Integer.parseInt(this.height.getText()) , Integer.parseInt(this.width.getText() )) );
-			System.out.println( this.fileadmin.getAufloesung().getHeight() );
-			//System.out.println( "" + Integer.parseInt(this.height.getText()) + "" + "," + Integer.parseInt(this.width.getText()) );
-	//		this.fileadmin.setCache( this.kiButtonKlicked );
+			this.fileadmin.setHeight( Integer.parseInt( this.height.getText() ) );
 			this.menue.changeMenueCardTo(Menue.MAIN_MENUE);
 			this.backButton.setVersion(0);
 		}

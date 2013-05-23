@@ -5,8 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 
-//import GUI.Game.FileAdmin;
 
 import GUI.Game.FileAdmin;
 
@@ -30,7 +30,7 @@ public class FileAdmin {
 	
 	public FileAdmin()
 	{
-		FileAdmin.file = new File( "infos.ini" );
+		FileAdmin.file = new File( getClass().getResource( "infos.ini" ).toString() );
 		this.trennzeichen = new int[7];
 		FileAdmin.player1Name = "Player1";
 		FileAdmin.player2Name = "Player2";
