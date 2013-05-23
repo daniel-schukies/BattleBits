@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
+
 
 
 import GUI.Game.FileAdmin;
@@ -41,15 +41,16 @@ public class FileAdmin {
 		FileAdmin.width = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		
 		this.tmp = this.readOfFile();
-		//wenn Datei nicht existiert
-		if( !(file.exists()) )
+
+
+		if(!(file.exists()))
 		{
 			try{
-				writer = new FileWriter(file);
-				
+			writer = new FileWriter(file);
+			
 			}catch(IOException e)
 			{
-				System.out.println( "Datei wurde erstellt" );
+				System.out.println("Konfig erstellt");
 			}
 		}
 
@@ -230,24 +231,24 @@ public class FileAdmin {
 	
 	public boolean setPlayer2Name( String name2 )
 	{
-		if( name2.length() > 0 )
-		{
+	//	if( name2.length() > 0 )
+	//	{
 			FileAdmin.player2Name = name2;
 			this.updateFile();
 			return true;
-		}
-		return false;
+	//	}
+	//	return false;
 	}
 	
 	public boolean setPlayer1Name( String name1 )
 	{
-		if( name1.length() > 0 )
-		{
+		//if( name1.length() > 0 )
+		//{
 			FileAdmin.player1Name = name1;
 			this.updateFile();
 			return true;
-		}
-		return false;
+//		}
+	//	return false;
 	}
 	
 	public int getHeight()
