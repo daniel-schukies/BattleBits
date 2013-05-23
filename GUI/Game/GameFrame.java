@@ -18,6 +18,7 @@ public class GameFrame extends JFrame
 	 * 
 	 */
 	private static final long serialVersionUID = 3975895020911336926L;
+	private SoundAusgabe sound;
 	/**
 	 * 
 	 */
@@ -44,6 +45,7 @@ public class GameFrame extends JFrame
 		
 		this.menue = new Menue(this);
 		this.add(menue);
+		this.sound = new SoundAusgabe();
 		
 		
 		//this.add( new SpielereinstellungenMenue( 0,0,new Dimension(800,600), new Menue()) );
@@ -93,29 +95,14 @@ public class GameFrame extends JFrame
 		this.validate();
 		this.repaint();
 		
+		sound.play( getClass().getResource( "/loading1.wav" ) );
+		
 		  SwingUtilities.invokeLater(new Runnable() 
 		  {
 			    public void run() 
 			    {
 
-			    /*	try {
-					    File warning;
-					    AudioInputStream stream;
-					    AudioFormat format;
-					    DataLine.Info info;
-					    Clip clip;
-					    
-					    warning = new File( "/home/sebi/battlebits/loading.wav" );
-					    stream = AudioSystem.getAudioInputStream(warning);
-					    format = stream.getFormat();
-					    info = new DataLine.Info(Clip.class, format);
-					    clip = (Clip) AudioSystem.getLine(info);
-					    clip.open(stream);
-					    clip.start();
-					}
-					catch (Exception e) {
-					    System.out.println( "Sound fehler ");
-					}*/
+			    
 			    	//ImageCreator.grafikenVorladen = true;
 					GamePanel game = new GamePanel(aufloesung);
 					game.setBounds(0, 0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
