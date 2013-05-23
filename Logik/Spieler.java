@@ -10,6 +10,8 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 
+import GUI.Game.SoundAusgabe;
+
 
 
 
@@ -20,6 +22,7 @@ public class Spieler
 	private boolean isKI;
 	private Logikgatter[] logikgatter;
 	private Spielfeld spielfeld;
+	private SoundAusgabe sa;
 	
 	public Spieler(String name, boolean isKI)
 	{
@@ -35,6 +38,7 @@ public class Spieler
 		this.setName("");
 		this.setIsKI(false);
 		logikgatter = new Logikgatter[4];
+		this.sa = new SoundAusgabe();
 	}
 	
 	public void setName(String name)
@@ -228,24 +232,7 @@ public class Spieler
 			
 			this.zieheNeuesLogikgatter(indexVerwendetesGatter);
 			bitfolge.invertBit(bitMitMeistemSchaden);
-			try {
-			    File warning;
-			    AudioInputStream stream;
-			    AudioFormat format;
-			    DataLine.Info info;
-			    Clip clip;
-			    
-			    warning = new File( "/home/sebi/battlebits/warning.wav" );
-			    stream = AudioSystem.getAudioInputStream(warning);
-			    format = stream.getFormat();
-			    info = new DataLine.Info(Clip.class, format);
-			    clip = (Clip) AudioSystem.getLine(info);
-			    clip.open(stream);
-			    clip.start();
-			}
-			catch (Exception e) {
-			    System.out.println( "Sound fehler ");
-			}
+			this.sa.playWarning();
 		}
 		else // Anderes Gatter muss gespielt werden.
 		{
@@ -333,10 +320,12 @@ public class Spieler
 					System.out.println("Gatter Index: " + gatterPrioritaet[priorisiertesGatter][1] );
 				}
 				this.zieheNeuesLogikgatter(priorisiertesGatter);
+				this.sa.playNeuZiehen();
 			}
 			else // Ziehe Neues
 			{
-				this.zieheNeuesLogikgatter(new Random().nextInt(4)); 
+				this.zieheNeuesLogikgatter(new Random().nextInt(4));
+				this.sa.playNeuZiehen();
 			}
 		}
 
