@@ -6,43 +6,32 @@ import java.util.ArrayList;
 
 public class GrafikCache 
 {
-	private ArrayList<ArrayList<?>> grafikCache;
-	
-	public GrafikCache()
-	{
-		this.grafikCache = new ArrayList<ArrayList<?>>();
-	}
+	private static ArrayList<ArrayList<?>> grafikCache = new ArrayList<ArrayList<?>>();
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public boolean saveImages(String grafikBezeichnung, BufferedImage[] images)
 	{
 		//Schauen ob Grafik existiert
-		for(int i = 0; i < this.grafikCache.size(); i++)
+		for(int i = 0; i < GrafikCache.grafikCache.size(); i++)
 		{
-			if(!this.grafikCache.isEmpty())
+			if( ((String)GrafikCache.grafikCache.get(i).get(0)).equals(grafikBezeichnung))
 			{
-				if(!this.grafikCache.get(i).isEmpty())
+				if( ((int)(((BufferedImage[])GrafikCache.grafikCache.get(i).get(1))[0].getWidth()) == (int)images[0].getWidth()) && ( (int)(((BufferedImage[])GrafikCache.grafikCache.get(i).get(1))[0].getHeight()) == (int)images[0].getHeight()) )
 				{
-					if( ((String)this.grafikCache.get(i).get(0)).contains(grafikBezeichnung))
-					{
-						if( ((BufferedImage[])this.grafikCache.get(i).get(1))[0].getWidth() == images[0].getWidth() && (((BufferedImage[])this.grafikCache.get(i).get(1))[0].getHeight() == images[0].getHeight()) )
-						{
-							return false;
-						}
-					}
+					return false;
 				}
 			}
 		}
-		
+
 		// Speichere
 		ArrayList cache = new ArrayList();
 		cache.add(0,grafikBezeichnung);
 		cache.add(1,images);
 		
-		System.out.println(grafikBezeichnung+" Hoehe:"+images[0].getHeight());
+		System.out.println(grafikBezeichnung+" Hoehe:"+images[0].getHeight()+"In Grafikcache abgelegt");
 		
-		this.grafikCache.add(cache);
+		GrafikCache.grafikCache.add(cache);
 		
 		return true;
 	}
@@ -51,17 +40,18 @@ public class GrafikCache
 	public BufferedImage[] getImages(Dimension size, String grafikBezeichnung)
 	{
 		//Schauen ob Grafik existiert
-		for(int i = 0; i < this.grafikCache.size(); i++)
+		for(int i = 0; i < GrafikCache.grafikCache.size(); i++)
 		{
-			if( ((String)this.grafikCache.get(i).get(0)).contains(grafikBezeichnung))
+			if( ((String)GrafikCache.grafikCache.get(i).get(0)).equals(grafikBezeichnung))
 			{
-				if( ((BufferedImage[])this.grafikCache.get(i).get(1))[0].getWidth() == size.getWidth() && (((BufferedImage[])this.grafikCache.get(i).get(1))[0].getHeight() == size.getHeight()) )
+				if( ((int)(((BufferedImage[])GrafikCache.grafikCache.get(i).get(1))[0].getWidth()) == (int)size.getWidth()) && ( (int)(((BufferedImage[])GrafikCache.grafikCache.get(i).get(1))[0].getHeight()) == (int)size.getHeight()) )
 				{
-					return ((BufferedImage[])this.grafikCache.get(i).get(1));
+					return ((BufferedImage[])GrafikCache.grafikCache.get(i).get(1));
 				}
 			}
+
 		}
-		
+		System.out.println(grafikBezeichnung + " konnte nicht aus Grafikcache geladen werden");
 		return null;
 	}
 	

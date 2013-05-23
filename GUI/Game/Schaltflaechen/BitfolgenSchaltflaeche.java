@@ -2,7 +2,10 @@ package GUI.Game.Schaltflaechen;
 
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
+import GUI.Game.GameFrame;
+import GUI.Game.GamePanel;
 import GUI.Game.Refreshable;
 import Logik.Bitgenerator;
 import Logik.Spiel;
@@ -82,13 +85,20 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 							this.refresh();
 							this.getPressedID().setIsPressed(false);
 							
-							if(this.refreshSchaltflaechen != null)
+							SwingUtilities.invokeLater(new Runnable() 
 							{
-								for(int i = 0; i < this.refreshSchaltflaechen.length; i++)
+								public void run() 
 								{
-									this.refreshSchaltflaechen[i].refresh();
+									if(BitfolgenSchaltflaeche.this.refreshSchaltflaechen != null)
+									{
+										for(int i = 0; i < BitfolgenSchaltflaeche.this.refreshSchaltflaechen.length; i++)
+										{
+											BitfolgenSchaltflaeche.this.refreshSchaltflaechen[i].refresh();
+										}
+								    }
 								}
-							}
+							});
+
 							
 							
 							System.out.println("GEHHT1");

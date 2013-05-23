@@ -32,7 +32,7 @@ public class GameFrame extends JFrame
 	public GameFrame()
 	{
 		this.setLayout(null);
-		//this.setResizable(false);
+		this.setResizable(false);
 		this.setTitle("Battlebits");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(800, 600);
