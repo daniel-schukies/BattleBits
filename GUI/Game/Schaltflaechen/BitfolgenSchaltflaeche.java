@@ -1,11 +1,17 @@
 package GUI.Game.Schaltflaechen;
 
 import java.awt.event.MouseEvent;
+import java.io.File;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
-import GUI.Game.GameFrame;
-import GUI.Game.GamePanel;
+
 import GUI.Game.Refreshable;
 import Logik.Bitgenerator;
 import Logik.Spiel;
@@ -99,13 +105,48 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 								}
 							});
 
-							
+							try {
+							    File warning;
+							    AudioInputStream stream;
+							    AudioFormat format;
+							    DataLine.Info info;
+							    Clip clip;
+							    
+							    warning = new File( "/home/sebi/battlebits/warning.wav" );
+							    stream = AudioSystem.getAudioInputStream(warning);
+							    format = stream.getFormat();
+							    info = new DataLine.Info(Clip.class, format);
+							    clip = (Clip) AudioSystem.getLine(info);
+							    clip.open(stream);
+							    clip.start();
+							}
+							catch (Exception e) {
+							    System.out.println( "Sound fehler ");
+							}
 							
 							System.out.println("GEHHT1");
 						}
 						else
 						{
-							System.out.println("Schaltflaeche Index:"+this.schaltflaeche[spielerID].getPressedID().getID() +"Invert Bit:" +this.getPressedID().getID()); 
+							System.out.println("Schaltflaeche Index:"+this.schaltflaeche[spielerID].getPressedID().getID() +"Invert Bit:" +this.getPressedID().getID());
+							try {
+							    File error;
+							    AudioInputStream stream;
+							    AudioFormat format;
+							    DataLine.Info info;
+							    Clip clip;
+							    
+							    error = new File( "/home/sebi/battlebits/error.wav" );
+							    stream = AudioSystem.getAudioInputStream(error);
+							    format = stream.getFormat();
+							    info = new DataLine.Info(Clip.class, format);
+							    clip = (Clip) AudioSystem.getLine(info);
+							    clip.open(stream);
+							    clip.start();
+							}
+							catch (Exception e) {
+							    System.out.println( "Sound fehler ");
+							}
 						}
 						
 						break;

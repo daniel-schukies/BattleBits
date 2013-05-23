@@ -2,6 +2,14 @@ package GUI.Game.Schaltflaechen;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.File;
+
+import javax.print.attribute.standard.Media;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import GUI.Game.IDInfo;
@@ -143,6 +151,26 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 					    }
 				  });
 
+			}else
+			{
+				try {
+				    File error;
+				    AudioInputStream stream;
+				    AudioFormat format;
+				    DataLine.Info info;
+				    Clip clip;
+				    
+				    error = new File( "/home/sebi/battlebits/error.wav" );
+				    stream = AudioSystem.getAudioInputStream(error);
+				    format = stream.getFormat();
+				    info = new DataLine.Info(Clip.class, format);
+				    clip = (Clip) AudioSystem.getLine(info);
+				    clip.open(stream);
+				    clip.start();
+				}
+				catch (Exception e) {
+				    System.out.println( "Sound fehler ");
+				}
 			}
 		}
 	}
