@@ -205,8 +205,8 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 				this.fileadmin.setKI( this.pcButtonKlicked );
 			} else
 			{
-				this.sname1.setForeground( new Color(255,255,255).RED );
-				this.sname2.setForeground( new Color(255,255,255).RED );
+				this.sname1.setForeground( Color.RED );
+				this.sname2.setForeground( Color.RED );
 				
 			}
 			this.menue.changeMenueCardTo(Menue.MAIN_MENUE);
@@ -223,8 +223,8 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 				this.fileadmin.setKI( this.pcButtonKlicked );
 			} else
 			{
-				this.sname1.setForeground( new Color(255,255,255).RED );
-				this.sname2.setForeground( new Color(255,255,255).RED );
+				this.sname1.setForeground( Color.RED );
+				this.sname2.setForeground( Color.RED );
 				
 			}
 			if(this.playButtonKlicked )

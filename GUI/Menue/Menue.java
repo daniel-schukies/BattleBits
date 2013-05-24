@@ -56,6 +56,6 @@ public class Menue extends JPanel
 	
 	public void startGame(Dimension aufloesung)
 	{
-		this.gameFrame.startGame(aufloesung);
+		this.gameFrame.startGame();
 	}
 }

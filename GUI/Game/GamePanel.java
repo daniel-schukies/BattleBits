@@ -36,13 +36,13 @@ public class GamePanel extends JPanel
 	private Image background;
 	
 	
+	
 	public GamePanel(Dimension size)
 	{
 		this.setLayout(null);
 		this.setPreferredSize(size);
 		this.setBackground(new Color(0,0,0,255));
 		setOpaque(false);
-		
 		
 		if(size.getHeight() < size.getWidth())
 		{
@@ -66,11 +66,15 @@ public class GamePanel extends JPanel
 		
 		this.spiel = new Spiel(true);
 		
-		this.spiel.getSpieler()[0].setIsKI(true);
+		FileAdmin filewriter = new FileAdmin();
+		
+		this.spiel.getSpieler()[0].setIsKI(filewriter.getKiZustand());
 		this.spiel.getSpieler()[1].setIsKI(false);
 		
-		this.spiel.getSpieler()[0].setName("Player 1");
-		this.spiel.getSpieler()[1].setName("Player 2-----------------------------------");
+		
+		
+		this.spiel.getSpieler()[0].setName(filewriter.getPlayer1Name());
+		this.spiel.getSpieler()[1].setName(filewriter.getPlayer2Name());
 		
 		this.spielerInfo1 = new SpielerInfo(this.xCenter, this.yCenter, this.spiel.getSpieler()[0], new Dimension(this.logikgatterLaenge,this.logikgatterLaenge/2));
 		this.spielerInfo2 = new SpielerInfo(this.xCenter+this.logikgatterLaenge*8, this.yCenter, this.spiel.getSpieler()[1], new Dimension(this.logikgatterLaenge,this.logikgatterLaenge/2));

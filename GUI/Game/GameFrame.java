@@ -66,8 +66,11 @@ public class GameFrame extends JFrame
 		System.exit(0);
 	}
 	
-	public void startGame(final Dimension aufloesung)
+	public void startGame()
 	{
+		FileAdmin filewriter = new FileAdmin();
+		final Dimension aufloesung = new Dimension(filewriter.getWidth(), filewriter.getHeight());
+		
 		this.setSize((int)aufloesung.getWidth()+15,(int)aufloesung.getHeight()+40);
 		this.remove(this.menue);
 
