@@ -1,6 +1,12 @@
 package GUI.Game;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -15,6 +21,7 @@ public class SoundAusgabe {
 	private  DataLine.Info info;
 	private  Clip clip;
 	private URL url;
+	private List<AudioClip> audioliste = new ArrayList<AudioClip>();
 	
 	public SoundAusgabe()
 	{
@@ -31,6 +38,9 @@ public class SoundAusgabe {
 		    this.clip = (Clip) AudioSystem.getLine(info);
 		    this.clip.open(stream);
 		    this.clip.start();
+		    
+		    
+		    
 		}
 		catch (Exception ex) {
 		    System.out.println( "Sound fehler ");
@@ -39,7 +49,7 @@ public class SoundAusgabe {
 	
 	public void playWarning()
 	{
-		try{
+		/*try{
 		
 			this.url = getClass().getResource("/warning.wav");
 			this.stream = AudioSystem.getAudioInputStream(url);
@@ -51,13 +61,17 @@ public class SoundAusgabe {
 		
 		}catch (Exception ex) {
 		    System.out.println( "Sound fehler ");
-		}
-
+		}*/
+		
+		URL sound_url = getClass().getResource("/warning.wav");
+        AudioClip audio = (AudioClip)Applet.newAudioClip(sound_url);
+        audioliste.add(audio);
+        audioliste.get(0).play();
 	}
 	
 	public void playError()
 	{
-		try{
+		/*try{
 			
 			this.url = getClass().getResource("/error.wav");
 			this.stream = AudioSystem.getAudioInputStream(url);
@@ -69,12 +83,23 @@ public class SoundAusgabe {
 		
 		}catch (Exception ex) {
 		    System.out.println( "Sound fehler ");
-		}
+		}*/
+		URL sound_url = getClass().getResource("/error.wav");
+		//System.out.println( "error:" + sound_url );
+        AudioClip audio = (AudioClip)Applet.newAudioClip(sound_url);
+        audioliste.add(audio);
+        audioliste.get(0).play();
 	}
 	
 	public void playNeuZiehen()
 	{
-		try{
+		
+		URL sound_url = getClass().getResource("/neuziehen.wav");
+        AudioClip audio = (AudioClip)Applet.newAudioClip(sound_url);
+        audioliste.add(audio);
+        audioliste.get(0).play();
+		
+	/*	try{
 			
 			this.url = getClass().getResource("/neuziehen.wav");
 			this.stream = AudioSystem.getAudioInputStream(url);
@@ -86,7 +111,7 @@ public class SoundAusgabe {
 		
 		}catch (Exception ex) {
 		    System.out.println( "Sound fehler ");
-		}
+		}*/
 	}
 	
 }

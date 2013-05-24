@@ -101,9 +101,10 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 							{
 								public void run() 
 								{
-									BitfolgenSchaltflaeche.this.sound.playWarning();
+									
 									if(BitfolgenSchaltflaeche.this.refreshSchaltflaechen != null)
 									{
+										BitfolgenSchaltflaeche.this.sound.playWarning();
 										for(int i = 0; i < BitfolgenSchaltflaeche.this.refreshSchaltflaechen.length; i++)
 										{
 											BitfolgenSchaltflaeche.this.refreshSchaltflaechen[i].refresh();
@@ -120,6 +121,7 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 						{
 							System.out.println("Schaltflaeche Index:"+this.schaltflaeche[spielerID].getPressedID().getID() +"Invert Bit:" +this.getPressedID().getID());
 							BitfolgenSchaltflaeche.this.sound.playError();
+							System.out.println("Bitfolgenschaltflaechenerror");
 						}
 						
 						break;
