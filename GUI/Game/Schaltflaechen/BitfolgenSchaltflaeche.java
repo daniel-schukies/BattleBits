@@ -3,10 +3,8 @@ package GUI.Game.Schaltflaechen;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
-
-import GUI.Game.GameFrame;
-import GUI.Game.GamePanel;
 import GUI.Game.Refreshable;
+import GUI.Game.SoundAusgabe;
 import Logik.Bitgenerator;
 import Logik.Spiel;
 
@@ -20,6 +18,7 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 	private Refreshable[] refreshSchaltflaechen;
 	private Spiel spiel;
 	private static final int ANZAHLVERSIONEN = 3;
+	private SoundAusgabe sound;
 
 	public BitfolgenSchaltflaeche(int xPos, int yPos, int size,	int anzahlGrafiken,Spiel spiel, Bitgenerator bitfolge, LogikgatterSchaltflaeche[] schaltflaeche, boolean spiegeln, boolean isVertikal) 
 	{		
@@ -28,6 +27,8 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 		this.anzahlGrafiken = anzahlGrafiken;
 		
 		this.bitfolge = bitfolge;
+		
+		this.sound  = new SoundAusgabe();
 		
 		this.schaltflaeche = schaltflaeche;
 		
@@ -89,6 +90,7 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 							{
 								public void run() 
 								{
+									BitfolgenSchaltflaeche.this.sound.playWarning();
 									if(BitfolgenSchaltflaeche.this.refreshSchaltflaechen != null)
 									{
 										for(int i = 0; i < BitfolgenSchaltflaeche.this.refreshSchaltflaechen.length; i++)
@@ -96,16 +98,17 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 											BitfolgenSchaltflaeche.this.refreshSchaltflaechen[i].refresh();
 										}
 								    }
+									
 								}
 							});
 
-							
 							
 							System.out.println("GEHHT1");
 						}
 						else
 						{
-							System.out.println("Schaltflaeche Index:"+this.schaltflaeche[spielerID].getPressedID().getID() +"Invert Bit:" +this.getPressedID().getID()); 
+							System.out.println("Schaltflaeche Index:"+this.schaltflaeche[spielerID].getPressedID().getID() +"Invert Bit:" +this.getPressedID().getID());
+							BitfolgenSchaltflaeche.this.sound.playError();
 						}
 						
 						break;

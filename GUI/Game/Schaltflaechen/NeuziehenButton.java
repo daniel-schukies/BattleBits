@@ -4,11 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
 import GUI.Game.Refreshable;
+import GUI.Game.SoundAusgabe;
 import GUI.Game.Grafikverwaltung.Grafikspeicher;
 import Logik.Spiel;
 
@@ -19,6 +18,7 @@ public class NeuziehenButton extends JPanel implements MouseListener
 	Spiel spiel;
 	LogikgatterSchaltflaeche[] schaltflaeche;
 	Refreshable[] refreshSchaltflaechen;
+	private SoundAusgabe sound;
 	
 	public NeuziehenButton(int xPos, int yPos, int size, Spiel spiel,LogikgatterSchaltflaeche[] logikgatterSchaltflaeche )
 	{
@@ -28,6 +28,7 @@ public class NeuziehenButton extends JPanel implements MouseListener
 		this.setBackground(new Color(0,0, 0,255) ); // Alpha-Channal nachlesen!
 		
 		this.spiel = spiel;
+		this.sound  = new SoundAusgabe();
 		
 		this.schaltflaeche = logikgatterSchaltflaeche;
 		
@@ -63,7 +64,17 @@ public class NeuziehenButton extends JPanel implements MouseListener
 				System.out.println("GEHHT5 ID" + spielerID);
 				if(this.schaltflaeche[spielerID].getPressedID().getIsPressed())
 				{
+					
+				/*	SwingUtilities.invokeLater(new Runnable() 
+					{
+						public void run() 
+						{
+							
+							
+						}
+					});*/
 					this.spiel.getAktuellerSpieler().zieheNeuesLogikgatter(this.schaltflaeche[spielerID].getPressedID().getID());
+
 					
 					this.spiel.nextSpielzug();
 					
@@ -74,6 +85,8 @@ public class NeuziehenButton extends JPanel implements MouseListener
 					
 					this.schaltflaeche[spielerID].refresh();
 					
+					NeuziehenButton.this.sound.playNeuZiehen();
+
 					this.grafik.setVersion(0);
 					 SwingUtilities.invokeLater(new Runnable() 
 					 {
@@ -88,8 +101,6 @@ public class NeuziehenButton extends JPanel implements MouseListener
 								}
 						   }
 					 });
-
-			
 					break;
 				}
 			}

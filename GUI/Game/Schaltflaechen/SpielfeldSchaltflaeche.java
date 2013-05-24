@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import GUI.Game.IDInfo;
 import GUI.Game.Refreshable;
+import GUI.Game.SoundAusgabe;
 import Logik.Spiel;
 import Logik.Spieler;
 
@@ -27,6 +28,8 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 	
 	private Refreshable[] refreshSchaltflaechen;
 	
+	private SoundAusgabe sound;
+	
 	private LogikgatterSchaltflaeche[] logikgatterSchaltflaechenArray;
 	
 	public SpielfeldSchaltflaeche(int xPos,int yPos,LogikgatterSchaltflaeche schaltflaeche, Spiel spiel, Spieler spieler, int breite,boolean spiegeln )
@@ -38,7 +41,9 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 		this.logikgatterSchaltflaechenArray = new LogikgatterSchaltflaeche[4];
 		
 		this.schaltflaeche = schaltflaeche;
-				
+		
+		this.sound  = new SoundAusgabe();
+		
 		this.spiel = spiel;
 		this.spieler = spieler;
 		
@@ -144,6 +149,17 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 					    }
 				  });
 
+			}else
+			{
+				SwingUtilities.invokeLater(new Runnable() 
+				{
+					public void run() 
+					{
+						
+						//URL url = getClass().getResource("/error.wav");
+						SpielfeldSchaltflaeche.this.sound.playError();
+					}
+				});
 			}
 		}
 	}

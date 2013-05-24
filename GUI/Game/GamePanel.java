@@ -6,8 +6,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.JPanel;
-
-import GUI.Game.Grafikverwaltung.Grafikspeicher;
 import GUI.Game.Grafikverwaltung.ImageCreator;
 import GUI.Game.Schaltflaechen.BitfolgenSchaltflaeche;
 import GUI.Game.Schaltflaechen.LogikgatterSchaltflaeche;

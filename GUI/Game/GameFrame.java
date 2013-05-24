@@ -3,13 +3,10 @@ package GUI.Game;
 
 import java.awt.Color;
 import java.awt.Dimension;
-
-
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import GUI.Game.Grafikverwaltung.Grafikspeicher;
-import GUI.Game.Grafikverwaltung.ImageCreator;
 import GUI.Menue.Menue;
 
 
@@ -21,6 +18,7 @@ public class GameFrame extends JFrame
 	 * 
 	 */
 	private static final long serialVersionUID = 3975895020911336926L;
+	private SoundAusgabe sound;
 	/**
 	 * 
 	 */
@@ -47,6 +45,7 @@ public class GameFrame extends JFrame
 		
 		this.menue = new Menue(this);
 		this.add(menue);
+		this.sound = new SoundAusgabe();
 		
 		
 		//this.add( new SpielereinstellungenMenue( 0,0,new Dimension(800,600), new Menue()) );
@@ -96,26 +95,12 @@ public class GameFrame extends JFrame
 		this.validate();
 		this.repaint();
 		
+		sound.play( getClass().getResource( "/loading1.wav" ) );
+		
 		  SwingUtilities.invokeLater(new Runnable() 
 		  {
 			    public void run() 
 			    {
-					/*
-					if(aufloesung.getWidth() < aufloesung.getHeight())
-					{
-						background = new Grafikspeicher(new Dimension((int)aufloesung.getWidth(),(int)aufloesung.getWidth()), 1, false);
-						background.setImage("background1");
-						background.getImage().setBounds(0,(int)((aufloesung.getHeight()/2)-(aufloesung.getWidth()/2)), (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
-					}
-					else
-					{
-						background = new Grafikspeicher(new Dimension((int)aufloesung.getHeight(),(int)aufloesung.getHeight()), 1, false);
-						background.setImage("background1");
-						background.getImage().setBounds((int)((aufloesung.getWidth()/2)-(aufloesung.getHeight()/2)),0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
-					}*/
-					
-					
-			    	
 			    	//ImageCreator.grafikenVorladen = true;
 					GamePanel game = new GamePanel(aufloesung);
 					game.setBounds(0, 0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());

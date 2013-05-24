@@ -1,7 +1,16 @@
 package Logik;
 
 
+import java.io.File;
 import java.util.Random;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+
+import GUI.Game.SoundAusgabe;
 
 
 
@@ -13,6 +22,7 @@ public class Spieler
 	private boolean isKI;
 	private Logikgatter[] logikgatter;
 	private Spielfeld spielfeld;
+	private SoundAusgabe sa;
 	
 	public Spieler(String name, boolean isKI)
 	{
@@ -28,6 +38,7 @@ public class Spieler
 		this.setName("");
 		this.setIsKI(false);
 		logikgatter = new Logikgatter[4];
+		this.sa = new SoundAusgabe();
 	}
 	
 	public void setName(String name)
@@ -218,8 +229,10 @@ public class Spieler
 		
 		if(nutzeNot)
 		{
-			bitfolge.invertBit(bitMitMeistemSchaden);
+			
 			this.zieheNeuesLogikgatter(indexVerwendetesGatter);
+			bitfolge.invertBit(bitMitMeistemSchaden);
+			this.sa.playWarning();
 		}
 		else // Anderes Gatter muss gespielt werden.
 		{
@@ -307,10 +320,12 @@ public class Spieler
 					System.out.println("Gatter Index: " + gatterPrioritaet[priorisiertesGatter][1] );
 				}
 				this.zieheNeuesLogikgatter(priorisiertesGatter);
+				this.sa.playNeuZiehen();
 			}
 			else // Ziehe Neues
 			{
-				this.zieheNeuesLogikgatter(new Random().nextInt(4)); 
+				this.zieheNeuesLogikgatter(new Random().nextInt(4));
+				this.sa.playNeuZiehen();
 			}
 		}
 
