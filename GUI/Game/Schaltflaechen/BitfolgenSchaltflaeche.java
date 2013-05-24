@@ -120,7 +120,7 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 						else
 						{
 							System.out.println("Schaltflaeche Index:"+this.schaltflaeche[spielerID].getPressedID().getID() +"Invert Bit:" +this.getPressedID().getID());
-							BitfolgenSchaltflaeche.this.sound.playError();
+							this.sound.playError();
 							System.out.println("Bitfolgenschaltflaechenerror");
 						}
 						

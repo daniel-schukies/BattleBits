@@ -73,7 +73,8 @@ public class NeuziehenButton extends JPanel implements MouseListener
 						}
 					});*/
 					this.spiel.getAktuellerSpieler().zieheNeuesLogikgatter(this.schaltflaeche[spielerID].getPressedID().getID());
-
+					
+					this.sound.playNeuZiehen();
 					
 					this.spiel.nextSpielzug();
 					
@@ -86,7 +87,7 @@ public class NeuziehenButton extends JPanel implements MouseListener
 					
 					if(this.refreshSchaltflaechen != null)
 					{
-						NeuziehenButton.this.sound.playNeuZiehen();
+						
 						for(int i = 0; i < this.refreshSchaltflaechen.length; i++)
 						{
 							this.refreshSchaltflaechen[i].refresh();
