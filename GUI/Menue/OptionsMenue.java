@@ -11,6 +11,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import GUI.Game.FileAdmin;
+//import GUI.Game.FileAdmin;
+//import GUI.Game.FileAdmin;
 import GUI.Game.Grafikverwaltung.Grafikspeicher;
 import GUI.Game.Grafikverwaltung.ImageCreator;
 
@@ -35,6 +38,8 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	private Grafikspeicher backButton;
 	private boolean kiButtonKlicked , backButtonKlicked;
 	
+	private FileAdmin fileadmin;
+	
 	private Menue menue;
 
 	
@@ -49,6 +54,8 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		this.image = this.imagecreator.getImage("MenuOptionsBack")[0].getImage();
 		
 		this.menue = menue;
+		
+		this.fileadmin = new FileAdmin();
 		
 		//this.grafikenLaden = new JCheckBox( "Grafiken vorladen" , false );
 		//this.grafikenLaden.setOpaque( false );
@@ -69,9 +76,9 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		
 		this.aufloesung = Toolkit.getDefaultToolkit().getScreenSize();
 		
-		this.height = new JTextField( "" + (int)this.aufloesung.getHeight() , 10 );
+		this.height = new JTextField( String.valueOf( fileadmin.getHeight() ), 10 );
 		this.height.setOpaque( false );
-		this.width = new JTextField( "" + (int)this.aufloesung.getWidth() , 10 );
+		this.width = new JTextField( String.valueOf( fileadmin.getWidth() ) , 10 );
 		this.width.setOpaque( false );
 		
 
@@ -131,6 +138,13 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	   // this.add( this.grafikenLaden );
 	    
 	   // this.add( this.speichern );
+	    
+	    //Zustand des Cache - Buttons dem Inhalt der Datei anpassen
+	    if( this.fileadmin.getCacheZustand() )
+	    {
+	    	this.grafikcacheButton.setVersion( 1 );
+	    	this.kiButtonKlicked=true;
+	    }
 		
 		this.setVisible(true);
 
@@ -209,9 +223,25 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		//backgrafikspeicher und grafikspeicher brauchen kein zuruecksetzen auf Version 0, da beim anklicken in ein anderes
 		//Fenster gwechselt wird
 		if((JLabel)e.getSource() == this.backButton.getImage())
-		{
-			this.menue.changeMenueCardTo(Menue.MAIN_MENUE);
-			this.backButton.setVersion(0);
+		{	//gegen Buchstaben in der Eingabe
+			try{
+				//speichern der Aufloesung
+				if ( this.fileadmin.setHeight( Integer.parseInt( this.height.getText() ) ) && this.fileadmin.setWidth( Integer.parseInt( this.width.getText())))
+				{
+					this.fileadmin.setCache(kiButtonKlicked);
+					this.menue.changeMenueCardTo(Menue.MAIN_MENUE);
+					this.backButton.setVersion(0);
+				}else
+				{
+					this.width.setForeground( new Color(255,255,255).RED );
+					this.height.setForeground( new Color(255,255,255).RED );
+				}
+			}catch(NumberFormatException x)
+			{
+				this.width.setForeground( new Color(255,255,255).RED );
+				this.height.setForeground( new Color(255,255,255).RED );
+			}
+
 		}
 
 		

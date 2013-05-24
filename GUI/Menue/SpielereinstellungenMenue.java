@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 
+import GUI.Game.FileAdmin;
 import GUI.Game.Grafikverwaltung.Grafikspeicher;
 import GUI.Game.Grafikverwaltung.ImageCreator;
 
@@ -30,6 +31,7 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 	private Grafikspeicher backButton;
 	private Grafikspeicher pcButton;
 	private boolean pcButtonKlicked , backButtonKlicked , playButtonKlicked;
+	private FileAdmin fileadmin;
 	
 	private Menue menue;
 
@@ -44,6 +46,7 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 		this.image = new ImageCreator(new Dimension(800,600),1, false).getImage("SpielereinstellungenMenue")[0].getImage();
 		
 		this.menue = menue;
+		this.fileadmin = new FileAdmin();
 
 		this.finalstartButton = new Grafikspeicher(new Dimension(302,101),3, false);
 		this.finalstartButton.setImage( "finalstart" );
@@ -61,9 +64,9 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 		this.bild = new JLabel( new ImageIcon(new ImageCreator(new Dimension(800,600),3, false).getImage("SpielereinstellungenMenue")[0].getImage()));
 		this.bild.setBounds(xPos, yPos, (int)size.getWidth(), (int)size.getHeight());
 		
-		this.sname1 = new JTextField( "" , 10 );
+		this.sname1 = new JTextField( this.fileadmin.getPlayer1Name() , 10 );
 		this.sname1.setOpaque( false );
-		this.sname2 = new JTextField( "" , 10 );
+		this.sname2 = new JTextField( this.fileadmin.getPlayer2Name() , 10 );
 		this.sname2.setOpaque( false );
 		
 		//Rahmen von textfields durchsichtig machen
@@ -93,6 +96,12 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 		this.add( this.sname1 );
 		
 	    this.add( this.sname2);
+	    
+	    if( this.fileadmin.getKiZustand() )
+	    {
+	    	this.pcButton.setVersion( 1 );
+	    	this.pcButtonKlicked = true;
+	    }
 		
 		this.setVisible(true);
 		
@@ -191,6 +200,15 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 	{
 		if((JLabel)e.getSource() == this.backButton.getImage())
 		{
+			if( this.fileadmin.setPlayer1Name( this.sname1.getText()) && this.fileadmin.setPlayer2Name(  this.sname2.getText()) )
+			{
+				this.fileadmin.setKI( this.pcButtonKlicked );
+			} else
+			{
+				this.sname1.setForeground( new Color(255,255,255).RED );
+				this.sname2.setForeground( new Color(255,255,255).RED );
+				
+			}
 			this.menue.changeMenueCardTo(Menue.MAIN_MENUE);
 			this.backButton.setVersion(0);
 		}
@@ -200,6 +218,15 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 		
 		if( (JLabel)e.getSource() == this.finalstartButton.getImage()  )
 		{
+			if( this.fileadmin.setPlayer1Name( this.sname1.getText()) && this.fileadmin.setPlayer2Name(  this.sname2.getText()) )
+			{
+				this.fileadmin.setKI( this.pcButtonKlicked );
+			} else
+			{
+				this.sname1.setForeground( new Color(255,255,255).RED );
+				this.sname2.setForeground( new Color(255,255,255).RED );
+				
+			}
 			if(this.playButtonKlicked )
 			{
 				this.finalstartButton.setVersion( 0 );
