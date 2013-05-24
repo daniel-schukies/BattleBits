@@ -6,18 +6,12 @@ import java.awt.Font;
 import java.awt.Graphics;
 import javax.swing.JTextField;
 import java.awt.Image;
-
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import GUI.Game.FileAdmin;
-//import GUI.Game.FileAdmin;
-//import GUI.Game.FileAdmin;
 import GUI.Game.Grafikverwaltung.Grafikspeicher;
 import GUI.Game.Grafikverwaltung.ImageCreator;
-
-import java.awt.Toolkit;
 import java.awt.event.*;
 
 
@@ -30,7 +24,6 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	
 	private Image image;
 	private ImageCreator imagecreator;
-	private Dimension aufloesung;
 	
 	//private JCheckBox grafikenLaden;
 	//private JButton speichern;
@@ -74,7 +67,7 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		this.kiButtonKlicked = false;
 		this.backButtonKlicked = false;
 		
-		this.aufloesung = Toolkit.getDefaultToolkit().getScreenSize();
+		//this.aufloesung = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		this.height = new JTextField( String.valueOf( fileadmin.getHeight() ), 10 );
 		this.height.setOpaque( false );
@@ -233,13 +226,13 @@ public class OptionsMenue extends JPanel implements MouseListener {
 					this.backButton.setVersion(0);
 				}else
 				{
-					this.width.setForeground( new Color(255,255,255).RED );
-					this.height.setForeground( new Color(255,255,255).RED );
+					this.width.setForeground( Color.RED );
+					this.height.setForeground( Color.RED );
 				}
 			}catch(NumberFormatException x)
 			{
-				this.width.setForeground( new Color(255,255,255).RED );
-				this.height.setForeground( new Color(255,255,255).RED );
+				this.width.setForeground( Color.RED );
+				this.height.setForeground( Color.RED );
 			}
 
 		}

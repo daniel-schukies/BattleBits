@@ -52,8 +52,10 @@ public class FileAdmin {
 			{
 				System.out.println("Konfig erstellt");
 			}
+			
+			
 		}
-
+System.out.println("Datei gibts nich ------------------------------------------------------------------------->");
 		
 		if( this.readOfFile().length() == 0 )
 		{
