@@ -11,7 +11,9 @@ import Logik.Logikgatter;
 
 public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implements Refreshable
 {
-	
+	/**
+	 * Logikgatter, welche dargestellt werden.
+	 */
 	private Logikgatter[] logikgatter;
 
 	private int anzahlGrafiken;
@@ -24,6 +26,16 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implemen
 	 */
 	private static final long serialVersionUID = 8457018625255576914L;
 
+	/**
+	 * Legt Position und Größe fest. Zudem wird der MouseListener den Grafiken hinzugefügt und die Logikgatter gespeichert.
+	 * @param xPos X-Position der Schaltflaeche
+	 * @param yPos Y-Position der Schaltflaeche
+	 * @param size Gibt die kuerzeste Seite der Quadratischen Schaltflaeche an
+	 * @param anzahlGrafiken Anzahl der in der Schaltlfaeche enthaltenen Grafiken
+	 * @param anzahlVersionen Anzahl der Verschiedenen Bildversionen, welche in der Schaltlfaeche verwendet werden
+	 * @param spiegeln Ob die Inhalte der Schaltflaeche gespielt dargestellt werden sollen.
+	 * @param isVertikal Ob die Rechteckige Schaltflaeche vertikal oder horizontal ausgerichtet sein soll.
+	 */
 	public LogikgatterSchaltflaeche(int xPos,int yPos, int  size, int anzahlGrafiken,Logikgatter[] logikgatter,boolean spiegeln, boolean isVertikal )
 	{
 		super(xPos, yPos,  size,anzahlGrafiken,LogikgatterSchaltflaeche.ANZAHLVERSIONEN, spiegeln, isVertikal);
@@ -46,7 +58,9 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implemen
 	}
 	
 	
-	
+	/**
+	 * Refresh der Logikgattergrafiken
+	 */
 	public void refresh()
 	{
 		for(int i = 0; i < this.anzahlGrafiken; i++ )
@@ -81,6 +95,11 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implemen
 		this.setPressedID(new IDInfo());
 	}
 	
+	/**
+	 * Setzt Logikgattergrafik auf den entsprechenden Status.
+	 * @param logikgatter Logikgatter das beachtet werden soll.
+	 * @param button Hier wird die Grafik geändert.
+	 */
 	public void setImageToLogikgatterStatus(Logikgatter logikgatter, JLabel button)
 	{
 		if(logikgatter != null)
@@ -100,6 +119,9 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implemen
 		}
 	}
 	
+	/**
+	 * Alle Logikgattergrafiken werden den richtien Status gesetzt.
+	 */
 	public void setAllImagesToLogikgatterStatus()
 	{
 		for(int i = 0; i < this.anzahlGrafiken; i++)
@@ -108,12 +130,16 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implemen
 		}
 	}
 	
+	/**
+	 * Gibts Logikgatterarray zuruck
+	 * @return Array mit Logikgattern, welche dargestellt werden.
+	 */
 	public Logikgatter[] getLogikgatter()
 	{
 		return this.logikgatter;
 	}
 	
-
+	
 	@Override
 	public void mouseEntered(MouseEvent e) 
 	{
@@ -122,12 +148,12 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implemen
 		{
 			if( button != this.getImage(this.getPressedID().getID()) )
 			{
-				super.changeVersion(2, (JLabel)e.getSource());
+				super.changeVersion(2, (JLabel)e.getSource()); // Mouseover
 			}
 		}
 		else
 		{
-			super.changeVersion(2, (JLabel)e.getSource());
+			super.changeVersion(2, (JLabel)e.getSource()); //Mouseover
 		}
 	}
 
@@ -139,12 +165,12 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implemen
 		{
 			if( button != this.getImage(this.getPressedID().getID()) )
 			{
-				this.changeVersion(0, (JLabel)e.getSource());
+				this.changeVersion(0, (JLabel)e.getSource()); //Normal
 			}
 		}
 		else
 		{
-			super.changeVersion(0, (JLabel)e.getSource());
+			super.changeVersion(0, (JLabel)e.getSource());//Normal
 		}
 	}
 
@@ -170,12 +196,12 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implemen
 			if(button == this.getImage(this.getPressedID().getID()))
 			{
 				this.changeVersion(0, button);
-				this.getPressedID().setIsPressed(false);
+				this.getPressedID().setIsPressed(false);//Speichere Zustand
 			}
 			else
 			{
 				this.changeVersion(0, this.getImage(this.getPressedID().getID()));
-				this.changeVersion(1, button);
+				this.changeVersion(1, button);// angeklickt
 				this.setPressedID(this.getImageIDInfo( button ));
 			}
 		}
