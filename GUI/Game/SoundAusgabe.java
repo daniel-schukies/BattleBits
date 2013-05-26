@@ -28,25 +28,6 @@ public class SoundAusgabe {
 	{
 		
 	}
-
-	public void play( URL url)
-	{
-		try {
-		   // File neuziehen;
-		    this.stream = AudioSystem.getAudioInputStream(url);
-		    this.format = stream.getFormat();
-		    this.info = new DataLine.Info(Clip.class, format);
-		    this.clip = (Clip) AudioSystem.getLine(info);
-		    this.clip.open(stream);
-		    this.clip.start();
-		    
-		    
-		    
-		}
-		catch (Exception ex) {
-		    System.out.println( "Sound fehler ");
-		}
-	}
 	
 	public void playWarning()
 	{
