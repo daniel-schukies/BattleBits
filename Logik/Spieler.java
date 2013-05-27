@@ -9,8 +9,10 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
+import javax.swing.SwingUtilities;
 
 import GUI.Game.SoundAusgabe;
+import GUI.Game.Schaltflaechen.SpielfeldSchaltflaeche;
 
 
 
@@ -232,7 +234,14 @@ public class Spieler
 			
 			this.zieheNeuesLogikgatter(indexVerwendetesGatter);
 			bitfolge.invertBit(bitMitMeistemSchaden);
-			this.sa.playWarning();
+	SwingUtilities.invokeLater(new Runnable() 
+	{
+			public void run() 
+		    {
+				Spieler.this.sa.playWarning();
+		    }
+	  });
+
 		}
 		else // Anderes Gatter muss gespielt werden.
 		{
@@ -320,12 +329,12 @@ public class Spieler
 					System.out.println("Gatter Index: " + gatterPrioritaet[priorisiertesGatter][1] );
 				}
 				this.zieheNeuesLogikgatter(priorisiertesGatter);
-				this.sa.playNeuZiehen();
+				//this.sa.playNeuZiehen();
 			}
 			else // Ziehe Neues
 			{
 				this.zieheNeuesLogikgatter(new Random().nextInt(4));
-				this.sa.playNeuZiehen();
+			//	this.sa.playNeuZiehen();
 			}
 		}
 
