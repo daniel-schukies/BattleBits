@@ -11,7 +11,12 @@ import Logik.Spiel;
 import Logik.Spieler;
 
 
-
+/**
+ * Klasse dient zur grafischen Darstellung eines Teils des Spielfelds, naemlich dem eines Spielers.
+ * Auf diesem Teil des Spielfelds werden die Logikgatter des jeweiligen Spielers dargestellt, die dieser auf das Spielfeld gelegt hat.
+ * @author Daniel Schukies und Sebastian Junger
+ *
+ */
 @SuppressWarnings("serial")
 public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 {
@@ -20,18 +25,43 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 	
 	private Spiel spiel;
 	
+	/**
+	 * Spieler dem dieser Teil des Spielfelds gehoert
+	 */
 	private Spieler spieler;
 	
+	/**
+	 * Welches Gatter gewaehlt wurde.
+	 */
 	private IDInfo[] gatterPosition;
 	
+	/**
+	 * Logikgatter die Spieler zu Auswahl hat(Darstellende Schaltflaeche)
+	 */
 	private LogikgatterSchaltflaeche schaltflaeche;
 	
+	/**
+	 * Zu aktualisierende Schaltflaechen
+	 */
 	private Refreshable[] refreshSchaltflaechen;
 	
+	/**
+	 * Soundausgabe
+	 */
 	private SoundAusgabe sound;
 	
 	private LogikgatterSchaltflaeche[] logikgatterSchaltflaechenArray;
 	
+	/**
+	 * 
+	 * @param xPos X-Position der Schaltflaeche
+	 * @param yPos Y-Position der Schaltflaeche
+	 * @param schaltflaeche Logikgatter die Spieler zu Auswahl hat(Darstellende Schaltflaeche)
+	 * @param spiel aktuelles SpielS
+	 * @param spieler Spieler dem dieser Teil des Spielfelds gehoert
+	 * @param breite Eine Seiteenlaenge der Spielfeldschaltflaeche (da Quadratisch)
+	 * @param spiegeln Ob Schaltflaecheninhalt gespiegelt sein soll.
+	 */
 	public SpielfeldSchaltflaeche(int xPos,int yPos,LogikgatterSchaltflaeche schaltflaeche, Spiel spiel, Spieler spieler, int breite,boolean spiegeln )
 	{
 		this.setLayout(null);
@@ -58,7 +88,9 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 		int yPosSchaltflaechen = 0;
 		int xPosSchaltflaechen = 0;
 		
-		
+		/**
+		 * Berechne groesse der Schaltlfaeche und Anordnung der SpielfeldSLogikgatterSchaltflaechen
+		 */
 		for( int i=0; i < this.anzahlSchaltflaechen; i++)
 		{
 			switch(i)
@@ -92,12 +124,18 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Setzen der Refreshschaltflaechen
+	 * @param refrashSchaltflaechen Schaltflaechen, die aktualisiert werden sollen, wenn noetig
+	 */
 	public void setRefreshSchaltflaechen(Refreshable[] refrashSchaltflaechen)
 	{
 		this.refreshSchaltflaechen = refrashSchaltflaechen;
 	}
 	
-	
+	/**
+	 * Ueberpruefe, ob Button geklickt wurde und schreibe noetige Eintraege
+	 */
 	public void sucheGeklicktenButton()
 	{
 		for( int j=0; j < this.anzahlSchaltflaechen; j++)
@@ -113,7 +151,9 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 		}
 	}
 	
-	
+	/**
+	 * Beende aktuellen Spielzug und leite naechsten ein.
+	 */
 	public void beendeSpielzug()
 	{
 		if(this.gatterPosition[0].getIsPressed() && this.schaltflaeche.getPressedID().getIsPressed() && this.spieler.getIsDran() )
@@ -128,6 +168,9 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 				  {
 					    public void run() 
 					    {
+					    	/**
+					    	 * Schaue ob KI spielen muss
+					    	 */
 							if(SpielfeldSchaltflaeche.this.spiel.getAktuellerSpieler().getIsKI() && SpielfeldSchaltflaeche.this.spiel.getAktuellerSpieler().getIsDran())
 							{
 								SpielfeldSchaltflaeche.this.spiel.nextSpielzug();
@@ -164,6 +207,9 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 		}
 	}
 	
+	/**
+	 * Aktualisiert diese Schaltflaeche
+	 */
 	public void refresh()
 	{
 		for(int i = 0; i < this.anzahlSchaltflaechen; i++)
@@ -173,6 +219,9 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 		}
 	}
 	
+	/**
+	 * Setzt alle Grafiken auf z.B. den Logikgatterstatus etc. zurueck
+	 */
 	public void resetAllImages()
 	{
 		for( int j=0; j < this.anzahlSchaltflaechen; j++)
