@@ -112,7 +112,7 @@ public class Spieler
 		return this.isKI;
 	}
 	/**
-	 * Gibt den inhalt der Variable isDran zurück
+	 * Gibt den inhalt der Variable isDran zurueck
 	 * @return Inhalt der Variable isDran
 	 */
 	public boolean getIsDran()
@@ -123,8 +123,8 @@ public class Spieler
 
 	/**
 	 * loescht ein bestimmtes Logikgatter
-	 * @param index Index des zu löschenden Logikgatters
-	 * @return Löschen erfolgreich
+	 * @param index Index des zu loeschenden Logikgatters
+	 * @return Loeschen erfolgreich
 	 */
 	public boolean loescheLogikgatter(int index)
 	{
