@@ -112,7 +112,7 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		//this.add( this.bild );
 		
 		//hoehe 45 für das Textfield wird benötigt, weil die Buchstaben sonst abgeschnitten werden
-		 this.width.setBounds( 425, 362, 100, 55 );
+		 this.width.setBounds( 413, 362, 120, 55 );
 		 this.height.setBounds( 575, 362, 100, 55 );
 		 
 		 //this.grafikenLaden.setBounds( 235, 335, 410, 45 );
