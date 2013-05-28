@@ -18,10 +18,14 @@ import javax.swing.ImageIcon;
 
 public class ImageCreator 
 {
+	/**
+	 * Strings für den Dateipfad
+	 */
 	private static final String VERZEICHNIS = "/GUI/grafiken/";
 	private static final String DATEIENDUNG = ".png";
 	private static final String PLATZHALTER = "platzhalter";
 	private static final String LOGIKGATTERSTATUS = "L";
+	
 	private static GrafikCache grafikCache;
 	private static boolean grafikenVorgeladen = false;
 	private static int cntReload = 0;
@@ -29,7 +33,12 @@ public class ImageCreator
 	private Dimension size;
 	private boolean spiegeln;
 	
-	
+	/**
+	 * Setzt Eigenschaften der Grafiken
+	 * @param size Aufloesung der zu erstellenden Grafiken
+	 * @param anzahlVersionen Anzahl der Grafikversionen
+	 * @param spiegeln Ob Grafiken gespiegelt werden sollen.
+	 */
 	public ImageCreator(Dimension size, int anzahlVersionen,boolean spiegeln)
 	{
 		this.setAufloesung(size);	
@@ -161,6 +170,11 @@ public class ImageCreator
 		return grafiken;
 	}
 	
+	/**
+	 * Generiert ein Array mit allen Versionen(Grafiken) des uebergebenen Dateinamens
+	 * @param dateiname Dateiname von dem man alle Grafikversionen haben will.
+	 * @return Array mit Grafiken
+	 */
 	public ImageIcon[] getImage(String dateiname)
 	{
 		BufferedImage[] logikgatterCacheImages = ImageCreator.grafikCache.getImages(this.size, dateiname); // Lade Grafiken aus Cache
@@ -239,19 +253,32 @@ public class ImageCreator
 		return grafiken;
 	}
 
-	
+	/**
+	 * Erstellt Platzhalter-Array
+	 * @return Array mit Grafiken
+	 */
 	public ImageIcon[] getImage()
 	{	
 		return this.getImage(ImageCreator.PLATZHALTER);
 	}
 	
 
-	
+	/**
+	 * Aufloesung der Grafiken kann nachtraeglicht geaendert werden
+	 * @param size Aufloesung
+	 */
 	public void setAufloesung(Dimension size)
 	{
 		this.size = size;
 	}
 	
+	/**
+	 * Zeichnet zwei Grafiken aufeinander (fuer Logikgattergrafiken)
+	 * @param mainImage Hauptgrafik
+	 * @param overlayImage Overlay-Grafik
+	 * @param logikgatter Logiktter von dem die Grafik erstellt wird.
+	 * @return Grafik mit beiden Grafiken
+	 */
 	public ImageIcon zeichneLogikgatterStatus(BufferedImage mainImage, BufferedImage overlayImage, Logikgatter logikgatter )
 	{
 		if(!(logikgatter instanceof Not))
@@ -272,6 +299,9 @@ public class ImageCreator
 		}
 	}
 	
+	/**
+	 * Laedt Logikgattergrafiken vor.
+	 */
 	public void grafikenVorladen()
 	{
 		if( (!(ImageCreator.grafikenVorgeladen)) && (ImageCreator.cntReload == 0))
