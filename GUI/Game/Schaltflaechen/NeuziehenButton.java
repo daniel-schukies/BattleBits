@@ -19,7 +19,14 @@ public class NeuziehenButton extends JPanel implements MouseListener
 	LogikgatterSchaltflaeche[] schaltflaeche;
 	Refreshable[] refreshSchaltflaechen;
 	private SoundAusgabe sound;
-	
+	/**
+	 * Instanziert einen NeuziehenButton
+	 * @param xPos Position des Buttons auf der x - Achse
+	 * @param yPos Position des Buttons auf der y - Achse
+	 * @param size Groesse des Buttons
+	 * @param spiel Spiel, mit dem die Klasse neue gatter zieht
+	 * @param logikgatterschaltflaeche Logikgatterschaltflaeche, auf der ein zu tauschendes gatter gewaehlt wird
+	 */
 	public NeuziehenButton(int xPos, int yPos, int size, Spiel spiel,LogikgatterSchaltflaeche[] logikgatterschaltflaeche )
 	{
 		this.setLayout(null);
