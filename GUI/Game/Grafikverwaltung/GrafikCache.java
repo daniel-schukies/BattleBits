@@ -4,11 +4,24 @@ import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author DANI
+ *
+ */
 public class GrafikCache 
 {
+	/**
+	 * Speicher der Grafiken und Strings
+	 */
 	private static ArrayList<ArrayList<?>> grafikCache = new ArrayList<ArrayList<?>>();
 	
-	
+	/**
+	 * Speichert einen Grafiken-Array mit zugehoerigem String
+	 * @param grafikBezeichnung Name des Grafik-Arrays
+	 * @param images Array mit den Grafiken
+	 * @return
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public boolean saveImages(String grafikBezeichnung, BufferedImage[] images)
 	{
@@ -36,7 +49,12 @@ public class GrafikCache
 		return true;
 	}
 	
-	
+	/**
+	 * Liest Grafiken-Array aus dem Cache aus
+	 * @param size Aufloesung der Grafiken
+	 * @param grafikBezeichnung Name des Grafik-Arrays
+	 * @return
+	 */
 	public BufferedImage[] getImages(Dimension size, String grafikBezeichnung)
 	{
 		//Schauen ob Grafik existiert
