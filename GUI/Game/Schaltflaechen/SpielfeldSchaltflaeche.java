@@ -45,6 +45,7 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 	 */
 	private Refreshable[] refreshSchaltflaechen;
 	
+
 	/**
 	 * Soundausgabe
 	 */
@@ -198,8 +199,6 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 				{
 					public void run() 
 					{
-						
-						//URL url = getClass().getResource("/error.wav");
 						SpielfeldSchaltflaeche.this.sound.playError();
 					}
 				});

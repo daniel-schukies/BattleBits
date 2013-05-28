@@ -13,6 +13,9 @@ public class Spielfeld implements Cloneable
 		this.logikgatter = new Logikgatter[4][5];
 	}
 	
+	/**
+	 * Erstellt einen Klon des aktuellen Spielfelds
+	 * */
     public Spielfeld clone() 
     {
         Spielfeld theClone = new Spielfeld();
@@ -30,13 +33,13 @@ public class Spielfeld implements Cloneable
 	
 	
 	/**
-	 * Setzt ein Logikgatter an einen bestimmten Platz und Index.
-	 * @param reihe
-	 * @param index
-	 * @param logikgatter
+	 * Setzt ein Logikgatter an einen bestimmten Platz und Index auf der Bitfolge.
+	 * @param reihe reihe, an die gelegt werden soll
+	 * @param index index, an den gelegt werden soll
+	 * @param logikgatter Logikgatter, das gelegt werden soll
+	 * @param bitfolge Bitfolge auf die gelegt wird
 	 * @return Wenn false zurueckgegeben wird wurde kein Logikgatter gesetzt.
 	 */
-	
 	public boolean setLogikgatter(int reihe, int index, Logikgatter logikgatter, Bitgenerator bitfolge)
 	{
 		if(this.pruefeReiheIndex( reihe, index))
@@ -82,6 +85,13 @@ public class Spielfeld implements Cloneable
 		return false; // Wurde nicht gesetzt
 	}
 	
+	/**
+	 * Setzt ein Logikgatter an einen bestimmten Platz und Index auf dem Spielfeld.
+	 * @param reihe reihe, an die gelegt werden soll
+	 * @param index index, an den gelegt werden soll
+	 * @param logikgatter Logikgatter, das gelegt werden soll
+	 * @return Wenn false zurueckgegeben wird wurde kein Logikgatter gesetzt.
+	 */
 	public void setLogikgatter(int reihe, int index, Logikgatter logikgatter)
 	{
 		try
@@ -97,11 +107,10 @@ public class Spielfeld implements Cloneable
 	
 	/**
 	 * Gibt ein Logikgatter an einem bestimmten Platz und Index zurueck.
-	 * @param reihe
-	 * @param index
+	 * @param reihe Reihe, des zu holenden Logikgatters
+	 * @param index Index, des zu holenden Logikgatters
 	 * @return Ein Logikgatter
 	 */
-	
 	public Logikgatter getLogikgatter(int reihe, int index)
 	{
 		if(this.pruefeReiheIndex( reihe, index))
@@ -115,6 +124,11 @@ public class Spielfeld implements Cloneable
 		return null; // Konnte Logikgatter nicht finden.
 	}
 	
+	/**
+	 * Gibt alle Logikgatter aus einer Reihe zurueck.
+	 * @param reihe Reihe, des zu holenden Logikgatters
+	 * @return Alle Logikgatter aus der Reihe
+	 */
 	public Logikgatter[] getLogikgatter(int reihe)
 	{
 		if(this.pruefeReiheIndex(reihe, 0))
@@ -185,6 +199,10 @@ public class Spielfeld implements Cloneable
 		return anzahlUngueltigeLogikgatter;
 	}
 	
+	/**
+	 * entfernt ungueltige Logikgatter aus dem Spielfeld
+	 * @param bitfolge Bitfolge mit der die Logik geprueft werden soll
+	 * */
 	public void entferneUngueltigeLogikgatter(Bitgenerator bitfolge)
 	{
 		this.pruefeGueltigkeit(bitfolge);
@@ -211,7 +229,6 @@ public class Spielfeld implements Cloneable
 	 * Wenn dies der Fall ist wird true returned.
 	 * @return boolean 
 	 */
-	
 	public boolean pruefeReiheIndex(int reihe, int index)
 	{
 		if((reihe == 3 && index == 0) || (reihe == 2 && (index < 2 && index >= 0)) || (reihe == 1 && (index < 3 && index >= 0)) || (reihe == 0 && (index < 4 && index >= 0)) )

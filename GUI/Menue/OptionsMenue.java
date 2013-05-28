@@ -10,6 +10,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import GUI.Game.FileAdmin;
+//import GUI.Game.FileAdmin;
+//import GUI.Game.FileAdmin;
 import GUI.Game.Grafikverwaltung.Grafikspeicher;
 import GUI.Game.Grafikverwaltung.ImageCreator;
 import java.awt.event.*;
@@ -30,9 +32,7 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	private Grafikspeicher grafikcacheButton;
 	private Grafikspeicher backButton;
 	private boolean kiButtonKlicked , backButtonKlicked;
-	
 	private FileAdmin fileadmin;
-	
 	private Menue menue;
 
 	
@@ -47,8 +47,8 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		this.image = this.imagecreator.getImage("MenuOptionsBack")[0].getImage();
 		
 		this.menue = menue;
-		
 		this.fileadmin = new FileAdmin();
+
 		
 		//this.grafikenLaden = new JCheckBox( "Grafiken vorladen" , false );
 		//this.grafikenLaden.setOpaque( false );
@@ -106,7 +106,7 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		//this.add( this.bild );
 		
 		//hoehe 45 für das Textfield wird benötigt, weil die Buchstaben sonst abgeschnitten werden
-		 this.width.setBounds( 425, 362, 100, 55 );
+		 this.width.setBounds( 413, 362, 120, 55 );
 		 this.height.setBounds( 575, 362, 100, 55 );
 		 
 		 //this.grafikenLaden.setBounds( 235, 335, 410, 45 );
@@ -234,7 +234,6 @@ public class OptionsMenue extends JPanel implements MouseListener {
 				this.width.setForeground( Color.RED );
 				this.height.setForeground( Color.RED );
 			}
-
 		}
 
 		

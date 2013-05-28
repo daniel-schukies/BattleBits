@@ -11,21 +11,11 @@ import GUI.Menue.Menue;
 
 
 
+@SuppressWarnings("serial")
 public class GameFrame extends JFrame 
 {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3975895020911336926L;
-	private SoundAusgabe sound;
-	/**
-	 * 
-	 */
 	private Menue menue;
 
-	
-	
 	
 	public GameFrame()
 	{
@@ -45,7 +35,7 @@ public class GameFrame extends JFrame
 		
 		this.menue = new Menue(this);
 		this.add(menue);
-		this.sound = new SoundAusgabe();
+		//this.sound = new SoundAusgabe();
 		
 		
 		//this.add( new SpielereinstellungenMenue( 0,0,new Dimension(800,600), new Menue()) );
@@ -98,12 +88,15 @@ public class GameFrame extends JFrame
 		this.validate();
 		this.repaint();
 		
-		sound.play( getClass().getResource( "/loading1.wav" ) );
+	//	sound.play( getClass().getResource( "/loading1.wav" ) );
+
 		
 		  SwingUtilities.invokeLater(new Runnable() 
 		  {
 			    public void run() 
 			    {
+
+			    
 			    	//ImageCreator.grafikenVorladen = true;
 					GamePanel game = new GamePanel(aufloesung);
 					game.setBounds(0, 0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
