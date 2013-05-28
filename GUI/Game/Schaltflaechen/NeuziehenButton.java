@@ -20,7 +20,7 @@ public class NeuziehenButton extends JPanel implements MouseListener
 	Refreshable[] refreshSchaltflaechen;
 	private SoundAusgabe sound;
 	
-	public NeuziehenButton(int xPos, int yPos, int size, Spiel spiel,LogikgatterSchaltflaeche[] logikgatterSchaltflaeche )
+	public NeuziehenButton(int xPos, int yPos, int size, Spiel spiel,LogikgatterSchaltflaeche[] logikgatterschaltflaeche )
 	{
 		this.setLayout(null);
 		this.setBounds(xPos, yPos, size, size);
@@ -30,7 +30,7 @@ public class NeuziehenButton extends JPanel implements MouseListener
 		this.spiel = spiel;
 		this.sound  = new SoundAusgabe();
 		
-		this.schaltflaeche = logikgatterSchaltflaeche;
+		this.schaltflaeche = logikgatterschaltflaeche;
 		
 		this.grafik = new Grafikspeicher(new Dimension(size,size), 3, false);
 		
@@ -56,12 +56,14 @@ public class NeuziehenButton extends JPanel implements MouseListener
 	public void mouseClicked(MouseEvent e) 
 	{
 		System.out.println("GEHHT4");
+		//sucht den Spieler, der geklickt hat
 		for(int spielerID = 0; spielerID < this.schaltflaeche.length; spielerID++)
 		{
 			System.out.println("GEHHT3");
 			if( ( this.spiel.getAktuellerSpieler().getLogikgatter() == this.schaltflaeche[spielerID].getLogikgatter() ) && this.spiel.getSpieler()[spielerID].getIsDran() )
 			{
 				System.out.println("GEHHT5 ID" + spielerID);
+				//sucht das Gatter, das ausgewaehlt wurde
 				if(this.schaltflaeche[spielerID].getPressedID().getIsPressed())
 				{
 					this.spiel.getAktuellerSpieler().zieheNeuesLogikgatter(this.schaltflaeche[spielerID].getPressedID().getID());
