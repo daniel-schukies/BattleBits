@@ -13,13 +13,24 @@ import Logik.Logikgatter;
 public class SpielfeldLogikgatterSchaltflaeche extends LogikgatterSchaltflaeche implements Refreshable
 {
 	private SpielfeldSchaltflaeche spielfeldSchaltflaeche;
-	
-	public SpielfeldLogikgatterSchaltflaeche(int xPos,int yPos, int  size, int anzahlGrafiken,Logikgatter[] logikgatter,MouseListener externerMouseListener,SpielfeldSchaltflaeche spielfeldSchaltflaeche,boolean spiegeln, boolean isVertikal )
+	/**
+	 * Erstellt eine SpielfeldLogikgatterSchaltflaeche
+	 * @param xPos Position der Schaltflaeche auf der x - Achse
+	 * @param yPos Position der Schaltflaeche auf der y - Achse
+	 * @param size Groesse der Schaltflaeche
+	 * @param anzahlGrafiken Anzahl der enthaltenen Logikgatter
+	 * @param logikgatter enthaltene Logikgatter
+	 * @param externerMouseListener MouseListener, um MouseEvents zu bearbeiten
+	 * @param spielfeldschaltflaeche SpfielfeldSchaltflaeche, auf der das objekt dargestellt werden soll
+	 * @param spiegeln spiegeln der Schaltflaeche
+	 * @param isVertikal horizontale bzw. vertikale Anzeigee
+	 */
+	public SpielfeldLogikgatterSchaltflaeche(int xPos,int yPos, int  size, int anzahlGrafiken,Logikgatter[] logikgatter,MouseListener externerMouseListener,SpielfeldSchaltflaeche spielfeldschaltflaeche,boolean spiegeln, boolean isVertikal )
 	{
 		super(xPos,yPos,size,anzahlGrafiken,logikgatter,spiegeln,isVertikal );
 		this.setBackground(new Color(0,0, 0,255) );
 		this.setOpaque(false);
-		this.spielfeldSchaltflaeche = spielfeldSchaltflaeche;
+		this.spielfeldSchaltflaeche = spielfeldschaltflaeche;
 	}
 	
 	@Override
