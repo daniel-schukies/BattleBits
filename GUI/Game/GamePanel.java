@@ -168,6 +168,7 @@ public class GamePanel extends JPanel
 		
 		
 		*/
+		new SoundAusgabe().playSound();
 		this.setVisible(true);
 	}
 	
