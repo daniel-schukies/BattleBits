@@ -28,6 +28,7 @@ public class FileAdmin {
 	private static int width;
 	private static Boolean sound;
 	private static Boolean music;
+	private static Boolean fullscreen;
 	private String tmp;
 	
 	/**
@@ -36,7 +37,7 @@ public class FileAdmin {
 	public FileAdmin()
 	{
 		FileAdmin.file = new File( "infos.ini" );
-		this.trennzeichen = new int[8];
+		this.trennzeichen = new int[9];
 		FileAdmin.player1Name = "Player1";
 		FileAdmin.player2Name = "Player2";
 		FileAdmin.ki = false;
@@ -46,6 +47,7 @@ public class FileAdmin {
 		FileAdmin.width = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		FileAdmin.sound = true;
 		FileAdmin.music = true;
+		FileAdmin.fullscreen = false;
 		
 		try
 		{
@@ -184,8 +186,9 @@ public class FileAdmin {
 			{
 				this.setSound( true );
 			}
+			temporaer.delete(0, temporaer.length());
 			
-			for(int i=trennzeichen[7]+1; i < tmp.length(); i++)
+			for(int i=trennzeichen[7]+1; i < trennzeichen[8]; i++)
 			{
 				temporaer.append( tmp.charAt(i) );
 			}
@@ -197,8 +200,21 @@ public class FileAdmin {
 			{
 				this.setMusic( true );
 			}
+			temporaer.delete(0, temporaer.length());
 
+			for(int i=trennzeichen[8]+1; i < tmp.length(); i++)
+			{
+				temporaer.append( tmp.charAt(i) );
+			}
 			
+			if ( temporaer.toString().matches("false") )
+			{
+				this.setFullscreen( false );
+			}else
+			{
+				this.setFullscreen( true );
+			}
+			temporaer.delete(0, temporaer.length());
 		}
 		
 	}
@@ -209,7 +225,8 @@ public class FileAdmin {
 	{
 		try{
 			 writer = new FileWriter(file); 
-			 writer.write( "" + FileAdmin.height + ";" + FileAdmin.width + ";" + FileAdmin.player1Name + ";" + FileAdmin.player2Name + ";" + FileAdmin.ki + ";" + FileAdmin.cache + ";" + FileAdmin.hardcoreMode + ";" + FileAdmin.sound + ";" + FileAdmin.music);
+			// System.out.println( "-----------------schreibt:" + FileAdmin.music ); 
+			 writer.write( "" + FileAdmin.height + ";" + FileAdmin.width + ";" + FileAdmin.player1Name + ";" + FileAdmin.player2Name + ";" + FileAdmin.ki + ";" + FileAdmin.cache + ";" + FileAdmin.hardcoreMode + ";" + FileAdmin.sound + ";" + FileAdmin.music + ";" + FileAdmin.fullscreen);
 			 writer.flush(); //leert den  Stream
 			 
 			 writer.close(); //schließt den Stream
@@ -273,6 +290,18 @@ public class FileAdmin {
 		return true;
 	}
 	/**
+	 * Setzt, ob Fullscreen verwendet werden soll
+	 * @param fullscreen Wert, ob Fullscreen verwendet werden soll
+	 * @return Erfolg des Setzens
+	 */
+	public boolean setFullscreen( boolean fullscreen )
+	{
+		FileAdmin.fullscreen = fullscreen;
+		this.updateFile();
+		return true;
+	}
+	
+	/**
 	 * Setzt, ob im HardCoreMode gespielt werden soll
 	 * @param hardcore Zustand des HardcoreModes
 	 * @return Erfolg des Setzens
@@ -291,6 +320,7 @@ public class FileAdmin {
 	public boolean setMusic( boolean music )
 	{
 		FileAdmin.music = music;
+		this.updateFile();
 		return true;
 	}
 	/**
@@ -301,6 +331,7 @@ public class FileAdmin {
 	public boolean setSound( boolean sound )
 	{
 		FileAdmin.sound = sound;
+		this.updateFile();
 		return true;
 	}
 	/**
@@ -351,6 +382,14 @@ public class FileAdmin {
 	public int getHeight()
 	{
 		return FileAdmin.height;
+	}
+	/**
+	 * Gibt zurueck, ob Fullscreen verwendet wird
+	 * @return Wert, ob Fullscreen verwendet wird
+	 */
+	public boolean getFullscreenZustand()
+	{
+		return FileAdmin.fullscreen;
 	}
 	/**
 	 * Gibt die gesetzte Breite zurueck
@@ -446,16 +485,17 @@ public class FileAdmin {
 			return buff.toString();
 		}
 
-	public static void main( String[] arg )
+/*	public static void main( String[] arg )
 	{
 		FileAdmin fa = new FileAdmin();
 		System.out.println( fa.readOfFile() );
-		System.out.println( fa.getSoundZustand() );
-		fa.setSound(false);
-		System.out.println( fa.getSoundZustand() );
+		System.out.println( fa.getFullscreenZustand() );
+		fa.setFullscreen(false);
+		System.out.println( fa.getFullscreenZustand() );
 		
-		
-	}
+		FileAdmin la = new FileAdmin();
+		System.out.println( la.getFullscreenZustand() );
+	}*/
 }
 
 
