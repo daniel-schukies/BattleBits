@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import GUI.Game.FileAdmin;
 import GUI.Game.IDInfo;
 import GUI.Game.Refreshable;
 import GUI.Game.SoundAusgabe;
@@ -45,6 +47,8 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 	 */
 	private Refreshable[] refreshSchaltflaechen;
 	
+	private FileAdmin filewriter; 
+	
 
 	/**
 	 * Soundausgabe
@@ -63,7 +67,7 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 	 * @param breite Eine Seiteenlaenge der Spielfeldschaltflaeche (da Quadratisch)
 	 * @param spiegeln Ob Schaltflaecheninhalt gespiegelt sein soll.
 	 */
-	public SpielfeldSchaltflaeche(int xPos,int yPos,LogikgatterSchaltflaeche schaltflaeche, Spiel spiel, Spieler spieler, int breite,boolean spiegeln )
+	public SpielfeldSchaltflaeche(int xPos,int yPos,LogikgatterSchaltflaeche schaltflaeche, Spiel spiel, Spieler spieler, int breite,boolean spiegeln)
 	{
 		this.setLayout(null);
 		this.setBounds(xPos, yPos, breite, breite);
@@ -74,7 +78,9 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 		this.schaltflaeche = schaltflaeche;
 		
 		this.sound  = new SoundAusgabe();
-		
+		this.filewriter = new FileAdmin();
+		this.filewriter.setHardCoreMode(true);
+	
 		this.spiel = spiel;
 		this.spieler = spieler;
 		
@@ -116,7 +122,7 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 			}
 			
 			//																		(int xPos,					int yPos		    , int  size							, int anzahlGrafiken   ,Logikgatter[] logikgatter ,MouseListener externerMouseListener,boolean spiegeln, boolean isVertikal )
-			this.logikgatterSchaltflaechenArray[i] = new SpielfeldLogikgatterSchaltflaeche( xPosSchaltflaechen, yPosSchaltflaechen, breite/this.anzahlSchaltflaechen, (this.anzahlSchaltflaechen-i),this.spieler.getSpielfeld().getLogikgatter(i),null,this,spiegeln, true );
+			this.logikgatterSchaltflaechenArray[i] = new SpielfeldLogikgatterSchaltflaeche( xPosSchaltflaechen, yPosSchaltflaechen, breite/this.anzahlSchaltflaechen, (this.anzahlSchaltflaechen-i),this.spieler.getSpielfeld().getLogikgatter(i),null,this,spiegeln, true, !this.filewriter.getHardCoreZustand() );
 			this.logikgatterSchaltflaechenArray[i].setAllImagesToLogikgatterStatus();
 			this.add(this.logikgatterSchaltflaechenArray[i]);
 		}
@@ -163,24 +169,27 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 			{
 				this.resetAllImages();
 				this.spiel.nextSpielzug();
+				
+				/**
+		    	 * Schaue ob KI spielen muss
+		    	 */
+				if(this.spiel.getAktuellerSpieler().getIsKI() && this.spiel.getAktuellerSpieler().getIsDran())
+				{
+					SpielfeldSchaltflaeche.this.spiel.nextSpielzug();
+				}
+				
+				SpielfeldSchaltflaeche.this.gatterPosition[0].setIsPressed(false);
+				SpielfeldSchaltflaeche.this.gatterPosition[1].setIsPressed(false);
+							
+				SpielfeldSchaltflaeche.this.schaltflaeche.getPressedID().setIsPressed(false);
+
+				
 				this.refresh();
 				
 				  SwingUtilities.invokeLater(new Runnable() 
 				  {
 					    public void run() 
 					    {
-					    	/**
-					    	 * Schaue ob KI spielen muss
-					    	 */
-							if(SpielfeldSchaltflaeche.this.spiel.getAktuellerSpieler().getIsKI() && SpielfeldSchaltflaeche.this.spiel.getAktuellerSpieler().getIsDran())
-							{
-								SpielfeldSchaltflaeche.this.spiel.nextSpielzug();
-							}
-							
-							SpielfeldSchaltflaeche.this.gatterPosition[0].setIsPressed(false);
-							SpielfeldSchaltflaeche.this.gatterPosition[1].setIsPressed(false);
-							
-							SpielfeldSchaltflaeche.this.schaltflaeche.getPressedID().setIsPressed(false);
 
 							SpielfeldSchaltflaeche.this.schaltflaeche.refresh();
 							if(SpielfeldSchaltflaeche.this.refreshSchaltflaechen != null)
@@ -195,13 +204,40 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 
 			}else
 			{
-				SwingUtilities.invokeLater(new Runnable() 
+				this.sound.playError();
+				System.out.println("fast^^");
+				
+				if(this.filewriter.getHardCoreZustand())
 				{
-					public void run() 
+					System.out.println("Hardcore!");
+					this.spiel.nextSpielzug();
+					
+			    	/**
+			    	 * Schaue ob KI spielen muss
+			    	 */
+					if(SpielfeldSchaltflaeche.this.spiel.getAktuellerSpieler().getIsKI() && SpielfeldSchaltflaeche.this.spiel.getAktuellerSpieler().getIsDran())
 					{
-						SpielfeldSchaltflaeche.this.sound.playError();
+						this.spiel.nextSpielzug();
+						
+						if(this.refreshSchaltflaechen != null)
+						{
+							for(int i = 0; i < this.refreshSchaltflaechen.length; i++)
+							{
+								this.refreshSchaltflaechen[i].refresh();
+							}
+						}
+						
+						SwingUtilities.invokeLater(new Runnable() 
+						{
+							public void run() 
+							{
+								SpielfeldSchaltflaeche.this.refresh();
+							}
+						});
 					}
-				});
+				}
+				
+
 			}
 		}
 	}

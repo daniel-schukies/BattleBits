@@ -20,6 +20,7 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implemen
 	private static final int ANZAHLVERSIONEN = 4;
 	private Logikgatter[] logikgatterCache;
 	private int refreshCounter;
+	private boolean drawLogikgatterStatus;
 	
 	/**
 	 * 
@@ -36,9 +37,11 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implemen
 	 * @param spiegeln Ob die Inhalte der Schaltflaeche gespielt dargestellt werden sollen.
 	 * @param isVertikal Ob die Rechteckige Schaltflaeche vertikal oder horizontal ausgerichtet sein soll.
 	 */
-	public LogikgatterSchaltflaeche(int xPos,int yPos, int  size, int anzahlGrafiken,Logikgatter[] logikgatter,boolean spiegeln, boolean isVertikal )
+	public LogikgatterSchaltflaeche(int xPos,int yPos, int  size, int anzahlGrafiken,Logikgatter[] logikgatter,boolean spiegeln, boolean isVertikal, boolean drawLogikgatterStatus )
 	{
 		super(xPos, yPos,  size,anzahlGrafiken,LogikgatterSchaltflaeche.ANZAHLVERSIONEN, spiegeln, isVertikal);
+		
+		this.drawLogikgatterStatus = drawLogikgatterStatus;
 		
 		this.refreshCounter = 0;
 		
@@ -73,7 +76,7 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implemen
 				}
 				else
 				{
-					this.setImage(i,this.logikgatter[i]);
+					this.setImage(i,this.logikgatter[i], this.drawLogikgatterStatus);
 					this.setImageToLogikgatterStatus(logikgatter[i], this.getImage(i));
 				}
 				

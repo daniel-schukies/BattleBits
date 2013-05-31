@@ -52,7 +52,7 @@ public class ImageCreator
 	 * @param logikgatter Logikgatter von dem man alle Grafikversionen haben will.
 	 * @return Array mit Grafiken
 	 */
-	public ImageIcon[] getImage(Logikgatter logikgatter)
+	public ImageIcon[] getImage(Logikgatter logikgatter, boolean drawLogikgatterStatus)
 	{
 		BufferedImage[] logikgatterCacheImages = ImageCreator.grafikCache.getImages(this.size, logikgatter.toString());
 		BufferedImage[] statusCacheImages = ImageCreator.grafikCache.getImages(new Dimension((int)this.size.getWidth()/4, (int)this.size.getHeight()/4), ((Boolean)logikgatter.getAusgang()).toString());
@@ -113,7 +113,7 @@ public class ImageCreator
 			        newLogikgatterGrafik = new BufferedImage((int)this.size.getWidth(), (int)this.size.getHeight(), BufferedImage.TYPE_INT_ARGB);
 			        
 			        Graphics g = newLogikgatterGrafik.getGraphics();
-			        g.drawImage(logikgatterGrafik.getScaledInstance((int)this.size.getWidth(),  (int)this.size.getHeight(), Image.SCALE_FAST), 0, 0,null);
+			        g.drawImage(logikgatterGrafik.getScaledInstance((int)this.size.getWidth(),  (int)this.size.getHeight(), Image.SCALE_SMOOTH), 0, 0,null);
 			        
 			        cacheSpeicher[i] = newLogikgatterGrafik;
 				}
@@ -123,8 +123,15 @@ public class ImageCreator
 			        newLogikgatterGrafik = ImageUtil.mirror(newLogikgatterGrafik, 0);
 				}
 		        
+		        if(drawLogikgatterStatus)
+		        {
+		        	grafiken[i] = zeichneLogikgatterStatus(newLogikgatterGrafik, newOverlay, logikgatter);
+		        }
+		        else
+		        {
+		        	grafiken[i] = new ImageIcon(newLogikgatterGrafik);
+		        }
 		        
-		        grafiken[i] = zeichneLogikgatterStatus(newLogikgatterGrafik, newOverlay, logikgatter);
 				
 			}
 			catch(Exception e)// Grafik nicht vorhanden
@@ -295,7 +302,7 @@ public class ImageCreator
 		else
 		{
 			System.out.println("return mainIMG");
-			return new ImageIcon(mainImage.getScaledInstance((int)this.size.getWidth(), (int)this.size.getHeight(), Image.SCALE_FAST));
+			return new ImageIcon(mainImage.getScaledInstance((int)this.size.getWidth(), (int)this.size.getHeight(), Image.SCALE_SMOOTH));
 		}
 	}
 	
@@ -310,22 +317,22 @@ public class ImageCreator
 			{
 				switch (i)
 				{
-					case 0: this.getImage(new And());
+					case 0: this.getImage(new And(), false);
 					break;
 					
-					case 1:this.getImage(new Nand());
+					case 1:this.getImage(new Nand(), false);
 					break;
 					
-					case 2: this.getImage(new Or());
+					case 2: this.getImage(new Or(), false);
 					break;
 					
-					case 3: this.getImage(new Nor());
+					case 3: this.getImage(new Nor(), false);
 					break;
 					
-					case 4:this.getImage(new Not());
+					case 4:this.getImage(new Not(), false);
 					break;
 
-					case 5: this.getImage(new Xor());
+					case 5: this.getImage(new Xor(), false);
 					break;
 					
 					case 6: this.getImage();

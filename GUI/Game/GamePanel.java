@@ -79,8 +79,8 @@ public class GamePanel extends JPanel
 		this.spielerInfo1 = new SpielerInfo(this.xCenter, this.yCenter, this.spiel.getSpieler()[0], new Dimension(this.logikgatterLaenge,this.logikgatterLaenge/2));
 		this.spielerInfo2 = new SpielerInfo(this.xCenter+this.logikgatterLaenge*8, this.yCenter, this.spiel.getSpieler()[1], new Dimension(this.logikgatterLaenge,this.logikgatterLaenge/2));
 		
-		this.logikgatterSchaltflaeche1 = new  LogikgatterSchaltflaeche((this.logikgatterLaenge*5)+this.xCenter, (this.logikgatterLaenge*5)+this.yCenter, this.logikgatterLaenge, 4, this.spiel.getSpieler()[0].getLogikgatter(), false, false);
-		this.logikgatterSchaltflaeche2 = new  LogikgatterSchaltflaeche(0+this.xCenter, 	(this.logikgatterLaenge*5)+this.yCenter, this.logikgatterLaenge, 4, this.spiel.getSpieler()[1].getLogikgatter(), true, false);
+		this.logikgatterSchaltflaeche1 = new  LogikgatterSchaltflaeche((this.logikgatterLaenge*5)+this.xCenter, (this.logikgatterLaenge*5)+this.yCenter, this.logikgatterLaenge, 4, this.spiel.getSpieler()[0].getLogikgatter(), false, false, true);
+		this.logikgatterSchaltflaeche2 = new  LogikgatterSchaltflaeche(0+this.xCenter, 	(this.logikgatterLaenge*5)+this.yCenter, this.logikgatterLaenge, 4, this.spiel.getSpieler()[1].getLogikgatter(), true, false, true);
 
 		
 		this.spielfeldSchaltflaeche1 = new SpielfeldSchaltflaeche((this.logikgatterLaenge*5)+this.xCenter, (this.logikgatterLaenge/2)+this.yCenter,this.logikgatterSchaltflaeche1, this.spiel, this.spiel.getSpieler()[0], this.logikgatterLaenge*4, false);

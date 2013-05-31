@@ -107,9 +107,9 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 	 * @param index Index, an welchen die Grfik gesetzt werden soll.
 	 * @param logikgatter Logikgatter fuer welches die Grafik erstellt werden soll.
 	 */
-	public void setImage(int index, Logikgatter logikgatter)
+	public void setImage(int index, Logikgatter logikgatter, boolean drawLogikgatterStatus)
 	{
-		this.grafikSpeicher[index].setImage(logikgatter);
+		this.grafikSpeicher[index].setImage(logikgatter, drawLogikgatterStatus);
 	}
 	
 	/**

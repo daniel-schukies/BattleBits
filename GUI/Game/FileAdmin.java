@@ -280,6 +280,7 @@ public class FileAdmin {
 	public boolean setHardCoreMode( boolean hardcore )
 	{
 		FileAdmin.hardcoreMode = hardcore;
+		this.updateFile();
 		return true;
 	}
 	/**

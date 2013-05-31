@@ -33,11 +33,11 @@ public class Grafikspeicher
 	 * 
 	 * @param logikgatter
 	 */
-	public void setImage(Logikgatter logikgatter)
+	public void setImage(Logikgatter logikgatter, boolean drawLogikgatterStatus)
 	{	
 		/** Die verschiedenen Versionen der Logikgattergrafiken werden in einem Array in Form von ImageIcons gespeichert */
 		this.imageCreator.grafikenVorladen();
-		this.grafiken = this.imageCreator.getImage(logikgatter);
+		this.grafiken = this.imageCreator.getImage(logikgatter, drawLogikgatterStatus);
 		this.button.setIcon(this.grafiken[0]);
 	}
 	
