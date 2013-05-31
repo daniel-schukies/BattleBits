@@ -1,8 +1,8 @@
 package Logik;
 
-
 import java.util.Random;
-
+import javax.swing.SwingUtilities;
+import GUI.Game.SoundAusgabe;
 
 
 
@@ -11,9 +11,15 @@ public class Spieler
 	private String name;
 	private boolean isDran;
 	private boolean isKI;
+	private boolean isWinner;
 	private Logikgatter[] logikgatter;
 	private Spielfeld spielfeld;
-	
+	private SoundAusgabe sa;
+
+	/**
+	 * @param name Name des Spielers
+	 * @param isKI Art des Spielers
+	 */
 	public Spieler(String name, boolean isKI)
 	{
 		this.spielfeld = new Spielfeld();
@@ -22,42 +28,76 @@ public class Spieler
 		logikgatter = new Logikgatter[4];
 	}
 	
+	/**
+	 * Konstruktor
+	 */
 	public Spieler()
 	{
 		this.spielfeld = new Spielfeld();
 		this.setName("");
 		this.setIsKI(false);
 		logikgatter = new Logikgatter[4];
+		this.sa = new SoundAusgabe();
 	}
 	
+	/**
+	 * Set den Namen des Spielers
+	 * @param name Name d. Spielers
+	 */
 	public void setName(String name)
 	{
 		this.name = name;
 	}
 	
-
-	
+	/**
+	 * Setzt die variable isDarn auf Wert
+	 * @param isDran Wert der Variable
+	 */
 	public void setIsDran(boolean isDran)
 	{
 		this.isDran = isDran;
 	}
 	
-	
+	/**
+	 * Setzt Wert der Variable isKI
+	 * @param ki wert der Variable
+	 */
 	public void setIsKI(boolean ki)
 	{
 		this.isKI = ki;
 	}
 	
+	/**
+	 * Setzt Spieler als Gewinner
+	 */
+	public void setIsWinner()
+	{
+		this.isWinner = true;
+	}
+	
+	/**
+	 * Gibt den Namen des Spielers zurueck
+	 * @return Name des Spielers
+	 */
 	public String getName()
 	{
 		return this.name;
 	}
 	
+	/**
+	 * gibt Spielfeld zurueck
+	 * @return Spielfeld d. Spielers
+	 */
 	public Spielfeld getSpielfeld()
 	{
 		return this.spielfeld;
 	}
 	
+	/**
+	 * Gibt bestimmtes Logikgatter zurueck
+	 * @param index Index des Logikgatters
+	 * @return Logikgatter an index
+	 */
 	public Logikgatter getLogikgatter(int index)
 	{
 		if(index >= 0 && index < this.logikgatter.length)
@@ -68,23 +108,48 @@ public class Spieler
 		return null; // Existiert nicht
 	}
 	
+	/**
+	 * Gibt die Logikgatter des Spielers zurueck
+	 * @return Logikgatter des Spielers
+	 */
 	public Logikgatter[] getLogikgatter()
 	{
 		return this.logikgatter;
 	}
 	
+	/**
+	 * Inhalt der Variable isKI abfragen
+	 * @return Inhalt der Variable isKI
+	 */
 	public boolean getIsKI()
 	{
 		return this.isKI;
 	}
 	
+	/**
+	 * Gibt den inhalt der Variable isDran zurueck
+	 * @return Inhalt der Variable isDran
+	 */
 	public boolean getIsDran()
 	{
 		return this.isDran;
 	}
 	
-
+	/**
+	 * Zeigt, ob Spieler gewonnen hat
+	 * @return Inhalt von isWinner
+	 */
+	public boolean getIsWinner()
+	{
+		return this.isWinner;
+	}
 	
+
+	/**
+	 * loescht ein bestimmtes Logikgatter
+	 * @param index Index des zu loeschenden Logikgatters
+	 * @return Loeschen erfolgreich
+	 */
 	public boolean loescheLogikgatter(int index)
 	{
 		if(this.logikgatter[index] == null)
@@ -98,6 +163,11 @@ public class Spieler
 		}
 	}
 	
+	/**
+	 * Gibt dem Spieler ein Logikgatter
+	 * @param logikgatter auszuteilendes Logikgatter
+	 * @return Vergabe erfolgreich
+	 */
 	public boolean gebeLogikgatter(Logikgatter logikgatter)
 	{
 		
@@ -142,8 +212,9 @@ public class Spieler
 		lg.generate();
 		this.gebeLogikgatter(lg.getLogikgatter());
 	}
+	
 	/**
-	 * 
+	 * Spieler spielt als KI
 	 * @param eigenesSpielfeld
 	 * @param gegnerSpielfeld
 	 * @param bitfolge
@@ -218,8 +289,19 @@ public class Spieler
 		
 		if(nutzeNot)
 		{
-			bitfolge.invertBit(bitMitMeistemSchaden);
+			
 			this.zieheNeuesLogikgatter(indexVerwendetesGatter);
+			bitfolge.invertBit(bitMitMeistemSchaden);
+
+			SwingUtilities.invokeLater(new Runnable() 
+			{
+				public void run() 
+			    {
+					Spieler.this.sa.playWarning();
+			    }
+			});
+
+
 		}
 		else // Anderes Gatter muss gespielt werden.
 		{
@@ -310,7 +392,7 @@ public class Spieler
 			}
 			else // Ziehe Neues
 			{
-				this.zieheNeuesLogikgatter(new Random().nextInt(4)); 
+				this.zieheNeuesLogikgatter(new Random().nextInt(4));
 			}
 		}
 
