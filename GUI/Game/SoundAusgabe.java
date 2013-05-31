@@ -12,90 +12,97 @@ import javax.sound.sampled.DataLine;
 
 public class SoundAusgabe 
 {
-	
+	private FileAdmin fa = new FileAdmin();
 
 	private URL  audioFileURL;
 	
 	public void playSound()
 	{
-
-	  	 try { 
-	  		 this.audioFileURL = getClass().getResource("/loading1.wav");
-	  		 System.out.println("Playing: " + audioFileURL); 
-	  		 InputStream inStream = audioFileURL.openStream(); 
-	  		 BufferedInputStream bufStream = new BufferedInputStream(inStream);  
-	  		 AudioInputStream audioInputStream = AudioSystem .getAudioInputStream(bufStream); 
-	  		 AudioFormat af = audioInputStream.getFormat(); 
-	  		 int size = (int) (af.getFrameSize() * audioInputStream.getFrameLength());
-	  		 byte[] audio = new byte[size];
-	  		 DataLine.Info info = new DataLine.Info(Clip.class, af, size);
-	  		 audioInputStream.read(audio, 0, size);
-	  		 Clip clip = (Clip) AudioSystem.getLine(info);
-	  		 clip.open(af, audio, 0, size); 
-	  		clip.loop(Clip.LOOP_CONTINUOUSLY);
-	  		 clip.start(); 
-	  	}catch(Exception e)
-	  	 {
-	  		 System.out.println("Fail");
-	  	 }
-
+		if( fa.getMusicZustand() )
+		{
+		  	 try { 
+		  		 this.audioFileURL = getClass().getResource("/loading1.wav");
+		  		 System.out.println("Playing: " + audioFileURL); 
+		  		 InputStream inStream = audioFileURL.openStream(); 
+		  		 BufferedInputStream bufStream = new BufferedInputStream(inStream);  
+		  		 AudioInputStream audioInputStream = AudioSystem .getAudioInputStream(bufStream); 
+		  		 AudioFormat af = audioInputStream.getFormat(); 
+		  		 int size = (int) (af.getFrameSize() * audioInputStream.getFrameLength());
+		  		 byte[] audio = new byte[size];
+		  		 DataLine.Info info = new DataLine.Info(Clip.class, af, size);
+		  		 audioInputStream.read(audio, 0, size);
+		  		 Clip clip = (Clip) AudioSystem.getLine(info);
+		  		 clip.open(af, audio, 0, size); 
+		  		clip.loop(Clip.LOOP_CONTINUOUSLY);
+		  		 clip.start(); 
+		  	}catch(Exception e)
+		  	 {
+		  		 System.out.println("Fail");
+		  	 }
+		}
 	}
 	
 	public void playWarning()
 	{
-
-	  	 try 
-	  	 { 
-	  		 this.audioFileURL = getClass().getResource("/warning.wav");
-	  		 System.out.println("Playing: " + audioFileURL); 
-	  		 InputStream inStream = audioFileURL.openStream(); 
-	  		 BufferedInputStream bufStream = new BufferedInputStream(inStream);  
-	  		 AudioInputStream audioInputStream = AudioSystem .getAudioInputStream(bufStream); 
-	  		 AudioFormat af = audioInputStream.getFormat(); 
-	  		 int size = (int) (af.getFrameSize() * audioInputStream.getFrameLength());
-	  		 byte[] audio = new byte[size];
-	  		 DataLine.Info info = new DataLine.Info(Clip.class, af, size);
-	  		 audioInputStream.read(audio, 0, size);
-	  		 Clip clip = (Clip) AudioSystem.getLine(info);
-	  		 clip.open(af, audio, 0, size); 
-	  		 clip.start(); 
-	  	}
-	  	catch(Exception e)
-	  	{
-	  		System.out.println("Fail");
-	  	}
-
+		if( fa.getSoundZustand() )
+		{
+		  	 try 
+		  	 { 
+		  		 this.audioFileURL = getClass().getResource("/warning.wav");
+		  		 System.out.println("Playing: " + audioFileURL); 
+		  		 InputStream inStream = audioFileURL.openStream(); 
+		  		 BufferedInputStream bufStream = new BufferedInputStream(inStream);  
+		  		 AudioInputStream audioInputStream = AudioSystem .getAudioInputStream(bufStream); 
+		  		 AudioFormat af = audioInputStream.getFormat(); 
+		  		 int size = (int) (af.getFrameSize() * audioInputStream.getFrameLength());
+		  		 byte[] audio = new byte[size];
+		  		 DataLine.Info info = new DataLine.Info(Clip.class, af, size);
+		  		 audioInputStream.read(audio, 0, size);
+		  		 Clip clip = (Clip) AudioSystem.getLine(info);
+		  		 clip.open(af, audio, 0, size); 
+		  		 clip.start(); 
+		  	}
+		  	catch(Exception e)
+		  	{
+		  		System.out.println("Fail");
+		  	}
+		}
 
 	}
 	
 	public void playError()
 	{
-	  	 try 
-	  	 { 
-	  		 this.audioFileURL = getClass().getResource("/error.wav");
-	  		 System.out.println("Playing: " + audioFileURL); 
-	  		 InputStream inStream = audioFileURL.openStream(); 
-	  		 BufferedInputStream bufStream = new BufferedInputStream(inStream);  
-	  		 AudioInputStream audioInputStream = AudioSystem .getAudioInputStream(bufStream); 
-	  		 AudioFormat af = audioInputStream.getFormat(); 
-	  		 int size = (int) (af.getFrameSize() * audioInputStream.getFrameLength());
-	  		 byte[] audio = new byte[size];
-	  		 DataLine.Info info = new DataLine.Info(Clip.class, af, size);
-	  		 audioInputStream.read(audio, 0, size);
-	  		 Clip clip = (Clip) AudioSystem.getLine(info);
-	  		 clip.open(af, audio, 0, size); 
-	  		 clip.start(); 
-	  	}
-	  	catch(Exception e)
-	  	{
-	  		System.out.println("Fail");
-	  	}
+		if( fa.getSoundZustand() )
+		{
+		  	 try 
+		  	 { 
+		  		 this.audioFileURL = getClass().getResource("/error.wav");
+		  		 System.out.println("Playing: " + audioFileURL); 
+		  		 InputStream inStream = audioFileURL.openStream(); 
+		  		 BufferedInputStream bufStream = new BufferedInputStream(inStream);  
+		  		 AudioInputStream audioInputStream = AudioSystem .getAudioInputStream(bufStream); 
+		  		 AudioFormat af = audioInputStream.getFormat(); 
+		  		 int size = (int) (af.getFrameSize() * audioInputStream.getFrameLength());
+		  		 byte[] audio = new byte[size];
+		  		 DataLine.Info info = new DataLine.Info(Clip.class, af, size);
+		  		 audioInputStream.read(audio, 0, size);
+		  		 Clip clip = (Clip) AudioSystem.getLine(info);
+		  		 clip.open(af, audio, 0, size); 
+		  		 clip.start(); 
+		  	}
+		  	catch(Exception e)
+		  	{
+		  		System.out.println("Fail");
+		  	}
+		}
 
 
 	}
 	
 	public void playNeuZiehen()
-	{	  	
+	{
+		if( fa.getSoundZustand() )
+		{
 		  	 try 
 		  	 { 
 		  		 this.audioFileURL = getClass().getResource("/neuziehen.wav");
@@ -116,6 +123,7 @@ public class SoundAusgabe
 		  	{
 		  		System.out.println("Fail");
 		  	}
+		}
 	}
 	
 }

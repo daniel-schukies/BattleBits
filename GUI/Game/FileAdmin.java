@@ -2,6 +2,7 @@ package GUI.Game;
 
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -25,13 +26,17 @@ public class FileAdmin {
 	private static Boolean hardcoreMode;
 	private static int height;
 	private static int width;
+	private static Boolean sound;
+	private static Boolean music;
 	private String tmp;
 	
-	
+	/**
+	 * Erstellt einen FileAdmin und liest die Werte aus der Datei infos.ini aus
+	 */
 	public FileAdmin()
 	{
 		FileAdmin.file = new File( "infos.ini" );
-		this.trennzeichen = new int[7];
+		this.trennzeichen = new int[8];
 		FileAdmin.player1Name = "Player1";
 		FileAdmin.player2Name = "Player2";
 		FileAdmin.ki = false;
@@ -39,8 +44,17 @@ public class FileAdmin {
 		FileAdmin.hardcoreMode = false;
 		FileAdmin.height = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 		FileAdmin.width = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+		FileAdmin.sound = true;
+		FileAdmin.music = true;
 		
-		this.tmp = this.readOfFile();
+		try
+		{
+			this.tmp = this.readOfFile();
+			
+		}catch(Exception e)
+		{
+			System.out.println( "infos.ini wurde angelegt" );
+		}
 
 
 		if(!(file.exists()))
@@ -55,7 +69,7 @@ public class FileAdmin {
 			
 			
 		}
-System.out.println("Datei gibts nich ------------------------------------------------------------------------->");
+		//System.out.println("Datei gibts nicht");
 		
 		if( this.readOfFile().length() == 0 )
 		{
@@ -141,7 +155,7 @@ System.out.println("Datei gibts nich -------------------------------------------
 			temporaer.delete(0, temporaer.length());
 			
 		//	System.out.println(trennzeichen[5]);
-			for(int i=trennzeichen[5]+1; i < tmp.length(); i++)
+			for(int i=trennzeichen[5]+1; i < trennzeichen[6]; i++)
 			{
 				temporaer.append( tmp.charAt(i) );
 			}
@@ -158,15 +172,44 @@ System.out.println("Datei gibts nich -------------------------------------------
 
 			temporaer.delete(0, temporaer.length());
 			
+			for(int i=trennzeichen[6]+1; i < trennzeichen[7]; i++)
+			{
+				temporaer.append( tmp.charAt(i) );
+			}
+			
+			if ( temporaer.toString().matches("false") )
+			{
+				this.setSound( false );
+			}else
+			{
+				this.setSound( true );
+			}
+			
+			for(int i=trennzeichen[7]+1; i < tmp.length(); i++)
+			{
+				temporaer.append( tmp.charAt(i) );
+			}
+			
+			if ( temporaer.toString().matches("false") )
+			{
+				this.setMusic( false );
+			}else
+			{
+				this.setMusic( true );
+			}
+
+			
 		}
 		
 	}
-	
+	/**
+	 * Aktualisiert den Inhalt der Datei mit den aktuellen Daten
+	 */
 	public void updateFile()
 	{
 		try{
 			 writer = new FileWriter(file); 
-			 writer.write( "" + FileAdmin.height + ";" + FileAdmin.width + ";" + FileAdmin.player1Name + ";" + FileAdmin.player2Name + ";" + FileAdmin.ki + ";" + FileAdmin.cache + ";" + FileAdmin.hardcoreMode);
+			 writer.write( "" + FileAdmin.height + ";" + FileAdmin.width + ";" + FileAdmin.player1Name + ";" + FileAdmin.player2Name + ";" + FileAdmin.ki + ";" + FileAdmin.cache + ";" + FileAdmin.hardcoreMode + ";" + FileAdmin.sound + ";" + FileAdmin.music);
 			 writer.flush(); //leert den  Stream
 			 
 			 writer.close(); //schließt den Stream
@@ -176,7 +219,11 @@ System.out.println("Datei gibts nich -------------------------------------------
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Setzt die Hoehe in der Datei infos.ini
+	 * @param height zu setzende hoehe
+	 * @return gueltigkeit des Wertes
+	 */
 	public boolean setHeight( int height )
 	{
 		try
@@ -193,7 +240,11 @@ System.out.println("Datei gibts nich -------------------------------------------
 		}
 		return false;
 	}
-	
+	/**
+	 * Setzt die Breite in der Datei infos.ini
+	 * @param width zu setzende Breite
+	 * @return gueltigkeit des Wertes
+	 */
 	public boolean setWidth( int width )
 	{
 		try
@@ -210,27 +261,63 @@ System.out.println("Datei gibts nich -------------------------------------------
 			}
 		return false;
 	}
-	
+	/**
+	 * Setzt, ob gegen die KI gespielt werden soll
+	 * @param ki Wert fuer die KI
+	 * @return Erfolg des Setzens
+	 */
 	public boolean setKI( boolean ki )
 	{
 		FileAdmin.ki = ki;
 		this.updateFile();
 		return true;
 	}
-	
+	/**
+	 * Setzt, ob im HardCoreMode gespielt werden soll
+	 * @param hardcore Zustand des HardcoreModes
+	 * @return Erfolg des Setzens
+	 */
 	public boolean setHardCoreMode( boolean hardcore )
 	{
 		FileAdmin.hardcoreMode = hardcore;
 		return true;
 	}
-	
+	/**
+	 * Setzt, ob Musik gespielt werden soll
+	 * @param music Zustand der Musik
+	 * @return Erfolg des Setzens
+	 */
+	public boolean setMusic( boolean music )
+	{
+		FileAdmin.music = music;
+		return true;
+	}
+	/**
+	 * Setzt, ob Sound wiedergegeben werden soll
+	 * @param sound Zustand des Sounds
+	 * @return Erfolg des Setzens
+	 */
+	public boolean setSound( boolean sound )
+	{
+		FileAdmin.sound = sound;
+		return true;
+	}
+	/**
+	 * Setzt, ob der Grafikcache an oder aus sein soll
+	 * @param cache Zustand des Grafikcaches
+	 * @return Erfolg des Setzens
+	 */
 	public boolean setCache( boolean cache )
 	{
 		FileAdmin.cache = cache;
 		this.updateFile();
 		return true;
 	}
-	
+	/**
+	 * Setzt den Namen von Spieler 2
+	 * @param name2 Name von Spieler 2
+	 * @return Erfolg des Setzens
+	 */
 	public boolean setPlayer2Name( String name2 )
 	{
 	//	if( name2.length() > 0 )
@@ -241,7 +328,11 @@ System.out.println("Datei gibts nich -------------------------------------------
 	//	}
 	//	return false;
 	}
-	
+	/**
+	 * Setzt den Namen von Spieler 1
+	 * @param name1 Name von Spieler 1
+	 * @return Erfolg des Setzens
+	 */
 	public boolean setPlayer1Name( String name1 )
 	{
 		//if( name1.length() > 0 )
@@ -252,63 +343,118 @@ System.out.println("Datei gibts nich -------------------------------------------
 //		}
 	//	return false;
 	}
-	
+	/**
+	 * Gibt die gesetzte Hoehe zurueck
+	 * @return Gesetzte Hoehe
+	 */
 	public int getHeight()
 	{
 		return FileAdmin.height;
 	}
-	
+	/**
+	 * Gibt die gesetzte Breite zurueck
+	 * @width Gesetzte Breite
+	 */
 	public int getWidth()
 	{
 		return FileAdmin.width;
 	}
-	
+	/**
+	 * Gibt den Namen von Spieler 1 zurueck
+	 * @return Name von Spieler 1
+	 */
 	public String getPlayer1Name()
 	{
 		//System.out.println(Gruetze.player1Name.toString());
 		return FileAdmin.player1Name.toString();
 		
 	}
-	
+	/**
+	 * Gibt den Zustand des Caches zurueck
+	 * @return Zustand des Caches
+	 */
 	public boolean getCacheZustand()
 	{
 		return FileAdmin.cache;
 	}
-	
+	/**
+	 * Gibt den Namen von Spieler 2 zurueck
+	 * @return Name von Spieler 2
+	 */
 	public String getPlayer2Name()
 	{
 		return FileAdmin.player2Name.toString();
 	}
-	
+	/**
+	 * Gibt den Zustand des HardcoreModes zurueck
+	 * @return Zustand des HardcoreModes
+	 */
 	public boolean getHardCoreZustand()
 	{
 		return FileAdmin.hardcoreMode;
 	}
-	
+	/**
+	 * Gibt den Zustand des KI - Modus zurueck
+	 * @return Zustand des KI - Mode
+	 */
 	public boolean getKiZustand()
 	{
 		return FileAdmin.ki;
 	}
+	/**
+	 * Gibt den Zustand des Musik - Modus zurueck
+	 * @return Zustand des Musik - Modus
+	 */
+	public boolean getMusicZustand()
+	{
+		return FileAdmin.music;
+	}
+	/**
+	 * Gibt den Zustand des Soun - Modus zurueck
+	 * @return Zustand des Sound Modus
+	 */
+	public boolean getSoundZustand()
+	{
+		return FileAdmin.sound;
+	}
 	
+	/**
+	 * Liest alle Werte aus der Datei in einen String ein
+	 * @return String, der alle Werte der Datei infos.ini enthält
+	 */
 	public String readOfFile(){
 		
 	    this.fr = null;
 	    int c;
 	    StringBuffer buff = new StringBuffer();
 	    try {
-	        fr = new FileReader(file);
+	    	try{
+	    		fr = new FileReader(file);
+		     }catch(FileNotFoundException e)
+		     {
+		    	 System.out.println( "infos.ini nicht gefunden!" );
+		     }
 	        while ((c = fr.read()) != -1) {
 	            buff.append((char) c);
 	        }
 	        fr.close();
 
 	    } catch (IOException e) {
-	        e.printStackTrace();
+	        System.out.println();
 	    } 
 			return buff.toString();
 		}
 
-
+	public static void main( String[] arg )
+	{
+		FileAdmin fa = new FileAdmin();
+		System.out.println( fa.readOfFile() );
+		System.out.println( fa.getSoundZustand() );
+		fa.setSound(false);
+		System.out.println( fa.getSoundZustand() );
+		
+		
+	}
 }
 
 
