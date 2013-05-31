@@ -16,29 +16,48 @@ public class SoundAusgabe
 
 	private URL  audioFileURL;
 	
+	private static int soundCnt = 0;
+	
+
+	
 	public void playSound()
 	{
 		if( fa.getMusicZustand() )
 		{
-		  	 try { 
-		  		 this.audioFileURL = getClass().getResource("/loading1.wav");
-		  		 System.out.println("Playing: " + audioFileURL); 
-		  		 InputStream inStream = audioFileURL.openStream(); 
-		  		 BufferedInputStream bufStream = new BufferedInputStream(inStream);  
-		  		 AudioInputStream audioInputStream = AudioSystem .getAudioInputStream(bufStream); 
-		  		 AudioFormat af = audioInputStream.getFormat(); 
-		  		 int size = (int) (af.getFrameSize() * audioInputStream.getFrameLength());
-		  		 byte[] audio = new byte[size];
-		  		 DataLine.Info info = new DataLine.Info(Clip.class, af, size);
-		  		 audioInputStream.read(audio, 0, size);
-		  		 Clip clip = (Clip) AudioSystem.getLine(info);
-		  		 clip.open(af, audio, 0, size); 
-		  		clip.loop(Clip.LOOP_CONTINUOUSLY);
-		  		 clip.start(); 
-		  	}catch(Exception e)
-		  	 {
-		  		 System.out.println("Fail");
-		  	 }
+			if(SoundAusgabe.soundCnt == 0)
+			{
+				try 
+			  	 { 
+			  		 this.audioFileURL = getClass().getResource("/loading1.wav");
+			  		 System.out.println("Playing: " + audioFileURL);
+			  		 
+			  		 InputStream inStream = audioFileURL.openStream(); 
+			  		 BufferedInputStream bufStream = new BufferedInputStream(inStream);  
+			  		 AudioInputStream audioInputStream = AudioSystem .getAudioInputStream(bufStream); 
+			  		 AudioFormat af = audioInputStream.getFormat();
+			  		 
+			  		 int size = (int) (af.getFrameSize() * audioInputStream.getFrameLength());
+			  		 byte[] audio = new byte[size];
+			  		 DataLine.Info info = new DataLine.Info(Clip.class, af, size);
+			  		 audioInputStream.read(audio, 0, size);
+			  		 
+			  		 Clip clip = (Clip) AudioSystem.getLine(info);
+			  		 clip.open(af, audio, 0, size); 
+			  		 clip.loop(Clip.LOOP_CONTINUOUSLY);
+			  		 clip.start(); 
+			  		 
+			  		 SoundAusgabe.soundCnt++;
+			  		 
+			  	}
+				catch(Exception e)
+			  	{
+			  		System.out.println("Fail");
+			  	}
+			}
+			else
+			{
+				System.out.println("Sound laeuft bereits");
+			}
 		}
 	}
 	
