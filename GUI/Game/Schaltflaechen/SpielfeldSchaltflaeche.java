@@ -79,7 +79,6 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 		
 		this.sound  = new SoundAusgabe();
 		this.filewriter = new FileAdmin();
-		this.filewriter.setHardCoreMode(true);
 	
 		this.spiel = spiel;
 		this.spieler = spieler;

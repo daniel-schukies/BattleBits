@@ -58,9 +58,9 @@ public class GameFrame extends JFrame
 			loadingScreen.getImage().setBounds((int)((aufloesung.getWidth()/2)-(aufloesung.getHeight()/2)),0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
 		}
 		
-		boolean inbending = false;
+
 		
-		if(inbending)
+		if(filewriter.getFullscreenZustand())
 		{
 			final JFrame fullscreenFrame = new JFrame(this.getName());
 			
