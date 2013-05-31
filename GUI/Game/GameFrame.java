@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-
 import GUI.Game.Grafikverwaltung.Grafikspeicher;
 import GUI.Menue.Menue;
 
@@ -15,7 +14,6 @@ import GUI.Menue.Menue;
 public class GameFrame extends JFrame 
 {
 	private Menue menue;
-
 	
 	public GameFrame()
 	{
@@ -25,29 +23,11 @@ public class GameFrame extends JFrame
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(800, 600);
 		this.setLocation(50,50);
-		//this.getContentPane().setBackground(Color.BLACK);
-		
-		//GamePanel gp = new GamePanel(new Dimension(1700,900)); 
-		//this.add(gp);
-		
-
-		//this.add(new MainMenue(0,0,new Dimension(800,600),new Menue()));
 		
 		this.menue = new Menue(this);
 		this.add(menue);
-		//this.sound = new SoundAusgabe();
-		
-		
-		//this.add( new SpielereinstellungenMenue( 0,0,new Dimension(800,600), new Menue()) );
-		
-		//this.add( new OptionsMenue( 0 , 0 , new Dimension(800,600), new Menue()) );
-
-		
 		
 		this.setVisible(true);
-		
-		
-		//this.startGame(new Dimension(1200,700));
 	}
 	
 	public void closeGameFrame()
@@ -61,10 +41,7 @@ public class GameFrame extends JFrame
 		FileAdmin filewriter = new FileAdmin();
 		final Dimension aufloesung = new Dimension(filewriter.getWidth(), filewriter.getHeight());
 		
-		this.setSize((int)aufloesung.getWidth()+15,(int)aufloesung.getHeight()+40);
 		this.remove(this.menue);
-
-		this.getContentPane().setBackground(Color.BLACK);
 		
 		final Grafikspeicher loadingScreen;
 		
@@ -81,45 +58,77 @@ public class GameFrame extends JFrame
 			loadingScreen.getImage().setBounds((int)((aufloesung.getWidth()/2)-(aufloesung.getHeight()/2)),0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
 		}
 		
+		boolean inbending = false;
 		
-		this.add(loadingScreen.getImage());
-		
-		this.invalidate();
-		this.validate();
-		this.repaint();
-		
-	//	sound.play( getClass().getResource( "/loading1.wav" ) );
-
-		
-		  SwingUtilities.invokeLater(new Runnable() 
-		  {
+		if(inbending)
+		{
+			final JFrame fullscreenFrame = new JFrame(this.getName());
+			
+			fullscreenFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+			
+			fullscreenFrame.setSize(aufloesung);
+			fullscreenFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+			fullscreenFrame.setUndecorated(true);
+			
+			fullscreenFrame.getContentPane().setBackground(Color.BLACK);
+			
+			fullscreenFrame.add(loadingScreen.getImage());
+			
+			this.invalidate();
+			this.validate();
+			this.repaint();
+			
+			fullscreenFrame.setVisible(true);
+			
+			 SwingUtilities.invokeLater(new Runnable() 
+			 {
 			    public void run() 
 			    {
+					GamePanel game = new GamePanel(aufloesung);
+					game.setBounds(0, 0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
+					fullscreenFrame.remove(loadingScreen.getImage());
 
-			    
-			    	//ImageCreator.grafikenVorladen = true;
+					fullscreenFrame.getContentPane().add(game);
+
+					System.out.println("-------------Spiel geladen---------------");
+					fullscreenFrame.repaint();
+					fullscreenFrame.invalidate();
+					fullscreenFrame.validate();
+					fullscreenFrame.repaint();
+					
+					GameFrame.this.dispose();
+				 }
+			});
+		}
+		else
+		{
+			this.setSize((int)aufloesung.getWidth()+15,(int)aufloesung.getHeight()+40);
+		
+			this.getContentPane().setBackground(Color.BLACK);
+			
+			this.add(loadingScreen.getImage());
+		
+			this.invalidate();
+			this.validate();
+			this.repaint();
+				
+			 SwingUtilities.invokeLater(new Runnable() 
+			 {
+			    public void run() 
+			    {
 					GamePanel game = new GamePanel(aufloesung);
 					game.setBounds(0, 0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
 					GameFrame.this.remove(loadingScreen.getImage());
-					//background = new Grafikspeicher(game.getSize(), 1, false);
-					//background.setImage("background1");
-					//background.getImage().setBounds(0,0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
-					//GameFrame.this.getContentPane().add(background.getImage());
 					GameFrame.this.getContentPane().add(game);
-					//ImageCreator.grafikenVorladen = false;
+
 					System.out.println("-------------Spiel geladen---------------");
 					GameFrame.this.repaint();
 					GameFrame.this.invalidate();
 					GameFrame.this.validate();
 					GameFrame.this.repaint();
-			    }
-		  });
+				 }
+			});
+		}
 		
-
-		
-		
-		//game.setBounds(0, 0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
-		
-		//this.remove(loadingScreen.getImage());
 	}
 }
