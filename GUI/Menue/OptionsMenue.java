@@ -31,7 +31,10 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	//private JButton speichern;
 	private Grafikspeicher grafikcacheButton;
 	private Grafikspeicher backButton;
-	private boolean kiButtonKlicked , backButtonKlicked;
+	private Grafikspeicher hardCoreButton;
+	private Grafikspeicher musicButton;
+	private Grafikspeicher soundButton;
+	private boolean grafikCacheButtonKlicked , backButtonKlicked, hardcoreButtonKlicked, musicButtonKlicked, soundButtonKlicked;
 	private FileAdmin fileadmin;
 	private Menue menue;
 
@@ -48,6 +51,7 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		
 		this.menue = menue;
 		this.fileadmin = new FileAdmin();
+		//System.out.
 
 		
 		//this.grafikenLaden = new JCheckBox( "Grafiken vorladen" , false );
@@ -64,8 +68,11 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		//this.bild.setBounds(xPos, yPos, (int)size.getWidth(), (int)size.getHeight());
 		
 
-		this.kiButtonKlicked = false;
+		this.grafikCacheButtonKlicked = false;
 		this.backButtonKlicked = false;
+		this.hardcoreButtonKlicked = false;
+		this.musicButtonKlicked = false;
+		this.soundButtonKlicked = false;
 		
 		//this.aufloesung = Toolkit.getDefaultToolkit().getScreenSize();
 		
@@ -77,9 +84,18 @@ public class OptionsMenue extends JPanel implements MouseListener {
 
 		this.grafikcacheButton = new Grafikspeicher(new Dimension(133,47),3, false);
 		this.grafikcacheButton.setImage( "on" );
+		
 		this.backButton = new Grafikspeicher(new Dimension(133,47),3,false);
-
 		this.backButton.setImage( "back" );
+		
+		this.hardCoreButton = new Grafikspeicher(new Dimension( 133,47 ), 3, false);
+		this.hardCoreButton.setImage( "on" );
+		
+		this.musicButton = new Grafikspeicher(new Dimension( 133,47 ), 3, false);
+		this.musicButton.setImage( "on" );
+
+		this.soundButton = new Grafikspeicher(new Dimension( 133,47 ), 3, false);
+		this.soundButton.setImage( "on" );
 		//this.onofButton.setBounds( 0, 0, 133, this.onofButton.getHeight() );
 		//System.out.println( this.onofButton.getHeight() );
 		
@@ -106,8 +122,8 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		//this.add( this.bild );
 		
 		//hoehe 45 für das Textfield wird benötigt, weil die Buchstaben sonst abgeschnitten werden
-		 this.width.setBounds( 413, 362, 120, 55 );
-		 this.height.setBounds( 575, 362, 100, 55 );
+		 this.width.setBounds( 423, 440, 120, 55 );
+		 this.height.setBounds( 580, 440, 100, 55 );
 		 
 		 //this.grafikenLaden.setBounds( 235, 335, 410, 45 );
 		
@@ -116,17 +132,24 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		this.add( this.width );
 	    this.add( this.height);
 	    
-	    this.grafikcacheButton.getImage().setBounds( 485,250,133,47 );
+	    this.grafikcacheButton.getImage().setBounds( 485,210,133,47 );
 	    this.backButton.getImage().setBounds( 0,0,133,47 );
-	    
+	    this.hardCoreButton.getImage().setBounds(485, 370, 133, 47);
+	    this.musicButton.getImage().setBounds( 485, 263, 133, 47 );
+	    this.soundButton.getImage().setBounds( 485, 318, 133, 47 );	    
 
 	    this.grafikcacheButton.getImage().addMouseListener( this );
 	    this.backButton.getImage().addMouseListener( this );
-	    
+	    this.hardCoreButton.getImage().addMouseListener( this );
+	    this.musicButton.getImage().addMouseListener( this );
+	    this.soundButton.getImage().addMouseListener( this );
 
 	    
 	    this.add( this.grafikcacheButton.getImage() );
 	    this.add( this.backButton.getImage() );
+	    this.add( this.hardCoreButton.getImage() );
+	    this.add( this.musicButton.getImage() );
+	    this.add( this.soundButton.getImage() );
 	    
 	   // this.add( this.grafikenLaden );
 	    
@@ -136,7 +159,27 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	    if( this.fileadmin.getCacheZustand() )
 	    {
 	    	this.grafikcacheButton.setVersion( 1 );
-	    	this.kiButtonKlicked=true;
+	    	this.grafikCacheButtonKlicked=true;
+	    }
+	    
+	    if( this.fileadmin.getHardCoreZustand() )
+	    {
+	    	this.hardCoreButton.setVersion( 1 );
+	    	this.hardcoreButtonKlicked=true;
+	    }
+	    
+	    if( this.fileadmin.getMusicZustand() )
+	    {
+	    	//System.out.println("------------------------------" + fileadmin.getMusicZustand() );
+	    	this.musicButton.setVersion( 1 );
+	    	this.musicButtonKlicked = true;
+	    }
+	    
+	    if( this.fileadmin.getSoundZustand() )
+	    {
+	    	//System.out.println("------------------------------" + fileadmin.getMusicZustand() );
+	    	this.soundButton.setVersion( 1 );
+	    	this.soundButtonKlicked = true;
 	    }
 		
 		this.setVisible(true);
@@ -166,15 +209,54 @@ public class OptionsMenue extends JPanel implements MouseListener {
 			}
 		}
 		
-		if( (JLabel)e.getSource() == this.grafikcacheButton.getImage() && !( this.kiButtonKlicked ) )
+		if( (JLabel)e.getSource() == this.grafikcacheButton.getImage() && !( this.grafikCacheButtonKlicked ) )
 		{
 			this.grafikcacheButton.setVersion( 0 );
 			this.repaint();
 		}else
 		{
-			if( (JLabel)e.getSource() == this.grafikcacheButton.getImage() && this.kiButtonKlicked  )
+			if( (JLabel)e.getSource() == this.grafikcacheButton.getImage() && this.grafikCacheButtonKlicked  )
 			{
 				this.grafikcacheButton.setVersion( 1 );
+				this.repaint();
+			}
+		}
+		
+		if( (JLabel)e.getSource() == this.hardCoreButton.getImage() && !( this.hardcoreButtonKlicked ) )
+		{
+			this.hardCoreButton.setVersion( 0 );
+			this.repaint();
+		}else
+		{
+			if( (JLabel)e.getSource() == this.hardCoreButton.getImage() && this.hardcoreButtonKlicked  )
+			{
+				this.hardCoreButton.setVersion( 1 );
+				this.repaint();
+			}
+		}
+		
+		if( (JLabel)e.getSource() == this.musicButton.getImage() && !( this.musicButtonKlicked ) )
+		{
+			this.musicButton.setVersion( 0 );
+			this.repaint();
+		}else
+		{
+			if( (JLabel)e.getSource() == this.musicButton.getImage() && this.musicButtonKlicked  )
+			{
+				this.musicButton.setVersion( 1 );
+				this.repaint();
+			}
+		}
+		
+		if( (JLabel)e.getSource() == this.soundButton.getImage() && !( this.soundButtonKlicked ) )
+		{
+			this.soundButton.setVersion( 0 );
+			this.repaint();
+		}else
+		{
+			if( (JLabel)e.getSource() == this.soundButton.getImage() && this.soundButtonKlicked  )
+			{
+				this.soundButton.setVersion( 1 );
 				this.repaint();
 			}
 		}
@@ -195,6 +277,21 @@ public class OptionsMenue extends JPanel implements MouseListener {
 			this.grafikcacheButton.setVersion( 1 );
 		}
 		
+		if( (JLabel)e.getSource() == this.hardCoreButton.getImage() )
+		{
+			this.hardCoreButton.setVersion( 1 );
+		}
+		
+		if( (JLabel)e.getSource() == this.musicButton.getImage() )
+		{
+			this.musicButton.setVersion( 1 );
+		}
+		
+		if( (JLabel)e.getSource() == this.soundButton.getImage() )
+		{
+			this.soundButton.setVersion( 1 );
+		}
+
 
 	}
 
@@ -221,7 +318,10 @@ public class OptionsMenue extends JPanel implements MouseListener {
 				//speichern der Aufloesung
 				if ( this.fileadmin.setHeight( Integer.parseInt( this.height.getText() ) ) && this.fileadmin.setWidth( Integer.parseInt( this.width.getText())))
 				{
-					this.fileadmin.setCache(kiButtonKlicked);
+					this.fileadmin.setCache( this.grafikCacheButtonKlicked );
+					this.fileadmin.setHardCoreMode( this.hardcoreButtonKlicked );
+					this.fileadmin.setMusic( this.musicButtonKlicked );
+					this.fileadmin.setSound( this.soundButtonKlicked );
 					this.menue.changeMenueCardTo(Menue.MAIN_MENUE);
 					this.backButton.setVersion(0);
 				}else
@@ -237,22 +337,65 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		}
 
 		
-		if( (JLabel)e.getSource() == this.grafikcacheButton.getImage() &&  this.kiButtonKlicked  )
+		if( (JLabel)e.getSource() == this.grafikcacheButton.getImage() &&  this.grafikCacheButtonKlicked  )
 		{
 			this.grafikcacheButton.setVersion( 0 );
 			this.repaint();
-			this.kiButtonKlicked = false;
+			this.grafikCacheButtonKlicked = false;
 		}else
 		{
-			if( (JLabel)e.getSource() == this.grafikcacheButton.getImage() && !( this.kiButtonKlicked ) ) 	
+			if( (JLabel)e.getSource() == this.grafikcacheButton.getImage() && !( this.grafikCacheButtonKlicked ) ) 	
 			{
 				this.grafikcacheButton.setVersion( 1 );
 				this.repaint();
-				this.kiButtonKlicked = true;
+				this.grafikCacheButtonKlicked = true;
 			}
 		}
 		
-
+		if( (JLabel)e.getSource() == this.hardCoreButton.getImage() &&  this.hardcoreButtonKlicked  )
+		{
+			this.hardCoreButton.setVersion( 0 );
+			this.repaint();
+			this.hardcoreButtonKlicked = false;
+		}else
+		{
+			if( (JLabel)e.getSource() == this.hardCoreButton.getImage() && !( this.hardcoreButtonKlicked ) )
+			{
+				this.hardCoreButton.setVersion( 1 );
+				this.repaint();
+				this.hardcoreButtonKlicked = true;
+			}
+		}
+		
+		if( (JLabel)e.getSource() == this.musicButton.getImage() &&  this.musicButtonKlicked  )
+		{
+			this.musicButton.setVersion( 0 );
+			this.repaint();
+			this.musicButtonKlicked = false;
+		}else
+		{
+			if( (JLabel)e.getSource() == this.musicButton.getImage() && !( this.musicButtonKlicked ) )
+			{
+				this.musicButton.setVersion( 1 );
+				this.repaint();
+				this.musicButtonKlicked = true;
+			}
+		}
+		
+		if( (JLabel)e.getSource() == this.soundButton.getImage() &&  this.soundButtonKlicked  )
+		{
+			this.soundButton.setVersion( 0 );
+			this.repaint();
+			this.soundButtonKlicked = false;
+		}else
+		{
+			if( (JLabel)e.getSource() == this.soundButton.getImage() && !( this.soundButtonKlicked ) )
+			{
+				this.soundButton.setVersion( 1 );
+				this.repaint();
+				this.soundButtonKlicked = true;
+			}
+		}
 	}
 
 	
