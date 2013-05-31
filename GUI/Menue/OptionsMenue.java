@@ -39,7 +39,13 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	private Menue menue;
 
 	
-	
+	/**
+	 * Stellt das Optionsmenue dar
+	 * @param xPos Position des Menues auf der X - Achse
+	 * @param yPos Position des Menues auf der Y - Achse
+	 * @param size Groesse des Menues
+	 * @param menue Menue, welches alle anderen Menues enthaelt
+	 */
 	public OptionsMenue( int xPos,int yPos, Dimension size,Menue menue )
 	{
 		this.setLayout( null );
@@ -188,7 +194,9 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		
 		
 	}
-		
+	/**
+	 * Zeichnet den Hintergrund	
+	 */
 	public void paintComponent(Graphics g) 
 	{
 	    g.drawImage(this.image, 0, 0, null);
