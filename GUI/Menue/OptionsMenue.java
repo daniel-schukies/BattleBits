@@ -34,7 +34,8 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	private Grafikspeicher hardCoreButton;
 	private Grafikspeicher musicButton;
 	private Grafikspeicher soundButton;
-	private boolean grafikCacheButtonKlicked , backButtonKlicked, hardcoreButtonKlicked, musicButtonKlicked, soundButtonKlicked;
+	private Grafikspeicher fullscreenButton;
+	private boolean grafikCacheButtonKlicked , backButtonKlicked, hardcoreButtonKlicked, musicButtonKlicked, soundButtonKlicked , fullscreenButtonKlicked;
 	private FileAdmin fileadmin;
 	private Menue menue;
 
@@ -79,6 +80,7 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		this.hardcoreButtonKlicked = false;
 		this.musicButtonKlicked = false;
 		this.soundButtonKlicked = false;
+		this.fullscreenButtonKlicked = false;
 		
 		//this.aufloesung = Toolkit.getDefaultToolkit().getScreenSize();
 		
@@ -102,6 +104,9 @@ public class OptionsMenue extends JPanel implements MouseListener {
 
 		this.soundButton = new Grafikspeicher(new Dimension( 133,47 ), 3, false);
 		this.soundButton.setImage( "on" );
+		
+		this.fullscreenButton = new Grafikspeicher(new Dimension( 133, 47 ), 3, false);
+		this.fullscreenButton.setImage( "on" );
 		//this.onofButton.setBounds( 0, 0, 133, this.onofButton.getHeight() );
 		//System.out.println( this.onofButton.getHeight() );
 		
@@ -128,8 +133,8 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		//this.add( this.bild );
 		
 		//hoehe 45 für das Textfield wird benötigt, weil die Buchstaben sonst abgeschnitten werden
-		 this.width.setBounds( 423, 440, 120, 55 );
-		 this.height.setBounds( 580, 440, 100, 55 );
+		 this.width.setBounds( 430, 480, 120, 55 );
+		 this.height.setBounds( 583, 480, 100, 55 );
 		 
 		 //this.grafikenLaden.setBounds( 235, 335, 410, 45 );
 		
@@ -143,19 +148,21 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	    this.hardCoreButton.getImage().setBounds(485, 370, 133, 47);
 	    this.musicButton.getImage().setBounds( 485, 263, 133, 47 );
 	    this.soundButton.getImage().setBounds( 485, 318, 133, 47 );	    
-
+	    this.fullscreenButton.getImage().setBounds( 485, 423, 133, 47 );
+	    
 	    this.grafikcacheButton.getImage().addMouseListener( this );
 	    this.backButton.getImage().addMouseListener( this );
 	    this.hardCoreButton.getImage().addMouseListener( this );
 	    this.musicButton.getImage().addMouseListener( this );
 	    this.soundButton.getImage().addMouseListener( this );
-
+	    this.fullscreenButton.getImage().addMouseListener( this );
 	    
 	    this.add( this.grafikcacheButton.getImage() );
 	    this.add( this.backButton.getImage() );
 	    this.add( this.hardCoreButton.getImage() );
 	    this.add( this.musicButton.getImage() );
 	    this.add( this.soundButton.getImage() );
+	    this.add( this.fullscreenButton.getImage() );
 	    
 	   // this.add( this.grafikenLaden );
 	    
@@ -176,18 +183,22 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	    
 	    if( this.fileadmin.getMusicZustand() )
 	    {
-	    	//System.out.println("------------------------------" + fileadmin.getMusicZustand() );
 	    	this.musicButton.setVersion( 1 );
 	    	this.musicButtonKlicked = true;
 	    }
 	    
 	    if( this.fileadmin.getSoundZustand() )
 	    {
-	    	//System.out.println("------------------------------" + fileadmin.getMusicZustand() );
 	    	this.soundButton.setVersion( 1 );
 	    	this.soundButtonKlicked = true;
 	    }
 		
+	    if( this.fileadmin.getFullscreenZustand() )
+	    {
+	    	this.fullscreenButton.setVersion( 1 );
+	    	this.fullscreenButtonKlicked = true;
+	    }
+	    
 		this.setVisible(true);
 
 		
@@ -268,6 +279,19 @@ public class OptionsMenue extends JPanel implements MouseListener {
 				this.repaint();
 			}
 		}
+		
+		if( (JLabel)e.getSource() == this.fullscreenButton.getImage() && !( this.fullscreenButtonKlicked ) )
+		{
+			this.fullscreenButton.setVersion( 0 );
+			this.repaint();
+		}else
+		{
+			if( (JLabel)e.getSource() == this.fullscreenButton.getImage() && this.fullscreenButtonKlicked  )
+			{
+				this.fullscreenButton.setVersion( 1 );
+				this.repaint();
+			}
+		}
 				
 	}
 	
@@ -298,6 +322,11 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		if( (JLabel)e.getSource() == this.soundButton.getImage() )
 		{
 			this.soundButton.setVersion( 1 );
+		}
+		
+		if( (JLabel)e.getSource() == this.fullscreenButton.getImage() )
+		{
+			this.fullscreenButton.setVersion( 1 );
 		}
 
 
@@ -330,6 +359,7 @@ public class OptionsMenue extends JPanel implements MouseListener {
 					this.fileadmin.setHardCoreMode( this.hardcoreButtonKlicked );
 					this.fileadmin.setMusic( this.musicButtonKlicked );
 					this.fileadmin.setSound( this.soundButtonKlicked );
+					this.fileadmin.setFullscreen( this.fullscreenButtonKlicked );
 					this.menue.changeMenueCardTo(Menue.MAIN_MENUE);
 					this.backButton.setVersion(0);
 				}else
@@ -402,6 +432,21 @@ public class OptionsMenue extends JPanel implements MouseListener {
 				this.soundButton.setVersion( 1 );
 				this.repaint();
 				this.soundButtonKlicked = true;
+			}
+		}
+		
+		if( (JLabel)e.getSource() == this.fullscreenButton.getImage() &&  this.fullscreenButtonKlicked  )
+		{
+			this.fullscreenButton.setVersion( 0 );
+			this.repaint();
+			this.fullscreenButtonKlicked = false;
+		}else
+		{
+			if( (JLabel)e.getSource() == this.fullscreenButton.getImage() && !( this.fullscreenButtonKlicked ) )
+			{
+				this.fullscreenButton.setVersion( 1 );
+				this.repaint();
+				this.fullscreenButtonKlicked = true;
 			}
 		}
 	}
