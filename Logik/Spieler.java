@@ -11,6 +11,7 @@ public class Spieler
 	private String name;
 	private boolean isDran;
 	private boolean isKI;
+	private boolean isWinner;
 	private Logikgatter[] logikgatter;
 	private Spielfeld spielfeld;
 	private SoundAusgabe sa;
@@ -64,6 +65,14 @@ public class Spieler
 	public void setIsKI(boolean ki)
 	{
 		this.isKI = ki;
+	}
+	
+	/**
+	 * Setzt Spieler als Gewinner
+	 */
+	public void setIsWinner()
+	{
+		this.isWinner = true;
 	}
 	
 	/**
@@ -124,6 +133,15 @@ public class Spieler
 	public boolean getIsDran()
 	{
 		return this.isDran;
+	}
+	
+	/**
+	 * Zeigt, ob Spieler gewonnen hat
+	 * @return Inhalt von isWinner
+	 */
+	public boolean getIsWinner()
+	{
+		return this.isWinner;
 	}
 	
 

@@ -2,13 +2,17 @@ package GUI.Game.Schaltflaechen;
 
 import java.awt.Color;
 import java.awt.Dimension;
+
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import GUI.Game.FileAdmin;
+import GUI.Game.GameFrame;
 import GUI.Game.IDInfo;
 import GUI.Game.Refreshable;
 import GUI.Game.SoundAusgabe;
+import GUI.Game.Grafikverwaltung.Grafikspeicher;
 import Logik.Spiel;
 import Logik.Spieler;
 
@@ -49,6 +53,9 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 	
 	private FileAdmin filewriter; 
 	
+	
+	private JFrame frame;
+	
 
 	/**
 	 * Soundausgabe
@@ -67,11 +74,13 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 	 * @param breite Eine Seiteenlaenge der Spielfeldschaltflaeche (da Quadratisch)
 	 * @param spiegeln Ob Schaltflaecheninhalt gespiegelt sein soll.
 	 */
-	public SpielfeldSchaltflaeche(int xPos,int yPos,LogikgatterSchaltflaeche schaltflaeche, Spiel spiel, Spieler spieler, int breite,boolean spiegeln)
+	public SpielfeldSchaltflaeche(int xPos,int yPos,LogikgatterSchaltflaeche schaltflaeche, Spiel spiel, Spieler spieler, int breite,JFrame frame,boolean spiegeln)
 	{
 		this.setLayout(null);
 		this.setBounds(xPos, yPos, breite, breite);
 		this.setPreferredSize(new Dimension(breite,breite));
+		
+		this.frame = frame;
 		
 		this.logikgatterSchaltflaechenArray = new LogikgatterSchaltflaeche[4];
 		
@@ -161,13 +170,15 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 	 * Beende aktuellen Spielzug und leite naechsten ein.
 	 */
 	public void beendeSpielzug()
-	{
+	{		
 		if(this.gatterPosition[0].getIsPressed() && this.schaltflaeche.getPressedID().getIsPressed() && this.spieler.getIsDran() )
 		{
 			if( this.spiel.legeLogikgatter(this.spieler,	this.schaltflaeche.getPressedID().getID(),	this.gatterPosition[0].getID(), this.gatterPosition[1].getID()) )
 			{
 				this.resetAllImages();
 				this.spiel.nextSpielzug();
+				
+
 				
 				/**
 		    	 * Schaue ob KI spielen muss
@@ -176,6 +187,22 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 				{
 					SpielfeldSchaltflaeche.this.spiel.nextSpielzug();
 				}
+				
+				/**
+				 * Pruefe, ob Spiel zu Ende
+				 */
+				if(this.spiel.getSpielende())
+				{
+					if(this.spieler.getIsWinner())
+					{
+						this.beendeSpiel(true);
+					}
+					else
+					{
+						this.beendeSpiel(false);
+					}
+				}
+				
 				
 				SpielfeldSchaltflaeche.this.gatterPosition[0].setIsPressed(false);
 				SpielfeldSchaltflaeche.this.gatterPosition[1].setIsPressed(false);
@@ -203,6 +230,7 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 
 			}else
 			{
+
 				this.sound.playError();
 				System.out.println("fast^^");
 				
@@ -217,6 +245,7 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 					if(SpielfeldSchaltflaeche.this.spiel.getAktuellerSpieler().getIsKI() && SpielfeldSchaltflaeche.this.spiel.getAktuellerSpieler().getIsDran())
 					{
 						this.spiel.nextSpielzug();
+						
 						
 						if(this.refreshSchaltflaechen != null)
 						{
@@ -241,16 +270,56 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 		}
 	}
 	
+	public void beendeSpiel(boolean isWinner)
+	{
+		this.spiel.setSpielende(false);
+		Grafikspeicher endGrafik = new Grafikspeicher(this.getSize(),1,false);
+		if(isWinner)
+		{
+			endGrafik.setImage("winner");
+		}
+		else
+		{
+			endGrafik.setImage("gameover");
+		}
+		
+		endGrafik.getImage().setBounds(0, 0, (int)this.getWidth(), (int)this.getHeight());
+
+		this.removeAll();
+		this.add(endGrafik.getImage());
+		this.repaint();
+
+		  SwingUtilities.invokeLater(new Runnable() 
+		  {
+			    public void run() 
+			    {
+			    	try 
+					{
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    	
+			    	SpielfeldSchaltflaeche.this.frame.removeAll();
+			    	SpielfeldSchaltflaeche.this.frame.dispose();
+			    	new GameFrame();
+			    }
+		  });		
+	}
+	
 	/**
 	 * Aktualisiert diese Schaltflaeche
 	 */
 	public void refresh()
 	{
+
 		for(int i = 0; i < this.anzahlSchaltflaechen; i++)
 		{
 			this.logikgatterSchaltflaechenArray[i].refresh();
 			this.logikgatterSchaltflaechenArray[i].setAllImagesToLogikgatterStatus();
 		}
+
 	}
 	
 	/**

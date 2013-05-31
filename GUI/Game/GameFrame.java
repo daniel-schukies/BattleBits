@@ -84,7 +84,7 @@ public class GameFrame extends JFrame
 			 {
 			    public void run() 
 			    {
-					GamePanel game = new GamePanel(aufloesung);
+					GamePanel game = new GamePanel(aufloesung,fullscreenFrame);
 					game.setBounds(0, 0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
 					fullscreenFrame.remove(loadingScreen.getImage());
 
@@ -116,7 +116,7 @@ public class GameFrame extends JFrame
 			 {
 			    public void run() 
 			    {
-					GamePanel game = new GamePanel(aufloesung);
+					GamePanel game = new GamePanel(aufloesung, GameFrame.this);
 					game.setBounds(0, 0, (int)aufloesung.getWidth(), (int)aufloesung.getHeight());
 					GameFrame.this.remove(loadingScreen.getImage());
 					GameFrame.this.getContentPane().add(game);

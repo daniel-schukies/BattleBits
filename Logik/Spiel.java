@@ -22,6 +22,8 @@ public class Spiel
 	{
 		this.rundenzahl = 0;
 		
+		this.isSpielende = false;
+		
 		this.bitfolge = new Bitgenerator(5);
 		this.bitfolge.generate();
 		
@@ -137,6 +139,16 @@ public class Spiel
 		return this.bitfolge;
 	}
 	
+	public boolean getSpielende()
+	{
+		return this.isSpielende;
+	}
+	
+	public void setSpielende(boolean isSpielende)
+	{
+		this.isSpielende = isSpielende;
+	}
+	
 	
 	
 	private void spielen(Spieler spieler, Spieler gegner)
@@ -156,10 +168,7 @@ public class Spiel
 		if(spieler.getSpielfeld().getLogikgatter(3, 0) != null)
 		{
 			this.isSpielende = true; //Spiel ist zu Ende.
-		}
-		else
-		{
-			this.isSpielende = false;
+			spieler.setIsWinner();
 		}
 	}
 	

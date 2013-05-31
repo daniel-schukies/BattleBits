@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import GUI.Game.Grafikverwaltung.ImageCreator;
 import GUI.Game.Schaltflaechen.BitfolgenSchaltflaeche;
@@ -37,7 +38,8 @@ public class GamePanel extends JPanel
 	
 	
 	
-	public GamePanel(Dimension size)
+	
+	public GamePanel(Dimension size, JFrame frame)
 	{
 		this.setLayout(null);
 		this.setPreferredSize(size);
@@ -83,8 +85,8 @@ public class GamePanel extends JPanel
 		this.logikgatterSchaltflaeche2 = new  LogikgatterSchaltflaeche(0+this.xCenter, 	(this.logikgatterLaenge*5)+this.yCenter, this.logikgatterLaenge, 4, this.spiel.getSpieler()[1].getLogikgatter(), true, false, true);
 
 		
-		this.spielfeldSchaltflaeche1 = new SpielfeldSchaltflaeche((this.logikgatterLaenge*5)+this.xCenter, (this.logikgatterLaenge/2)+this.yCenter,this.logikgatterSchaltflaeche1, this.spiel, this.spiel.getSpieler()[0], this.logikgatterLaenge*4, false);
-		this.spielfeldSchaltflaeche2 = new SpielfeldSchaltflaeche(this.xCenter, (this.logikgatterLaenge/2)+this.yCenter, this.logikgatterSchaltflaeche2, this.spiel, this.spiel.getSpieler()[1], this.logikgatterLaenge*4, true);
+		this.spielfeldSchaltflaeche1 = new SpielfeldSchaltflaeche((this.logikgatterLaenge*5)+this.xCenter, (this.logikgatterLaenge/2)+this.yCenter,this.logikgatterSchaltflaeche1, this.spiel, this.spiel.getSpieler()[0], this.logikgatterLaenge*4, frame,false);
+		this.spielfeldSchaltflaeche2 = new SpielfeldSchaltflaeche(this.xCenter, (this.logikgatterLaenge/2)+this.yCenter, this.logikgatterSchaltflaeche2, this.spiel, this.spiel.getSpieler()[1], this.logikgatterLaenge*4,frame, true);
 		
 		
 		
