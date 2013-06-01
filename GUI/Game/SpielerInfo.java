@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import Logik.Spieler;
 
 @SuppressWarnings("serial")
-public class SpielerInfo extends JPanel 
+public class SpielerInfo extends JPanel implements Refreshable
 {
 	private Spieler spieler;
 	private JLabel spielerName;
@@ -20,26 +20,34 @@ public class SpielerInfo extends JPanel
 		this.spielerName = new JLabel();
 		this.setBounds(xPos, yPos, (int)size.getWidth(), (int)size.getHeight());
 		this.setPreferredSize(size);
-		this.setBackground(new Color(0,0,0,255));
+		this.setBackground(new Color(0,0,0,0));
 		this.setOpaque(false);
 		
 		this.spielerName.setBackground(new Color(0,0,0,255));
 		this.spielerName.setPreferredSize(size);
 		
-		this.spielerName.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
-		this.spielerName.setForeground(Color.GREEN);
+		this.spielerName.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
+		this.spielerName.setForeground(new Color(105,210,231,100));
 		this.spielerName.setText(this.spieler.getName());
-		/*
-		BufferedImage im = (BufferedImage)((ImageIcon)this.spielerName.getIcon()).getImage();
-		float[] matrix = new float[400];
-		for (int i = 0; i < 400; i++)
-			matrix[i] = 1.0f/400.0f;
-
-	    BufferedImageOp op = new ConvolveOp( new Kernel(20, 20, matrix), ConvolveOp.EDGE_NO_OP, null );
-		BufferedImage blurredImage = op.filter(im,im);
 		
-		this.spielerName.setIcon(new ImageIcon(blurredImage));
-		*/
 		this.add(this.spielerName);
+		
+		this.refresh();
+	}
+
+	@Override
+	public void refresh() 
+	{
+		if(this.spieler.getIsDran())
+		{
+			this.spielerName.setForeground(new Color(105,210,231,180));
+		}
+		else
+		{
+			this.spielerName.setForeground(new Color(105,210,231,80));
+		}
+		
+		this.repaint();
+		
 	}
 }

@@ -263,6 +263,16 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 							}
 						});
 					}
+					else
+					{
+						if(this.refreshSchaltflaechen != null)
+						{
+							for(int i = 0; i < this.refreshSchaltflaechen.length; i++)
+							{
+								this.refreshSchaltflaechen[i].refresh();
+							}
+						}
+					}
 				}
 				
 

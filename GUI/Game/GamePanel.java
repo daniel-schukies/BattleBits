@@ -46,7 +46,7 @@ public class GamePanel extends JPanel
 		this.setBackground(new Color(0,0,0,255));
 		setOpaque(false);
 		
-		if(size.getHeight() < size.getWidth())
+		if((size.getHeight()/6) < (size.getWidth()/9))
 		{
 			this.logikgatterLaenge = (int)size.getHeight() / 6;
 			this.xCenter = ((int)size.getWidth()-(this.logikgatterLaenge*9))/2;
@@ -75,11 +75,11 @@ public class GamePanel extends JPanel
 		
 		
 		
-		this.spiel.getSpieler()[0].setName(filewriter.getPlayer1Name());
-		this.spiel.getSpieler()[1].setName(filewriter.getPlayer2Name());
+		this.spiel.getSpieler()[0].setName(filewriter.getPlayer2Name());
+		this.spiel.getSpieler()[1].setName(filewriter.getPlayer1Name());
 		
-		this.spielerInfo1 = new SpielerInfo(this.xCenter, this.yCenter, this.spiel.getSpieler()[0], new Dimension(this.logikgatterLaenge,this.logikgatterLaenge/2));
-		this.spielerInfo2 = new SpielerInfo(this.xCenter+this.logikgatterLaenge*8, this.yCenter, this.spiel.getSpieler()[1], new Dimension(this.logikgatterLaenge,this.logikgatterLaenge/2));
+		this.spielerInfo1 = new SpielerInfo(this.xCenter+this.logikgatterLaenge, this.yCenter, this.spiel.getSpieler()[1], new Dimension(this.logikgatterLaenge*2,(int)(this.logikgatterLaenge/1.5)));
+		this.spielerInfo2 = new SpielerInfo(this.xCenter+this.logikgatterLaenge*7, this.yCenter, this.spiel.getSpieler()[0], new Dimension(this.logikgatterLaenge*2,(int)(this.logikgatterLaenge/1.5)));
 		
 		this.logikgatterSchaltflaeche1 = new  LogikgatterSchaltflaeche((this.logikgatterLaenge*5)+this.xCenter, (this.logikgatterLaenge*5)+this.yCenter, this.logikgatterLaenge, 4, this.spiel.getSpieler()[0].getLogikgatter(), false, false, true);
 		this.logikgatterSchaltflaeche2 = new  LogikgatterSchaltflaeche(0+this.xCenter, 	(this.logikgatterLaenge*5)+this.yCenter, this.logikgatterLaenge, 4, this.spiel.getSpieler()[1].getLogikgatter(), true, false, true);
@@ -98,9 +98,9 @@ public class GamePanel extends JPanel
 		
 		// Erstelle RefreshSchaltflaechen-Array
 
-		Refreshable[] reSchaltflaechen = {this.logikgatterSchaltflaeche1,this.logikgatterSchaltflaeche2, this.spielfeldSchaltflaeche1, this.spielfeldSchaltflaeche2};
-		Refreshable[] reSchaltflaechen1 = {this.spielfeldSchaltflaeche1, this.bitfolgenSchaltflaeche};
-		Refreshable[] reSchaltflaechen2 = {this.spielfeldSchaltflaeche2, this.bitfolgenSchaltflaeche};
+		Refreshable[] reSchaltflaechen = {this.logikgatterSchaltflaeche1,this.logikgatterSchaltflaeche2, this.spielfeldSchaltflaeche1, this.spielfeldSchaltflaeche2, this.spielerInfo1, this.spielerInfo2};
+		Refreshable[] reSchaltflaechen1 = {this.spielfeldSchaltflaeche1, this.bitfolgenSchaltflaeche, this.spielerInfo1, this.spielerInfo2};
+		Refreshable[] reSchaltflaechen2 = {this.spielfeldSchaltflaeche2, this.bitfolgenSchaltflaeche,  this.spielerInfo1, this.spielerInfo2};
 		
 		// Setze die RefreshSchaltflaechen
 		
