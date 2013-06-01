@@ -12,7 +12,11 @@ import java.io.IOException;
 import GUI.Game.FileAdmin;
 
 
-
+/**
+ * Verwaltet das Lesen und Schreiben der Datei infos.ini
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 public class FileAdmin {
 
 	private FileWriter writer;
