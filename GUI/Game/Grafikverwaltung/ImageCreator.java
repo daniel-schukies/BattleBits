@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+
+import GUI.Game.FileAdmin;
 import Logik.And;
 import Logik.Logikgatter;
 import Logik.Nand;
@@ -45,6 +47,11 @@ public class ImageCreator
 		this.anzahlVersionen = anzahlVersionen;
 		this.spiegeln = spiegeln;
 		ImageCreator.grafikCache = new GrafikCache();
+		
+		if(!(new FileAdmin().getCacheZustand()))
+		{
+			ImageCreator.grafikenVorgeladen = true;
+		}
 	}
 	
 	/**
