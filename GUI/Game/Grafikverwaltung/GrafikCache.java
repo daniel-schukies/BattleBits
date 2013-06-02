@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**
  * 
- * @author DANI
+ * @author Daniel Schukies, Sebastian Junger
  *
  */
 public class GrafikCache 
