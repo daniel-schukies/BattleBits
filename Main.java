@@ -6,7 +6,8 @@ import Logik.Spiel;
  * @author Daniel Schukies, Sebastian Junger
  *
  */
-public class Main {
+public class Main 
+{
 
 	/**
 	 * @param args Konsolen-Modus
