@@ -1,7 +1,13 @@
 package Logik;
 
+/**
+ * Logik des NORs
+ * @author Daniel Schukies, Sebasian Junger
+ *
+ */
 public class Nor extends Logikgatter
 {
+	//Eindeutige ID, um das Gatter wiederzuerkennen
 	private final static int ID = 3;
 
 	public Nor()	
@@ -22,12 +28,17 @@ public class Nor extends Logikgatter
 		}
 	}
 	
+	/**
+	 * @return String Name des Gatters als String
+	 */
 	public String toString()
 	{
 		return "Nor";
 	}
 
-
+	/**
+	 * Gibt die ID des Gatters zurueck
+	 */
 	@Override
 	public int getID() 
 	{

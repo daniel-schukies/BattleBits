@@ -5,7 +5,11 @@ import javax.swing.SwingUtilities;
 import GUI.Game.SoundAusgabe;
 
 
-
+/**
+ * Representiert einen Spieler und seine Funktionen
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 public class Spieler 
 {
 	private String name;
@@ -17,6 +21,7 @@ public class Spieler
 	private SoundAusgabe sa;
 
 	/**
+	 * Erstellt einen Spieler und definiert, seinen Namen und Spielmodus
 	 * @param name Name des Spielers
 	 * @param isKI Art des Spielers
 	 */
@@ -29,7 +34,7 @@ public class Spieler
 	}
 	
 	/**
-	 * Konstruktor
+	 * Erstellt einen Spieler mit leerem Namen, der nicht als KI spielt
 	 */
 	public Spieler()
 	{
@@ -41,7 +46,7 @@ public class Spieler
 	}
 	
 	/**
-	 * Set den Namen des Spielers
+	 * Setzt den Namen des Spielers
 	 * @param name Name d. Spielers
 	 */
 	public void setName(String name)
@@ -50,7 +55,7 @@ public class Spieler
 	}
 	
 	/**
-	 * Setzt die variable isDarn auf Wert
+	 * Setzt die variable isDran auf Wert
 	 * @param isDran Wert der Variable
 	 */
 	public void setIsDran(boolean isDran)
@@ -396,8 +401,6 @@ public class Spieler
 			}
 		}
 
-		
-		//if(indexVerwendetesGatter != 404) // pruefe, ob ein Gatter gespielt werden soll
 	}
 	
 

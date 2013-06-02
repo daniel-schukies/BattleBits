@@ -2,6 +2,11 @@ package Logik;
 
 import java.util.Scanner;
 
+/**
+ * Verwaltet Konsolen Ein- und Ausgaben des Benutzers
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 public class Konsole 
 {
 	private Scanner sc;
@@ -26,6 +31,7 @@ public class Konsole
 		
 		spieler.generiereLogikgatter();
 		
+		//Wenn der Spieler eine KI ist, werden keine Eingaben erwartet
 		if(spieler.getIsKI())
 		{
 			this.conAusgabeSpielerlogikgatter(spieler);
@@ -80,7 +86,7 @@ public class Konsole
 							this.conAusgabeSpielerlogikgatter(spieler); // Gebe Logikgatter des Spielers aus
 						}
 					}
-				}while( !(isGatterSet) );
+				}while( !(isGatterSet) );//solange das Gatter nicht gesetzt werden konnte -> wiederholen der Abfrage
 			}
 			
 			this.conSpielfeldAusgabe(eigenesSpielfeld);		
@@ -88,6 +94,7 @@ public class Konsole
 		
 		System.out.println("----------------Ende des Spielzugs!-----------------");
 		
+		//Spiel ist zuende, wenn das letzte Feld belegt ist
 		if(eigenesSpielfeld.getLogikgatter(3, 0) != null)
 		{
 			return true; //Spiel ist zu Ende.
@@ -207,6 +214,7 @@ public class Konsole
 	 */
 	public void conSpielfeldAusgabe(Spielfeld s)
 	{
+		//Das Spielfeld wird mithilfe von Schleifen ausgegeben
 		int i;
 		
 		System.out.println("---------- Spielfeld ----------");
@@ -274,6 +282,7 @@ public class Konsole
 	{
 		System.out.print("Spieler " + s.getName() + " ist am Zug");
 		
+		//Debugg
 		if(!(s.getIsDran()))
 		{
 			System.out.println("nich ;)");

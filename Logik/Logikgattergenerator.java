@@ -1,7 +1,11 @@
 package Logik;
 import java.util.Random;
 
-
+/**
+ * Generiert zufaellig Logikgatter
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 public class Logikgattergenerator 
 {
 	//private static final long  SEED = 219656347;
@@ -9,6 +13,9 @@ public class Logikgattergenerator
 	
 	private Logikgatter generiertesLogikgatter;   //variable zum Speichern der generierten Logikgatter
 	
+	/**
+	 * Erstellt den Logikgattergenerator
+	 */
 	public Logikgattergenerator()
 	{
 		Logikgattergenerator.random = new Random(Double.doubleToLongBits(Math.random()));
@@ -23,7 +30,7 @@ public class Logikgattergenerator
 	{
 		int zufall=Logikgattergenerator.random.nextInt(6); //generiert eine Zufallszahl zwischen 0 und 6
 		
-
+		//Je nach Zufallszahl wird ein anderen Logikgatter verwendet
 		switch (zufall){
 			case 0: this.generiertesLogikgatter = new And();
 			break;
@@ -40,8 +47,11 @@ public class Logikgattergenerator
 		}
 	}
 	
-	//Logikgatter kann hier nicht eindutig identifiziert werden
-	//evtl. toString(): name:string in die einzelnen Gatter einbauen!
+	
+	 /**
+	  * Gibt das generierte Logikgatter zurueck identifizierung dessen durch toString - Methode
+	  * @return generiertes Logikgatter
+	  */
 	public Logikgatter getLogikgatter(){
 			return generiertesLogikgatter;
 	}

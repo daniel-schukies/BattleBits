@@ -11,6 +11,11 @@ import GUI.Game.SoundAusgabe;
 import GUI.Game.Grafikverwaltung.Grafikspeicher;
 import Logik.Spiel;
 
+/**
+ * Stellt den Button, um ein neues Gatter zu ziehen dar und verwaltet ihn
+ * @author sebi
+ *
+ */
 @SuppressWarnings("serial")
 public class NeuziehenButton extends JPanel implements MouseListener
 {
@@ -20,6 +25,14 @@ public class NeuziehenButton extends JPanel implements MouseListener
 	Refreshable[] refreshSchaltflaechen;
 	private SoundAusgabe sound;
 	
+	/**
+	 * Erstellt den Button mit den uebergebenen Angaben
+	 * @param xPos Position des Buttons auf der X - Achse
+	 * @param yPos Position des Buttons auf der Y - Achse
+	 * @param size Groesse des Buttons
+	 * @param spiel Spiel, dessen Logik beachtet werden muss
+	 * @param logikgatterschaltflaeche Logikgatterschaltflaeche, auf der zum Ziehen ein Gatter ausgewaehlt sein mutt
+	 */
 	public NeuziehenButton(int xPos, int yPos, int size, Spiel spiel,LogikgatterSchaltflaeche[] logikgatterschaltflaeche )
 	{
 		this.setLayout(null);
@@ -38,8 +51,6 @@ public class NeuziehenButton extends JPanel implements MouseListener
 		
 		this.grafik.getImage().addMouseListener(this);
 		
-		//this.grafik.getImage()
-		
 		this.grafik.getImage().setBounds(0, 0, size, size);
 		
 		this.add(this.grafik.getImage());
@@ -47,6 +58,11 @@ public class NeuziehenButton extends JPanel implements MouseListener
 		this.setOpaque(false);
 	}
 	
+	/**
+	 * Setzt die Schaltflaeche, die mit aktualisiert werden muessen, wenn ein neues Gatter
+	 * gezogen wird
+	 * @param refreshSchaltflaechen Array von Schaltflaechen, die aktualisierbar sein muessen
+	 */
 	public void setRefreshSchaltflaechen(Refreshable[] refreshSchaltflaechen)
 	{
 		this.refreshSchaltflaechen = refreshSchaltflaechen;
@@ -84,6 +100,7 @@ public class NeuziehenButton extends JPanel implements MouseListener
 					 {
 					    public void run() 
 						   {
+					    	//aktuallisiert die anderen Schaltflaechen mit
 								if(NeuziehenButton.this.refreshSchaltflaechen != null)
 								{
 									for(int i = 0; i < NeuziehenButton.this.refreshSchaltflaechen.length; i++)

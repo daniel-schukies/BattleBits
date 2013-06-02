@@ -1,12 +1,17 @@
 package Logik;
 
+/**
+ * Klasse, die das Spielfeld darstellt
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 public class Spielfeld implements Cloneable
 {
 	
 	private Logikgatter logikgatter[][];
 	
 	/**
-	 * Legt die ArrayList an fuer die Logikgatter an.
+	 * Erstellt ein Spielfeld und legt die ArrayList fuer die Logikgatter an.
 	 */
 	public Spielfeld()
 	{
@@ -216,7 +221,7 @@ public class Spielfeld implements Cloneable
 					if( !(this.logikgatter[reihe][index].getIsGueltig()) ) // pruefe, ob Gatter ungueltig ist.
 					{
 						this.logikgatter[reihe][index] = null; // loesche Logikgatter
-						System.out.println("Es wurde ein Gatter gel�scht");
+						System.out.println("Es wurde ein Gatter geloescht");
 					}
 				}
 			}

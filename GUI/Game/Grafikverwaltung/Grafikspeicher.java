@@ -8,6 +8,11 @@ import javax.swing.JLabel;
 
 import Logik.Logikgatter;
 
+/**
+ * Klasse zum Speichern eines Bildes in allen Versionen
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 public class Grafikspeicher 
 {
 	private JLabel button;
@@ -16,10 +21,12 @@ public class Grafikspeicher
 	
 	
 	/**
-	 * 
-	 * @param size
-	 * @param anzahlVersionen
-	 * @param bit
+	 * Instanziert einen Grafikspeicher fuer ein Bild in angegebener Groesse mit
+	 * der Anzahl der uebergebenen Versionen. Der Boolean - Wert definiert, ob ein
+	 * Bild gespiegelt werden soll
+	 * @param size Groesse des Bildes
+	 * @param anzahlVersionen Anzahl der Versionen des Bildes
+	 * @param spiegeln Definiert, ob das Bild gespiegelt werden soll
 	 */
 	public Grafikspeicher(Dimension size, int anzahlVersionen,boolean spiegeln)
 	{
@@ -30,8 +37,9 @@ public class Grafikspeicher
 
 	
 	/**
-	 * 
-	 * @param logikgatter
+	 * Legt das zu speichernde Bild fest und definiert den aufzuzeichnenden Logikgatterstatus
+	 * @param logikgatter Typ des zu speichernden Bildes
+	 * @param drawLogikgatterStatus Ausgangszustand des Logikgatters
 	 */
 	public void setImage(Logikgatter logikgatter, boolean drawLogikgatterStatus)
 	{	
@@ -42,8 +50,8 @@ public class Grafikspeicher
 	}
 	
 	/**
-	 * 
-	 * @param bit
+	 * Speichert Bilder eines Bits
+	 * @param bit Bit dessen Bild gespeichert werden soll
 	 */
 	public void setImage(boolean bit)
 	{
@@ -53,6 +61,11 @@ public class Grafikspeicher
 		this.button.setIcon(this.grafiken[0]);
 	}
 	
+	/**
+	 * Speichert das als Uebergabewert uebergebene Bild
+	 * @param dateiname Dateiname des zu speichernden Bildes
+	 * @return Erfolg des Erstellens
+	 */
 	public boolean setImage(String dateiname)
 	{
 		this.grafiken = this.imageCreator.getImage(dateiname);
@@ -61,8 +74,14 @@ public class Grafikspeicher
 		return true;
 	}
 	
+	/**
+	 * Speichert die Bilder im uebergebenen Array, sofern die Laenge gleich ist
+	 * @param grafiken zu speichernde Grafiken
+	 * @return Erfolg des Speicherns
+	 */
 	public boolean setImage(ImageIcon[] grafiken)
 	{
+		//Die Laenge des uebergebenen Arrays muss gleich sein, wie die des lokalen
 		if(this.grafiken.length == grafiken.length)
 		{
 			this.grafiken = grafiken;
@@ -74,6 +93,9 @@ public class Grafikspeicher
 		}
 	}
 	
+	/**
+	 * Speichert das erste Bild aus dem ImageCreator
+	 */
 	public void setImage()
 	{
 		this.imageCreator.grafikenVorladen();
@@ -82,19 +104,18 @@ public class Grafikspeicher
 	}
 	
 	/**
-	 * 
-	 * @param versionID
-	 * @return
+	 * Setzt die Version des Bildes, die gespeichert werden soll
+	 * @param versionID Version des Bildes
+	 * @return Erfolg des Setzens der Version
 	 */
 	public boolean setVersion(int versionID)
 	{
 		try
 		{
+			//Wenn Version im gueltigen Bereich liegt
 			if(this.grafiken.length > versionID )
 			{
-				//this.button.setIcon(null);
 				this.button.setIcon(this.grafiken[versionID]);
-				//this.button.revalidate();
 				return true;
 			}
 			
@@ -106,6 +127,10 @@ public class Grafikspeicher
 		return false; // Return erst hier, da IF-Verzweigung beruecksichtigt wird.
 	}
 	
+	/**
+	 * Gibt das aktuell gespeicherte Bild als JLabel zurueck
+	 * @return aktuell gespeichertes Bild
+	 */
 	public JLabel getImage()
 	{
 		return button;
