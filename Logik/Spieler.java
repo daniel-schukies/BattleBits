@@ -190,8 +190,7 @@ public class Spieler
 
 	
 	/**
-	 * Teilt an den Spieler seine ersten Gatter aus.
-	 * @param spieler
+	 * Teilt an den Spieler seine ersten Gatter aus
 	 */
 	public void generiereLogikgatter()
 	{
@@ -220,9 +219,8 @@ public class Spieler
 	
 	/**
 	 * Spieler spielt als KI
-	 * @param eigenesSpielfeld
-	 * @param gegnerSpielfeld
-	 * @param bitfolge
+	 * @param gegnerSpielfeld Spielfeld des Gegners
+	 * @param bitfolge Bitfolge, deren Logik verwendet wird
 	 */
 	public void spieleAlsKI(Spielfeld gegnerSpielfeld, Bitgenerator bitfolge)
 	{

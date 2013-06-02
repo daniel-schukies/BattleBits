@@ -164,7 +164,7 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 	
 	/**
 	 * Setzt die PressedID.
-	 * @param PressedID Infos zum Button, welcher gedrueckt wurde.
+	 * @param pressedID Infos zum Button, welcher gedrueckt wurde.
 	 */
 	public void setPressedID(IDInfo pressedID)
 	{
