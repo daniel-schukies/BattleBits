@@ -7,7 +7,11 @@ import Logik.Konsole;
 import Logik.Not;
 import Logik.Spieler;
 
-
+/**
+ * Verwaltet die Logik des Spiels
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 public class Spiel 
 {
 	private boolean gui;
@@ -17,7 +21,10 @@ public class Spiel
 	private Spieler spieler2;
 	private Bitgenerator bitfolge; // Speicher der Bitfolge
 
-	
+	/**
+	 * Startet die Logik des Spiels
+	 * @param gui Ob GUI Modus genoetigt wird.
+	 */
 	public Spiel(boolean gui)
 	{
 		this.rundenzahl = 0;
@@ -39,6 +46,9 @@ public class Spiel
 		}
 	}
 	
+	/**
+	 * Fuehrt einen Spielzug durch
+	 */
 	public void nextSpielzug()
 	{
 		/**
@@ -64,6 +74,14 @@ public class Spiel
 		con.conSpielfeldAusgabe(this.getAktuellerSpieler().getSpielfeld());
 	}
 
+	/**
+	 * Legt ein Logikgatter auf das Spielfeld
+	 * @param spieler Aktueller Spieler, der legen will.
+	 * @param logikgatterIndex Index, an dem das Logikgatter beim Spieler sitzt.
+	 * @param ablegeReihe Reihe, an der das Gatter abgelegt werden soll.
+	 * @param ablegeIndex Index, an dem das Gatter abgelegt werden soll.
+	 * @return Ob legen erfolgreich.
+	 */
 	public boolean legeLogikgatter(Spieler spieler, int logikgatterIndex, int ablegeReihe, int ablegeIndex)
 	{
 		if(!(spieler.getLogikgatter(logikgatterIndex) instanceof Not)) // Wenn kein NOT vorhanden.
@@ -79,7 +97,13 @@ public class Spiel
 		return false; // Logikgatter konnte nicht platziert werden!
 	}
 	
-	
+	/**
+	 * Legt ein Not Logikgatter auf das Spielfeld
+	 * @param spieler Aktueller Spieler, der legen will.
+	 * @param logikgatterIndex Index, an dem das Logikgatter beim Spieler sitzt.
+	 * @param zuInvertierendesBit Bit, das invertiert werden soll
+	 * @return Ob legen erfolgreich.
+	 */
 	public boolean legeLogikgatter(Spieler spieler, int logikgatterIndex, int zuInvertierendesBit)
 	{
 		if(spieler.getLogikgatter(logikgatterIndex) instanceof Not) // pruefe auf NOT Gatter
@@ -104,11 +128,19 @@ public class Spiel
 		return false; // Logikgatter konnte nicht platziert werden!
 	}
 	
+	/**
+	 * Liest Rundenzahl aus
+	 * @return Rundenzahl
+	 */
 	public int getRundenzahl()
 	{
 		return this.rundenzahl;
 	}
 	
+	/**
+	 * Liest aktuellen Spieler aus
+	 * @return aktueller Spieler
+	 */
 	public Spieler getAktuellerSpieler()
 	{
 		if( this.spieler1.getIsDran() )
@@ -121,7 +153,10 @@ public class Spiel
 		}
 	}
 	
-	
+	/**
+	 * Liest beide Spieler aus
+	 * @return Array mit beiden Spielern
+	 */
 	public Spieler[] getSpieler()
 	{
 		Spieler[] spieler = new Spieler[2];
@@ -133,24 +168,39 @@ public class Spiel
 		return spieler;
 	}
 	
-	
+	/**
+	 * Liest Bitfolge aus
+	 * @return Bitfolge
+	 */
 	public Bitgenerator getBitfolge()
 	{
 		return this.bitfolge;
 	}
 	
+	/**
+	 * Liest Spielende aus
+	 * @return isSpielende
+	 */
 	public boolean getSpielende()
 	{
 		return this.isSpielende;
 	}
 	
+	/**
+	 * Setzt das Spielende
+	 * @param isSpielende Ob spiel zu Ende
+	 */
 	public void setSpielende(boolean isSpielende)
 	{
 		this.isSpielende = isSpielende;
 	}
 	
 	
-	
+	/**
+	 * Fueht teil eines Spielzuges durchS
+	 * @param spieler Aktueller SpielerS
+	 * @param gegner Gegner des SpielersS
+	 */
 	private void spielen(Spieler spieler, Spieler gegner)
 	{
 		this.rundenzahl++; // Zaehlt die Runden
@@ -172,7 +222,9 @@ public class Spiel
 		}
 	}
 	
-	
+	/**
+	 * Initialisierungen fuer den GUI-Modus
+	 */
 	private void starteGUIModus()
 	{
 		this.spieler1 = new Spieler();
