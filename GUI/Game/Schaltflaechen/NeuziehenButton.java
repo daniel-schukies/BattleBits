@@ -13,7 +13,7 @@ import Logik.Spiel;
 
 /**
  * Stellt den Button, um ein neues Gatter zu ziehen dar und verwaltet ihn
- * @author sebi
+ * @author Daniel Schukies, Sebastian Junger
  *
  */
 @SuppressWarnings("serial")

@@ -31,13 +31,13 @@ public class SpielfeldLogikgatterSchaltflaeche extends LogikgatterSchaltflaeche 
 		this.spielfeldSchaltflaeche = spielfeldSchaltflaeche;
 	}
 	
-	/**
-	 * Aendert Grafkversion der Grafiken und ruft Methoden der Spielfeldschaltflaeche auf.
-	 */
+
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		
+		/**
+		 * Aendert Grafkversion der Grafiken und ruft Methoden der Spielfeldschaltflaeche auf.
+		 */
 		JLabel button = (JLabel)e.getSource();
 		if( this.getPressedID().getIsPressed() ) //Wenn Button geklickt
 		{

@@ -14,6 +14,7 @@ import Logik.Logikgatter;
  * @author Daniel Schukies, Sebastian Junger
  *
  */
+@SuppressWarnings("serial")
 public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implements Refreshable
 {
 	/**

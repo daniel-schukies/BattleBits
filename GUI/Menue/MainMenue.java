@@ -97,16 +97,19 @@ public class MainMenue extends JPanel implements MouseListener
 	/**
 	 * Zeichnet den Hintergrund
 	 */
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) 
+    {
         g.drawImage(this.background, 0, 0, null);
     }
 
-    /**
-     * Wechsel der Menues
-     */
+
 	@Override
 	public void mouseClicked(MouseEvent e) 
 	{
+	    /**
+	     * Wechsel der Menues
+	     */
+		
 		JLabel button = (JLabel)e.getSource();
 		if(button == this.startButton.getImage())
 		{
@@ -122,12 +125,13 @@ public class MainMenue extends JPanel implements MouseListener
 		}
 	}
 
-	/**
-	 * Mouseover Effekte
-	 */
+
 	@Override
 	public void mouseEntered(MouseEvent e) 
 	{
+		/**
+		 * Mouseover Effekte
+		 */
 		JLabel button = (JLabel)e.getSource();
 		if(button == this.startButton.getImage())
 		{
@@ -143,12 +147,14 @@ public class MainMenue extends JPanel implements MouseListener
 		}
 	}
 
-	/**
-	 * Mouseover Effekte
-	 */
+
 	@Override
 	public void mouseExited(MouseEvent e) 
 	{
+		/**
+		 * Mouseover Effekte
+		 */
+		
 		JLabel button = (JLabel)e.getSource();
 		if(button == this.startButton.getImage())
 		{
@@ -164,12 +170,13 @@ public class MainMenue extends JPanel implements MouseListener
 		}
 	}
 
-	/**
-	 * Angeklickt Effekt
-	 */
+
 	@Override
 	public void mousePressed(MouseEvent e) 
 	{
+		/**
+		 * Angeklickt Effekt
+		 */
 		JLabel button = (JLabel)e.getSource();
 		if(button == this.startButton.getImage())
 		{
@@ -185,12 +192,13 @@ public class MainMenue extends JPanel implements MouseListener
 		}
 	}
 
-	/**
-	 * Angeklickt Effekt
-	 */
+
 	@Override
 	public void mouseReleased(MouseEvent e) 
 	{
+		/**
+		 * Angeklickt Effekt
+		 */	
 		JLabel button = (JLabel)e.getSource();
 		if(button == this.startButton.getImage())
 		{

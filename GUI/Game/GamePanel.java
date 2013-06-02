@@ -15,7 +15,7 @@ import GUI.Game.Schaltflaechen.SpielfeldSchaltflaeche;
 import Logik.Spiel;
 
 /**
- * Die Klasse GamePanel ist dafür zuständig, die GUI aufzubauen, indem sie
+ * Die Klasse GamePanel ist dafür zustaendig, die GUI aufzubauen, indem sie
  * alle Schaltﬂächen instanziert und einstellt.
  * 
  * @author Daniel Schukies, Sebastian Junger

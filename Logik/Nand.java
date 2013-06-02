@@ -26,6 +26,7 @@ public class Nand extends Logikgatter
 			return true;
 		}
 	}
+	
 	/**
 	 * @return String Name des Gatters als String
 	 */
