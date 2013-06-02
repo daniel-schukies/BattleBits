@@ -39,7 +39,7 @@ public class IDInfo
 	
 	/**
 	 * Gibt zurueck, ob die isPressed Variable des zugeordneten Objektes angeklickt wurde
-	 * @return
+	 * @return Gibt zurueck, ob Objekt angeklickt wurde
 	 */
 	public boolean getIsPressed()
 	{
