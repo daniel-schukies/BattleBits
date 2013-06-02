@@ -20,7 +20,7 @@ public class Konsole
 	}
 		
 	/**
-	 * fuehrt einen Spielzug des uebergebenen Spielers durch.
+	 * Fuehrt einen Spielzug des uebergebenen Spielers durch.
 	 * @param spieler ist der Spieler, welcher gerade am Zug ist.
 	 * @param eigenesSpielfeld Spielfeld vom Spieler, welcher am Zug ist.
 	 * @param gegnerSpielfeld Spielfeld des Gegners
