@@ -159,6 +159,7 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 		JLabel button = (JLabel)e.getSource();
 		if( this.getPressedID().getIsPressed() )
 		{
+			//Wenn der Button angeklickt wurde
 			if(button == this.getImage(this.getPressedID().getID()))
 			{
 				this.setAllImagesToVersion(0);

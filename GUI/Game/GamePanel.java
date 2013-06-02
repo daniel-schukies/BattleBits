@@ -140,7 +140,7 @@ public class GamePanel extends JPanel
 		
 		
 		/**
-		 * adde die Schaltflaechen dem Panel
+		 * Fuegt die Schaltflaechen dem Panel hinzu
 		 */
 		this.add(this.spielerInfo1);
 		this.add(this.spielerInfo2);

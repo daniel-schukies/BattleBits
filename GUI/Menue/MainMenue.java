@@ -15,7 +15,7 @@ import GUI.Game.Grafikverwaltung.ImageCreator;
 
 /**
  * Die Klasse MainMenue erbt von JPanel
- * und wird genutzt um das Hauptmenü des
+ * und wird genutzt um das Hauptmenue des
  * Spiels darzustellen.
  * @author Daniel Schukies, Sebastian Junger
  *

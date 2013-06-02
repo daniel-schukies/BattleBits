@@ -37,7 +37,7 @@ public class GameFrame extends JFrame
 	}
 	
 	/**
-	 * Schlieﬂt aktuellen GameFrame und das Programm
+	 * Schliesst aktuellen GameFrame und das Programm
 	 */
 	public void closeGameFrame()
 	{
