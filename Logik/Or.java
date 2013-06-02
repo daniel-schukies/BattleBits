@@ -1,7 +1,13 @@
 package Logik;
 
+/**
+ * Logik des ORs
+ * @author Daniel Schukies, Sebasian Junger
+ *
+ */
 public class Or extends Logikgatter
 {
+	//Eindeutige ID, um das Gatter wiederzuerkennen
 	private final static int ID = 2;
 	
 	public Or()
@@ -21,11 +27,17 @@ public class Or extends Logikgatter
 		}
 	}
 	
+	/**
+	 * @return String Name des Gatters als String
+	 */
 	public String toString()
 	{
 		return "Or";
 	}
 
+	/**
+	 * Gibt die ID des Gatters zurueck
+	 */
 	@Override
 	public int getID() 
 	{

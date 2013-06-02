@@ -9,7 +9,11 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
-
+/**
+ * Klasse zur Wiedergabe der einzelnen Sounds / der Musik
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 public class SoundAusgabe 
 {
 	private FileAdmin fa = new FileAdmin();
@@ -19,7 +23,9 @@ public class SoundAusgabe
 	private static int soundCnt = 0;
 	
 
-	
+	/**
+	 * Gibt die Hintergrundmusik wieder
+	 */
 	public void playSound()
 	{
 		if( fa.getMusicZustand() )
@@ -29,21 +35,23 @@ public class SoundAusgabe
 				try 
 			  	 { 
 			  		 this.audioFileURL = getClass().getResource("/loading1.wav");
-			  		 System.out.println("Playing: " + audioFileURL);
-			  		 
 			  		 InputStream inStream = audioFileURL.openStream(); 
 			  		 BufferedInputStream bufStream = new BufferedInputStream(inStream);  
+			  		 //Bildet einen AudioInputStream mit dem Informat
 			  		 AudioInputStream audioInputStream = AudioSystem .getAudioInputStream(bufStream); 
+			  		 //fragt das Format der Datei ab
 			  		 AudioFormat af = audioInputStream.getFormat();
-			  		 
+			  		 //berechnet die Buffergroesse
 			  		 int size = (int) (af.getFrameSize() * audioInputStream.getFrameLength());
 			  		 byte[] audio = new byte[size];
 			  		 DataLine.Info info = new DataLine.Info(Clip.class, af, size);
 			  		 audioInputStream.read(audio, 0, size);
-			  		 
+			  		 //Initialisiert einen Clip mit den Informationen des AudioSystems
 			  		 Clip clip = (Clip) AudioSystem.getLine(info);
 			  		 clip.open(af, audio, 0, size); 
+			  		 //Hintergrundmusik soll endlos laufen
 			  		 clip.loop(Clip.LOOP_CONTINUOUSLY);
+			  		 //Start der Wiedergabe
 			  		 clip.start(); 
 			  		 
 			  		 SoundAusgabe.soundCnt++;
@@ -61,6 +69,9 @@ public class SoundAusgabe
 		}
 	}
 	
+	/**
+	 * Gibt den Sound bei einer Invertierung wieder
+	 */
 	public void playWarning()
 	{
 		if( fa.getSoundZustand() )
@@ -89,6 +100,9 @@ public class SoundAusgabe
 
 	}
 	
+	/**
+	 * Gibt den Sound bei einem fehlerhaften Zug wieder
+	 */
 	public void playError()
 	{
 		if( fa.getSoundZustand() )
@@ -118,6 +132,9 @@ public class SoundAusgabe
 
 	}
 	
+	/**
+	 * Gibt den Sound beim Ziehen eines neuen Gatters wieder
+	 */
 	public void playNeuZiehen()
 	{
 		if( fa.getSoundZustand() )

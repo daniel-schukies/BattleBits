@@ -19,7 +19,11 @@ import GUI.Game.Grafikverwaltung.ImageCreator;
 import java.awt.event.*;
 
 
-
+/**
+ * Stellt das Menue fuer die Spielereinstellungen dar und verwaltet es
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 @SuppressWarnings("serial")
 public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 	
@@ -36,7 +40,13 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 	private Menue menue;
 
 	
-	
+	/**
+	 * Erstellt das Menue mit den uebergebenen Werten
+	 * @param xPos Position des Menues auf der X - Achse
+	 * @param yPos Position des Menues auf der Y - Achse
+	 * @param size Groesse des Menues
+	 * @param menue Menue, mit welchem verwaltet wird
+	 */
 	public SpielereinstellungenMenue( int xPos,int yPos, Dimension size,Menue menue )
 	{
 		this.setLayout( null );
@@ -47,7 +57,8 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 		
 		this.menue = menue;
 		this.fileadmin = new FileAdmin();
-
+		
+		//"Spiel starten" - Button
 		this.finalstartButton = new Grafikspeicher(new Dimension(302,101),3, false);
 		this.finalstartButton.setImage( "finalstart" );
 		
@@ -97,6 +108,7 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 		
 	    this.add( this.sname2);
 	    
+	    //wenn KI in der Datei infos.ini aktiviert ist, Button einfaerben
 	    if( this.fileadmin.getKiZustand() )
 	    {
 	    	this.pcButton.setVersion( 1 );
@@ -118,19 +130,21 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 		
 	}  
 	
-
+	/**
+	 * Zeichnet den Hintergrund
+	 */
 	public void paintComponent(Graphics g) {
 		g.drawImage(this.image, 0, 0, null);
 	}
 	    
 	@Override
 	public void mouseExited(MouseEvent e) 
-	{	//wenn vorher nicht angeklickt
+	{	//wenn vorher nicht angeklickt -> in diesen Zustand zurueck
 		if( (JLabel)e.getSource() == this.backButton.getImage() && !( this.backButtonKlicked ) )
 		{
 			this.backButton.setVersion( 0 );
 		}else
-		{	//wenn vorher angeklickt
+		{	//wenn vorher angeklickt -> in diesen Zustand zurueck
 			if( (JLabel)e.getSource() == this.backButton.getImage() && this.backButtonKlicked )
 			{
 				this.backButton.setVersion( 1 );
@@ -164,6 +178,7 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent e) 
 	{
+		//Setzt auf MouseOver Version
 		if( (JLabel)e.getSource() == this.backButton.getImage() )
 		{
 			this.backButton.setVersion( 2 );
@@ -212,8 +227,6 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 			this.menue.changeMenueCardTo(Menue.MAIN_MENUE);
 			this.backButton.setVersion(0);
 		}
-		//backgrafikspeicher und grafikspeicher brauchen kein zuruecksetzen auf Version 0, da beim anklicken in ein anderes
-		//Fenster gwechselt wird /// DOCH :D
 
 		
 		if( (JLabel)e.getSource() == this.finalstartButton.getImage()  )
@@ -222,11 +235,13 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 			{
 				this.fileadmin.setKI( this.pcButtonKlicked );
 			} else
-			{
+			{	
+				//Rote Farbe in Spielernamen, bei ungueltigen Eingaben
 				this.sname1.setForeground( Color.RED );
 				this.sname2.setForeground( Color.RED );
 				
 			}
+			//wenn vorher angeklickt -> nicht angeklickt
 			if(this.playButtonKlicked )
 			{
 				this.finalstartButton.setVersion( 0 );
@@ -235,6 +250,7 @@ public class SpielereinstellungenMenue extends JPanel implements MouseListener {
 			}
 			else
 			{
+				//wenn vorher nicht angeklickt -> angeklickt
 				this.finalstartButton.setVersion( 1 );
 				this.repaint();
 				this.playButtonKlicked = true;

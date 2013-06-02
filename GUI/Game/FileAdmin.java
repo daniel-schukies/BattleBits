@@ -12,7 +12,11 @@ import java.io.IOException;
 import GUI.Game.FileAdmin;
 
 
-
+/**
+ * Verwaltet das Lesen und Schreiben der Datei infos.ini
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 public class FileAdmin {
 
 	private FileWriter writer;
@@ -43,6 +47,7 @@ public class FileAdmin {
 		FileAdmin.ki = false;
 		FileAdmin.cache = false;
 		FileAdmin.hardcoreMode = false;
+		//Auslesen der Bildschirmgroesse und speichern in der lokalen Variable
 		FileAdmin.height = (int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 		FileAdmin.width = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		FileAdmin.sound = true;
@@ -58,7 +63,7 @@ public class FileAdmin {
 			System.out.println( "infos.ini wurde angelegt" );
 		}
 
-
+		//Wenn Datei nicht existiert ->anlegen
 		if(!(file.exists()))
 		{
 			try{
@@ -71,8 +76,8 @@ public class FileAdmin {
 			
 			
 		}
-		//System.out.println("Datei gibts nicht");
-		
+
+		//Wenn Datei leer -> Dummywerte reinschreiben
 		if( this.readOfFile().length() == 0 )
 		{
 			System.out.println("Dummywerte");
@@ -81,6 +86,8 @@ public class FileAdmin {
 		}else
 		{
 			int counter=0;
+			
+			//ermittelt die Indizes aller ';' im String und schreibt diese in ein Array
 			for( int i=0; i < this.tmp.length(); i++)
 			{
 				if( this.tmp.charAt( i ) == ';' )
@@ -89,7 +96,8 @@ public class FileAdmin {
 					counter++;
 				}
 			}
-		
+			
+			//liest die Hoehe aus der Datei aus und schreibt sie in die lokale Variable
 			StringBuffer temporaer = new StringBuffer();
 			
 			for(int i=0; i< trennzeichen[0]; i++)
@@ -102,8 +110,7 @@ public class FileAdmin {
 			
 			temporaer.delete(0, temporaer.length());
 			
-			//System.out.println( Gruetze.height );
-			
+			//liest die Breite aus der Datei aus und schreibt sie in die lokale Variable
 			for( int i=trennzeichen[0]+1; i < trennzeichen[1]; i++)
 			{
 				temporaer.append( tmp.charAt(i) );
@@ -116,10 +123,11 @@ public class FileAdmin {
 			{
 				temporaer.append( tmp.charAt(i) );
 			}
-			//System.out.println(temporaer);
+			
 			this.setPlayer1Name( temporaer.toString() );
 			temporaer.delete(0, temporaer.length());
 			
+			//liest den Spielernamen fuer Spieler 2 aus der Datei aus und schreibt sie in die lokale Variable
 			for( int i=trennzeichen[2]+1; i < trennzeichen[3]; i++)
 			{
 				temporaer.append( tmp.charAt(i) );
@@ -128,6 +136,7 @@ public class FileAdmin {
 			this.setPlayer2Name( temporaer.toString() );
 			temporaer.delete(0, temporaer.length());
 			
+			//liest den Wert fuer die KI aus der Datei aus und schreibt sie in die lokale Variable
 			for(int i=trennzeichen[3]+1; i < trennzeichen[4]; i++)
 			{
 				temporaer.append( tmp.charAt(i) );
@@ -140,7 +149,8 @@ public class FileAdmin {
 				this.setKI( true );
 			}
 			temporaer.delete(0, temporaer.length());
-			
+	
+			////liest den Wert fuer den Cache aus der Datei aus und schreibt sie in die lokale Variable
 			for(int i=trennzeichen[4]+1; i < trennzeichen[5]; i++)
 			{
 				temporaer.append( tmp.charAt(i) );
@@ -156,13 +166,11 @@ public class FileAdmin {
 			
 			temporaer.delete(0, temporaer.length());
 			
-		//	System.out.println(trennzeichen[5]);
+			//liest den Wert fuer den HardcoreMode aus der Datei aus und schreibt sie in die lokale Variable
 			for(int i=trennzeichen[5]+1; i < trennzeichen[6]; i++)
 			{
 				temporaer.append( tmp.charAt(i) );
 			}
-			
-		//	System.out.println(temporaer);
 			
 			if ( temporaer.toString().matches("false") )
 			{
@@ -173,6 +181,8 @@ public class FileAdmin {
 			}
 
 			temporaer.delete(0, temporaer.length());
+			
+			////liest den Wert fuer den Sound aus der Datei aus und schreibt sie in die lokale Variable
 			
 			for(int i=trennzeichen[6]+1; i < trennzeichen[7]; i++)
 			{
@@ -188,6 +198,8 @@ public class FileAdmin {
 			}
 			temporaer.delete(0, temporaer.length());
 			
+			//liest den Wert fuer die Musik aus der Datei aus und schreibt sie in die lokale Variable
+			
 			for(int i=trennzeichen[7]+1; i < trennzeichen[8]; i++)
 			{
 				temporaer.append( tmp.charAt(i) );
@@ -201,7 +213,8 @@ public class FileAdmin {
 				this.setMusic( true );
 			}
 			temporaer.delete(0, temporaer.length());
-
+			
+			////liest den Wert fuer den Fullscreen aus der Datei aus und schreibt sie in die lokale Variable
 			for(int i=trennzeichen[8]+1; i < tmp.length(); i++)
 			{
 				temporaer.append( tmp.charAt(i) );

@@ -9,6 +9,11 @@ import GUI.Game.IDInfo;
 import GUI.Game.Refreshable;
 import Logik.Logikgatter;
 
+/**
+ * Stellt eine Schaltflaeche dar, die Logikgatter enthaelt und verwaltet diese
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implements Refreshable
 {
 	/**
@@ -25,10 +30,10 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implemen
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8457018625255576914L;
+	//private static final long serialVersionUID = 8457018625255576914L;
 
 	/**
-	 * Legt Position und Größe fest. Zudem wird der MouseListener den Grafiken hinzugefügt und die Logikgatter gespeichert.
+	 * Legt Position und Groessee fest. Zudem wird der MouseListener den Grafiken hinzugefuegt und die Logikgatter gespeichert.
 	 * @param xPos X-Position der Schaltflaeche
 	 * @param yPos Y-Position der Schaltflaeche
 	 * @param size Gibt die kuerzeste Seite der Quadratischen Schaltflaeche an
@@ -75,7 +80,7 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implemen
 					this.setImage(i);
 				}
 				else
-				{
+				{	//zeichnet die richtigen Ausgangszustaende auf die Logikgatter
 					this.setImage(i,this.logikgatter[i], this.drawLogikgatterStatus);
 					this.setImageToLogikgatterStatus(logikgatter[i], this.getImage(i));
 				}
@@ -101,7 +106,7 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implemen
 	/**
 	 * Setzt Logikgattergrafik auf den entsprechenden Status.
 	 * @param logikgatter Logikgatter das beachtet werden soll.
-	 * @param button Hier wird die Grafik geändert.
+	 * @param button Hier wird die Grafik geaendert.
 	 */
 	public void setImageToLogikgatterStatus(Logikgatter logikgatter, JLabel button)
 	{

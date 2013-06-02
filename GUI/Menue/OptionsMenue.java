@@ -16,7 +16,11 @@ import GUI.Game.Grafikverwaltung.Grafikspeicher;
 import GUI.Game.Grafikverwaltung.ImageCreator;
 import java.awt.event.*;
 
-
+/**
+ * Stellt das Optionsmenue dar und verwaltet es
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 @SuppressWarnings("serial")
 public class OptionsMenue extends JPanel implements MouseListener {
 
@@ -27,8 +31,6 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	private Image image;
 	private ImageCreator imagecreator;
 	
-	//private JCheckBox grafikenLaden;
-	//private JButton speichern;
 	private Grafikspeicher grafikcacheButton;
 	private Grafikspeicher backButton;
 	private Grafikspeicher hardCoreButton;
@@ -49,6 +51,7 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	 */
 	public OptionsMenue( int xPos,int yPos, Dimension size,Menue menue )
 	{
+		//Erstellen und Darstellen der ganzen Buttons
 		this.setLayout( null );
 		this.setBackground(new Color(20,60,20));
 		this.setBounds(xPos, yPos, (int)size.getWidth(), (int)size.getHeight());
@@ -58,22 +61,6 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		
 		this.menue = menue;
 		this.fileadmin = new FileAdmin();
-		//System.out.
-
-		
-		//this.grafikenLaden = new JCheckBox( "Grafiken vorladen" , false );
-		//this.grafikenLaden.setOpaque( false );
-		//this.grafikenLaden.setFont( new Font(Font.MONOSPACED,Font.BOLD,28) );
-		//this.grafikenLaden.setForeground( new Color(0,0,255) );
-		//this.grafikenLaden.setBackground( new Color(0,0,0,255) );
-		//this.grafikenLaden.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
-		//this.speichern = new JButton( "Speichern" );
-		//this.speichern.setBounds( 235, 435, 320, 45 );
-		
-		//this.bild = new JLabel( new ImageIcon(new ImageCreator(new Dimension(600,800),1, false).getImage("MenuOptionsBack")[0].getImage()));
-		//this.bild.setBounds(xPos, yPos, (int)size.getWidth(), (int)size.getHeight());
-		
 
 		this.grafikCacheButtonKlicked = false;
 		this.backButtonKlicked = false;
@@ -81,8 +68,6 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		this.musicButtonKlicked = false;
 		this.soundButtonKlicked = false;
 		this.fullscreenButtonKlicked = false;
-		
-		//this.aufloesung = Toolkit.getDefaultToolkit().getScreenSize();
 		
 		this.height = new JTextField( String.valueOf( fileadmin.getHeight() ), 10 );
 		this.height.setOpaque( false );
@@ -106,10 +91,7 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		this.soundButton.setImage( "on" );
 		
 		this.fullscreenButton = new Grafikspeicher(new Dimension( 133, 47 ), 3, false);
-		this.fullscreenButton.setImage( "on" );
-		//this.onofButton.setBounds( 0, 0, 133, this.onofButton.getHeight() );
-		//System.out.println( this.onofButton.getHeight() );
-		
+		this.fullscreenButton.setImage( "on" );	
 		
 		//Rahmen von textfields durchsichtig machen
 		width.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -120,26 +102,16 @@ public class OptionsMenue extends JPanel implements MouseListener {
 		
 		this.width.setForeground( new Color(40,40,40) );
 		this.height.setForeground( new Color(40,40,40) );
-		
-		//this.laufloesung = new JLabel( "Auflösung:" );
-		//this.laufloesung.setFont( new Font(Font.MONOSPACED,Font.BOLD,22) );
-		//this.laufloesung.setForeground( new Color(0,0,255,255) );
-		//this.laufloesung.setBounds(235, 235, 300, 45);
 
 		
 		this.width.setFont( new Font(Font.SANS_SERIF,Font.BOLD,40) );
 		this.height.setFont( new Font(Font.SANS_SERIF,Font.BOLD,40) );
 		
-		//this.add( this.bild );
 		
 		//hoehe 45 für das Textfield wird benötigt, weil die Buchstaben sonst abgeschnitten werden
 		 this.width.setBounds( 430, 480, 120, 55 );
 		 this.height.setBounds( 583, 480, 100, 55 );
-		 
-		 //this.grafikenLaden.setBounds( 235, 335, 410, 45 );
-		
 
-		//this.add( this.laufloesung );
 		this.add( this.width );
 	    this.add( this.height);
 	    
@@ -164,11 +136,9 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	    this.add( this.soundButton.getImage() );
 	    this.add( this.fullscreenButton.getImage() );
 	    
-	   // this.add( this.grafikenLaden );
-	    
-	   // this.add( this.speichern );
-	    
-	    //Zustand des Cache - Buttons dem Inhalt der Datei anpassen
+	    //
+	    //Zustand der Buttons dem Inhalt der Datei anpassen
+	    //
 	    if( this.fileadmin.getCacheZustand() )
 	    {
 	    	this.grafikcacheButton.setVersion( 1 );
@@ -298,6 +268,8 @@ public class OptionsMenue extends JPanel implements MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent e) 
 	{
+		//wird immer auf Version 1 gesetzt. w
+		//Wenn bereits angeklickt, sieht man keinen unterschied
 		if( (JLabel)e.getSource() == this.backButton.getImage() )
 		{
 			this.backButton.setVersion( 1 );
@@ -364,17 +336,19 @@ public class OptionsMenue extends JPanel implements MouseListener {
 					this.backButton.setVersion(0);
 				}else
 				{
+					//rote Schrift, fals ungueltiger Wert
 					this.width.setForeground( Color.RED );
 					this.height.setForeground( Color.RED );
 				}
 			}catch(NumberFormatException x)
 			{
+				//rote Schrift, falls Buchstaben oder Leerzeichen in der Aufloesung
 				this.width.setForeground( Color.RED );
 				this.height.setForeground( Color.RED );
 			}
 		}
 
-		
+		//Wenn vorher angeklickt war -> nicht angeklickt setzen
 		if( (JLabel)e.getSource() == this.grafikcacheButton.getImage() &&  this.grafikCacheButtonKlicked  )
 		{
 			this.grafikcacheButton.setVersion( 0 );
@@ -382,6 +356,7 @@ public class OptionsMenue extends JPanel implements MouseListener {
 			this.grafikCacheButtonKlicked = false;
 		}else
 		{
+			//vorher war nicht angeklickt -> auf angeklickt setzen
 			if( (JLabel)e.getSource() == this.grafikcacheButton.getImage() && !( this.grafikCacheButtonKlicked ) ) 	
 			{
 				this.grafikcacheButton.setVersion( 1 );

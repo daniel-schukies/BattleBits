@@ -8,7 +8,11 @@ import GUI.Game.SoundAusgabe;
 import Logik.Bitgenerator;
 import Logik.Spiel;
 
-
+/**
+ * Stellt die Bitfolgenschaltflaeche in der Mitte des Spielfelds dar und verwaltet diese
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 @SuppressWarnings("serial")
 public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements Refreshable
 {
@@ -21,7 +25,7 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 	private SoundAusgabe sound;
 
 	/**
-	 * 
+	 * Instanziert die Bitfolgenschaltflaeche
 	 * @param xPos x - Position der Schaltflaeche
 	 * @param yPos y - Position der Schaltflaeche
 	 * @param size Groesse der Schaltflaeche
@@ -58,7 +62,7 @@ public class BitfolgenSchaltflaeche extends SkallierbareSchaltflaeche implements
 	}
 	
 	/**
-	 * Fueg den Refreshschaltflaechen weitere Schaltflaechen hinzu
+	 * Fuegt den Refreshschaltflaechen weitere Schaltflaechen hinzu
 	 * @param refrashSchaltflaechen Schaltflaechen, die den RefreshSchaltflaechen hinzugefuegt werden sollen
 	 * */
 	public void setRefreshSchaltflaechen(Refreshable[] refrashSchaltflaechen)

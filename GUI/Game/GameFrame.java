@@ -1,6 +1,5 @@
 package GUI.Game;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
@@ -9,12 +8,19 @@ import GUI.Game.Grafikverwaltung.Grafikspeicher;
 import GUI.Menue.Menue;
 
 
-
+/**
+ * Verwaltet Frames des Spiels
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 @SuppressWarnings("serial")
 public class GameFrame extends JFrame 
 {
 	private Menue menue;
 	
+	/**
+	 * Startet einen GameFrame mit Menue
+	 */
 	public GameFrame()
 	{
 		this.setLayout(null);
@@ -30,12 +36,18 @@ public class GameFrame extends JFrame
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Schlieﬂt aktuellen GameFrame und das Programm
+	 */
 	public void closeGameFrame()
 	{
 		this.removeAll();
 		System.exit(0);
 	}
 	
+	/**
+	 * Startet das Spiel im selben oder einem neuen Frame
+	 */
 	public void startGame()
 	{
 		FileAdmin filewriter = new FileAdmin();
@@ -45,6 +57,9 @@ public class GameFrame extends JFrame
 		
 		final Grafikspeicher loadingScreen;
 		
+		/**
+		 * Erstelle Hintergrundgrafik
+		 */
 		if(aufloesung.getWidth() < aufloesung.getHeight())
 		{
 			loadingScreen = new Grafikspeicher(new Dimension((int)aufloesung.getWidth(),(int)aufloesung.getWidth()), 1, false);
@@ -59,9 +74,14 @@ public class GameFrame extends JFrame
 		}
 		
 
-		
+		/**
+		 * Schauen ob Fullscreen gewuenscht wird.
+		 */
 		if(filewriter.getFullscreenZustand())
 		{
+			/**
+			 * Stelle neuen Frame fuer Fullscreen ein.
+			 */
 			final JFrame fullscreenFrame = new JFrame(this.getName());
 			
 			fullscreenFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -80,6 +100,10 @@ public class GameFrame extends JFrame
 			
 			fullscreenFrame.setVisible(true);
 			
+			/**
+			 * Extra Thread, da Loadingscreen angezeigt werden muss.
+			 * Erstelle Spiel-Panel und lade Grafiken
+			 */
 			 SwingUtilities.invokeLater(new Runnable() 
 			 {
 			    public void run() 
@@ -111,7 +135,11 @@ public class GameFrame extends JFrame
 			this.invalidate();
 			this.validate();
 			this.repaint();
-				
+			
+			/**
+			 * Extra Thread, da Loadingscreen angezeigt werden muss.
+			 * Erstelle Spiel-Panel und lade Grafiken
+			 */
 			 SwingUtilities.invokeLater(new Runnable() 
 			 {
 			    public void run() 

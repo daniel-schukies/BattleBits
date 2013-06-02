@@ -1,7 +1,13 @@
 package Logik;
 
+/**
+ * Logik des ANDs
+ * @author Daniel Schukies, Sebasian Junger
+ *
+ */
 public class And extends Logikgatter implements Legbar
 {
+	//Eindeutige ID zur identifizierung des Gatters
 	private final static int ID = 0;
 	
 	public And()
@@ -21,12 +27,17 @@ public class And extends Logikgatter implements Legbar
 		}
 	}
 	
+	/**
+	 * @return String Name des Gatters als String
+	 */
 	public String toString()
 	{
 		return "And";
 	}
 
-
+	/**
+	 * Gibt die ID des Gatters zurueck
+	 */
 	@Override
 	public int getID() 
 	{

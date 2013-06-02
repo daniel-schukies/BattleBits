@@ -1,7 +1,13 @@
 package Logik;
 
+/**
+ * Logik des NANDs
+ * @author Daniel Schukies, Sebasian Junger
+ *
+ */
 public class Nand extends Logikgatter
 {
+	//Eindeutige ID, um das Gatter wiederzuerkennen
 	private final static int ID = 1;
 
 	public Nand()
@@ -20,11 +26,16 @@ public class Nand extends Logikgatter
 			return true;
 		}
 	}
-		public String toString(){
+	/**
+	 * @return String Name des Gatters als String
+	 */
+	public String toString(){
 		return "Nand";
 	}
 
-
+		/**
+		 * Gibt die ID des Gatters zurueck
+		 */
 		@Override
 		public int getID() 
 		{
