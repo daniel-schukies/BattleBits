@@ -7,10 +7,10 @@ import javax.swing.JPanel;
 import GUI.Game.GameFrame;
 
 /**
- * Die abstrakte Klasse Menue erbt von JPanel und dient als Container für
+ * Die abstrakte Klasse Menue erbt von JPanel und dient als Container fuer
  * Objekte der Klassen MainMenue, OptionsMenue und Spielereinstellungenmenue. 
  * Sie bietet die Methode changeMenueCardTo um mithilfe des verwendeten CardLayout zwischen Verschiedenen Menuepunkten hin und her zu
- * wechseln. Alle Menüs besitzen dabei eine statische Größe von 800*600 Pixel,
+ * wechseln. Alle Menues besitzen dabei eine statische Groesse von 800*600 Pixel,
  * @author Daniel Schukies, Sebastian Junger
  *
  */
