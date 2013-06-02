@@ -1,6 +1,11 @@
 import GUI.Game.GameFrame;
 import Logik.Spiel;
 
+/**
+ * Hauptklasse
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 public class Main {
 
 	/**

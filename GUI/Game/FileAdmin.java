@@ -231,6 +231,7 @@ public class FileAdmin {
 		}
 		
 	}
+	
 	/**
 	 * Aktualisiert den Inhalt der Datei mit den aktuellen Daten
 	 */
@@ -249,6 +250,7 @@ public class FileAdmin {
 			e.printStackTrace();
 		}
 	}
+	
 	/**
 	 * Setzt die Hoehe in der Datei infos.ini
 	 * @param height zu setzende hoehe
@@ -270,6 +272,7 @@ public class FileAdmin {
 		}
 		return false;
 	}
+	
 	/**
 	 * Setzt die Breite in der Datei infos.ini
 	 * @param width zu setzende Breite
@@ -291,6 +294,7 @@ public class FileAdmin {
 			}
 		return false;
 	}
+	
 	/**
 	 * Setzt, ob gegen die KI gespielt werden soll
 	 * @param ki Wert fuer die KI
@@ -302,6 +306,7 @@ public class FileAdmin {
 		this.updateFile();
 		return true;
 	}
+	
 	/**
 	 * Setzt, ob Fullscreen verwendet werden soll
 	 * @param fullscreen Wert, ob Fullscreen verwendet werden soll
@@ -325,6 +330,7 @@ public class FileAdmin {
 		this.updateFile();
 		return true;
 	}
+	
 	/**
 	 * Setzt, ob Musik gespielt werden soll
 	 * @param music Zustand der Musik
@@ -336,6 +342,7 @@ public class FileAdmin {
 		this.updateFile();
 		return true;
 	}
+	
 	/**
 	 * Setzt, ob Sound wiedergegeben werden soll
 	 * @param sound Zustand des Sounds
@@ -347,6 +354,7 @@ public class FileAdmin {
 		this.updateFile();
 		return true;
 	}
+	
 	/**
 	 * Setzt, ob der Grafikcache an oder aus sein soll
 	 * @param cache Zustand des Grafikcaches
@@ -358,6 +366,7 @@ public class FileAdmin {
 		this.updateFile();
 		return true;
 	}
+	
 	/**
 	 * Setzt den Namen von Spieler 2
 	 * @param name2 Name von Spieler 2
@@ -373,6 +382,7 @@ public class FileAdmin {
 	//	}
 	//	return false;
 	}
+	
 	/**
 	 * Setzt den Namen von Spieler 1
 	 * @param name1 Name von Spieler 1
@@ -388,6 +398,7 @@ public class FileAdmin {
 //		}
 	//	return false;
 	}
+	
 	/**
 	 * Gibt die gesetzte Hoehe zurueck
 	 * @return Gesetzte Hoehe
@@ -396,6 +407,7 @@ public class FileAdmin {
 	{
 		return FileAdmin.height;
 	}
+	
 	/**
 	 * Gibt zurueck, ob Fullscreen verwendet wird
 	 * @return Wert, ob Fullscreen verwendet wird
@@ -404,6 +416,7 @@ public class FileAdmin {
 	{
 		return FileAdmin.fullscreen;
 	}
+	
 	/**
 	 * Gibt die gesetzte Breite zurueck
 	 * @width Gesetzte Breite
@@ -412,6 +425,7 @@ public class FileAdmin {
 	{
 		return FileAdmin.width;
 	}
+	
 	/**
 	 * Gibt den Namen von Spieler 1 zurueck
 	 * @return Name von Spieler 1
@@ -422,6 +436,7 @@ public class FileAdmin {
 		return FileAdmin.player1Name.toString();
 		
 	}
+	
 	/**
 	 * Gibt den Zustand des Caches zurueck
 	 * @return Zustand des Caches
@@ -430,6 +445,7 @@ public class FileAdmin {
 	{
 		return FileAdmin.cache;
 	}
+	
 	/**
 	 * Gibt den Namen von Spieler 2 zurueck
 	 * @return Name von Spieler 2
@@ -438,6 +454,7 @@ public class FileAdmin {
 	{
 		return FileAdmin.player2Name.toString();
 	}
+	
 	/**
 	 * Gibt den Zustand des HardcoreModes zurueck
 	 * @return Zustand des HardcoreModes
@@ -446,6 +463,7 @@ public class FileAdmin {
 	{
 		return FileAdmin.hardcoreMode;
 	}
+	
 	/**
 	 * Gibt den Zustand des KI - Modus zurueck
 	 * @return Zustand des KI - Mode
@@ -454,6 +472,7 @@ public class FileAdmin {
 	{
 		return FileAdmin.ki;
 	}
+	
 	/**
 	 * Gibt den Zustand des Musik - Modus zurueck
 	 * @return Zustand des Musik - Modus
@@ -462,6 +481,7 @@ public class FileAdmin {
 	{
 		return FileAdmin.music;
 	}
+	
 	/**
 	 * Gibt den Zustand des Soun - Modus zurueck
 	 * @return Zustand des Sound Modus
@@ -497,18 +517,6 @@ public class FileAdmin {
 	    } 
 			return buff.toString();
 		}
-
-/*	public static void main( String[] arg )
-	{
-		FileAdmin fa = new FileAdmin();
-		System.out.println( fa.readOfFile() );
-		System.out.println( fa.getFullscreenZustand() );
-		fa.setFullscreen(false);
-		System.out.println( fa.getFullscreenZustand() );
-		
-		FileAdmin la = new FileAdmin();
-		System.out.println( la.getFullscreenZustand() );
-	}*/
 }
 
 
