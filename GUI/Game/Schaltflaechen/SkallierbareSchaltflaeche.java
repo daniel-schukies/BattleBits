@@ -13,6 +13,13 @@ import GUI.Game.IDInfo;
 import GUI.Game.Grafikverwaltung.Grafikspeicher;
 import Logik.Logikgatter;
 
+/**
+ * Die abstrakte Klasse skalierbareSchaltﬂaeche dient als Superclass für fast alle
+ * Schaltﬂaechen. Sie kann ein Rechteck mit beliebig vielen Graﬁken in sich darstellen, 
+ * welches im Konstruktor vertikal oder horizontal ausgerichtet werden
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 @SuppressWarnings("serial")
 public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseListener
 {
@@ -220,12 +227,4 @@ public abstract class SkallierbareSchaltflaeche extends JPanel implements MouseL
 	{
 		this.changeVersion(0, (JLabel)e.getSource());
 	}
-	
-	/**
-	 * getIsKilcked
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
 }

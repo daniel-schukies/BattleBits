@@ -13,6 +13,13 @@ import javax.swing.JPanel;
 import GUI.Game.Grafikverwaltung.Grafikspeicher;
 import GUI.Game.Grafikverwaltung.ImageCreator;
 
+/**
+ * Die Klasse MainMenue erbt von JPanel
+ * und wird genutzt um das Hauptmenü des
+ * Spiels darzustellen.
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 @SuppressWarnings("serial")
 public class MainMenue extends JPanel implements MouseListener
 {
@@ -22,12 +29,19 @@ public class MainMenue extends JPanel implements MouseListener
 	
 	private Image background;
 	
-	private static final Dimension buttonSize = new Dimension(355,134);
+	private static final Dimension buttonSize = new Dimension(355,134);//Button groesse
 	
 	private Menue menue;
 
 	ImageCreator grafik;
 	
+	/**
+	 * Ordnet Buttons fuer die Darstellung der Hauptmenues an.
+	 * @param xPos X-Position des Panels
+	 * @param yPos Y-Position des Panels
+	 * @param size Aufloesung des Panels
+	 * @param menue Referenz vom Menue, welches das CardLayout besitzt.
+	 */
 	public MainMenue(int xPos,int yPos, Dimension size, Menue menue) 
 	{
 		this.setLayout(null);
@@ -37,31 +51,38 @@ public class MainMenue extends JPanel implements MouseListener
 		
 		this.menue = menue;
 		
-		//this.grafik = new ImageCreator(new Dimension(134,355), 3, false);
-		
+		/**
+		 * Instanzierung der Grafikspeicher
+		 */
 		this.startButton = new Grafikspeicher(new Dimension(355,134), 3, false);
 		this.optionsButton = new Grafikspeicher(new Dimension(355,134), 3, false);
 		this.closeButton = new Grafikspeicher(new Dimension(355,134), 3, false);
 		this.background = new ImageCreator(new Dimension(800,600), 1, false).getImage("menue")[0].getImage();
 		
+		/**
+		 * Erstellen der Grafiken
+		 */
 		this.startButton.setImage("start");
 		this.optionsButton.setImage("options");
 		this.closeButton.setImage("close");
 
-		
-		/*this.startButton = new JLabel(this.grafik.getImage("options")[0]);
-		this.optionsButton = new JLabel(this.grafik.getImage("options")[0]);
-		this.closeButton = new JLabel(this.grafik.getImage("options")[0]);*/
-		
-		
+		/**
+		 * Groesse der Labels festlegen
+		 */
 		this.startButton.getImage().setBounds(225,140, (int)MainMenue.buttonSize.getWidth(),(int)MainMenue.buttonSize.getHeight());
 		this.optionsButton.getImage().setBounds(225, 270, (int)MainMenue.buttonSize.getWidth(), (int)MainMenue.buttonSize.getHeight());
 		this.closeButton.getImage().setBounds(225, 400, (int)MainMenue.buttonSize.getWidth(), (int)MainMenue.buttonSize.getHeight());
 		
+		/**
+		 * Adden der Mouslistener
+		 */
 		this.startButton.getImage().addMouseListener(this);
 		this.optionsButton.getImage().addMouseListener(this);
 		this.closeButton.getImage().addMouseListener(this);
 		
+		/**
+		 * Buttons dem Panels adden
+		 */
 		this.add(this.startButton.getImage());
 		this.add(this.optionsButton.getImage());
 		this.add(this.closeButton.getImage());
@@ -73,10 +94,16 @@ public class MainMenue extends JPanel implements MouseListener
 		
 	}
 	
+	/**
+	 * Zeichnet den Hintergrund
+	 */
     public void paintComponent(Graphics g) {
         g.drawImage(this.background, 0, 0, null);
     }
 
+    /**
+     * Wechsel der Menues
+     */
 	@Override
 	public void mouseClicked(MouseEvent e) 
 	{
@@ -95,6 +122,9 @@ public class MainMenue extends JPanel implements MouseListener
 		}
 	}
 
+	/**
+	 * Mouseover Effekte
+	 */
 	@Override
 	public void mouseEntered(MouseEvent e) 
 	{
@@ -113,6 +143,9 @@ public class MainMenue extends JPanel implements MouseListener
 		}
 	}
 
+	/**
+	 * Mouseover Effekte
+	 */
 	@Override
 	public void mouseExited(MouseEvent e) 
 	{
@@ -131,6 +164,9 @@ public class MainMenue extends JPanel implements MouseListener
 		}
 	}
 
+	/**
+	 * Angeklickt Effekt
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) 
 	{
@@ -149,6 +185,9 @@ public class MainMenue extends JPanel implements MouseListener
 		}
 	}
 
+	/**
+	 * Angeklickt Effekt
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) 
 	{

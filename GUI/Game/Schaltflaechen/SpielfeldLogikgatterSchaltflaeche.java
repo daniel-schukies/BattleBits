@@ -9,6 +9,15 @@ import javax.swing.JLabel;
 import GUI.Game.Refreshable;
 import Logik.Logikgatter;
 
+/**
+ * Die SpielfeldLogikgatterSchaltﬂaeche ist eine LogikgatterSchaltﬂaeche, 
+ * die speziell für die Nutzung innerhalb der SpielfeldSchaltﬂaeche angepasst wurde.
+ * Sie besitzt alle Eigenschaften einer LogikgatterSchaltﬂaeche und zuseatzlich
+ * eine Referenz auf die SpielfeldSchaltﬂaeche, in der sie verwendet wird.
+ * 
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 @SuppressWarnings("serial")
 public class SpielfeldLogikgatterSchaltflaeche extends LogikgatterSchaltflaeche implements Refreshable
 {
@@ -22,12 +31,15 @@ public class SpielfeldLogikgatterSchaltflaeche extends LogikgatterSchaltflaeche 
 		this.spielfeldSchaltflaeche = spielfeldSchaltflaeche;
 	}
 	
+	/**
+	 * Aendert Grafkversion der Grafiken und ruft Methoden der Spielfeldschaltflaeche auf.
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
 		
 		JLabel button = (JLabel)e.getSource();
-		if( this.getPressedID().getIsPressed() )
+		if( this.getPressedID().getIsPressed() ) //Wenn Button geklickt
 		{
 			if(button == this.getImage(this.getPressedID().getID()))
 			{

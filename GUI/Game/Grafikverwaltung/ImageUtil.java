@@ -2,6 +2,11 @@ package GUI.Game.Grafikverwaltung;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * Die Klasse ImageUtil wird für das Spiegeln von Graﬁken verwendet.
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 public class ImageUtil 
 {
 	public static final int X_AXIS = 0;
@@ -12,6 +17,9 @@ public class ImageUtil
 	
 	/**
 	 * Erzeuge gespiegelte kopie
+	 * @param org Original Grafik
+	 * @param axis Achse, an der gespiegelt werden soll.
+	 * @return gespiegelte Grafik
 	 */
 	public static BufferedImage mirror(BufferedImage org, int axis)
 	{

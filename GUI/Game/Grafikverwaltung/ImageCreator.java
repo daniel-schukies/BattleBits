@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.net.URL;
-
 import GUI.Game.FileAdmin;
 import Logik.And;
 import Logik.Logikgatter;
@@ -17,11 +16,15 @@ import Logik.Xor;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-
+/**
+ * Die Klasse ImageCreator ist für das Erstellen aller Graﬁken im Spiel zustaendig.
+ * @author Daniel Schukies, Sebastian Junger
+ *
+ */
 public class ImageCreator 
 {
 	/**
-	 * Strings f�r den Dateipfad
+	 * Strings für den Dateipfad
 	 */
 	private static final String VERZEICHNIS = "/GUI/grafiken/";
 	private static final String DATEIENDUNG = ".png";
@@ -70,6 +73,9 @@ public class ImageCreator
 		
 		BufferedImage[] cacheSpeicher = new BufferedImage[anzahlVersionen];
 		
+		/**
+		 * Erstelle Grafikversionen
+		 */
 		for(Integer i = 0; i < anzahlVersionen;i++  )
 		{
 			try
@@ -99,7 +105,9 @@ public class ImageCreator
 			        ImageCreator.grafikCache.saveImages( ((Boolean)logikgatter.getAusgang()).toString(), images);
 				}
 
-				
+				/**
+				 * Versuche Grafik auf Cache zu laden
+				 */
 				if(logikgatterCacheImages != null)
 				{
 					try
@@ -172,14 +180,6 @@ public class ImageCreator
 		Boolean castBit = (Boolean)bit; // Um spaeter die toString() zu nutzen.
 		
 		ImageIcon[] grafiken = this.getImage(castBit.toString());
-		
-		/*if(this.spiegeln)
-		{
-			for(Integer i = 0; i < 3;i++  )
-			{
-				grafiken[i] = new ImageIcon(ImageUtil.mirror((BufferedImage)grafiken[i].getImage(), 0));
-			}
-		}*/
 
 		return grafiken;
 	}

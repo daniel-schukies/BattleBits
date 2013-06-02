@@ -5,8 +5,11 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
+ * Sie ermoeglicht es Graﬁken, die z.B. bereits skaliert wurden, in einem Cache
+ * zwischenzuspeichern, sodass Diese spaeter nicht noch einmal neu skaliert werden muessen. 
+ * Dieses Vorgehen spart einiges an Rechenleistung und sorgt so fuer einen schnelleren Programmablauf.
  * 
- * @author DANI
+ * @author Daniel Schukies, Sebastian Junger
  *
  */
 public class GrafikCache 

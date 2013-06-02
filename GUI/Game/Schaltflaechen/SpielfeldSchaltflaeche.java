@@ -211,7 +211,9 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 
 				
 				this.refresh();
-				
+				/**
+				 * Aktualisierung der anderen Schatlflaechen
+				 */
 				  SwingUtilities.invokeLater(new Runnable() 
 				  {
 					    public void run() 
@@ -280,6 +282,10 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 		}
 	}
 	
+	/**
+	 * Beendet das Spiel, indem es eine Grafikanzeigt und nach 2sek. das Spiel beendet
+	 * @param isWinner ob aktueller Spieler der Gewinner ist oder nicht
+	 */
 	public void beendeSpiel(boolean isWinner)
 	{
 		this.spiel.setSpielende(false);
@@ -298,7 +304,10 @@ public class SpielfeldSchaltflaeche extends JPanel implements Refreshable
 		this.removeAll();
 		this.add(endGrafik.getImage());
 		this.repaint();
-
+		
+		/**
+		 * Warten und Spiel neustarten.
+		 */
 		  SwingUtilities.invokeLater(new Runnable() 
 		  {
 			    public void run() 
