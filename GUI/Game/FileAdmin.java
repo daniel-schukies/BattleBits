@@ -419,7 +419,7 @@ public class FileAdmin {
 	
 	/**
 	 * Gibt die gesetzte Breite zurueck
-	 * @width Gesetzte Breite
+	 * @return Gesetzte Breite
 	 */
 	public int getWidth()
 	{

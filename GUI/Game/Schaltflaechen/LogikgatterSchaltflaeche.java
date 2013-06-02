@@ -39,7 +39,6 @@ public class LogikgatterSchaltflaeche extends SkallierbareSchaltflaeche implemen
 	 * @param yPos Y-Position der Schaltflaeche
 	 * @param size Gibt die kuerzeste Seite der Quadratischen Schaltflaeche an
 	 * @param anzahlGrafiken Anzahl der in der Schaltlfaeche enthaltenen Grafiken
-	 * @param anzahlVersionen Anzahl der Verschiedenen Bildversionen, welche in der Schaltlfaeche verwendet werden
 	 * @param spiegeln Ob die Inhalte der Schaltflaeche gespielt dargestellt werden sollen.
 	 * @param isVertikal Ob die Rechteckige Schaltflaeche vertikal oder horizontal ausgerichtet sein soll.
 	 */

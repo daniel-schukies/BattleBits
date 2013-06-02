@@ -57,7 +57,7 @@ public class IDInfo
 	
 	/**
 	 * Setzt den Inhalt der isPressed Variable
-	 * @param gibt an, ob das Objekt angeklickt wurde
+	 * @param isPressed gibt an, ob das Objekt angeklickt wurde
 	 */
 	public void setIsPressed(boolean isPressed)
 	{

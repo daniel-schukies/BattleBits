@@ -23,7 +23,7 @@ public class GrafikCache
 	 * Speichert einen Grafiken-Array mit zugehoerigem String
 	 * @param grafikBezeichnung Name des Grafik-Arrays
 	 * @param images Array mit den Grafiken
-	 * @return
+	 * @return Erfolg des Speicherns
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public boolean saveImages(String grafikBezeichnung, BufferedImage[] images)
@@ -56,7 +56,7 @@ public class GrafikCache
 	 * Liest Grafiken-Array aus dem Cache aus
 	 * @param size Aufloesung der Grafiken
 	 * @param grafikBezeichnung Name des Grafik-Arrays
-	 * @return
+	 * @return Array der zu erstellenden BufferedImages
 	 */
 	public BufferedImage[] getImages(Dimension size, String grafikBezeichnung)
 	{

@@ -95,7 +95,6 @@ public class Spielfeld implements Cloneable
 	 * @param reihe reihe, an die gelegt werden soll
 	 * @param index index, an den gelegt werden soll
 	 * @param logikgatter Logikgatter, das gelegt werden soll
-	 * @return Wenn false zurueckgegeben wird wurde kein Logikgatter gesetzt.
 	 */
 	public void setLogikgatter(int reihe, int index, Logikgatter logikgatter)
 	{
